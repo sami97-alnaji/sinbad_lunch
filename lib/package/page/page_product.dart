@@ -330,101 +330,124 @@ class _PageProductState extends State<PageProduct> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // ++++++
-                        SizedBox(
-                          width:88 ,//DimenApp.widthSc(context, widthPy: 0.16),
-                          height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                          child: Container(
-                         margin: const EdgeInsets.only(top: 4.5 ),
-                    //for web        margin: const EdgeInsets.only(top: 4.5,bottom: 5),
-                            decoration: BoxDecoration(
-                              color: ColorsApp.primColr,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                bottomLeft: Radius.circular(40),
-                              ),
-                              border: Border.all(
-                                width: 3,
-                                color: ColorsApp.primColr,
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                            child: TextButton(
-                              onPressed: () {
-                                if (CountItems < 55) {
-                                  CountItems++;
-                                  controllerCountItems.text =
-                                      CountItems.toString();
-                                }
-                              },
-                              child: const AutoSizeText('+',
-                                  style: TextStyle(
-                                    fontSize: 38,
-                                    color: Colors.black54,
-                                  )),
-                            ),
-                          ),
-                        ),
+                        //     // ++++++
+                        //     SizedBox(
+                        //       width:88 ,//DimenApp.widthSc(context, widthPy: 0.16),
+                        //       height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
+                        //       child: Container(
+                        //      margin: const EdgeInsets.only(top: 4.5 ),
+                        // //for web        margin: const EdgeInsets.only(top: 4.5,bottom: 5),
+                        //         decoration: BoxDecoration(
+                        //           color: ColorsApp.primColr,
+                        //           borderRadius: const BorderRadius.only(
+                        //             topLeft: Radius.circular(40),
+                        //             bottomLeft: Radius.circular(40),
+                        //           ),
+                        //           border: Border.all(
+                        //             width: 3,
+                        //             color: ColorsApp.primColr,
+                        //             style: BorderStyle.solid,
+                        //           ),
+                        //         ),
+                        //         child: TextButton(
+                        //           onPressed: () {
+                        //             if (CountItems < 55) {
+                        //               CountItems++;
+                        //               controllerCountItems.text =
+                        //                   CountItems.toString();
+                        //             }
+                        //           },
+                        //           child: const AutoSizeText('+',
+                        //               style: TextStyle(
+                        //                 fontSize: 38,
+                        //                 color: Colors.black54,
+                        //               )),
+                        //         ),
+                        //       ),
+                        //     ),
                         // text filed spinner
+                        /********************************************************************/
                         Container(
-                          width: 200,// DimenApp.widthSc(context, widthPy: 0.5),
-                          height: 128,//DimenApp.hightSc(context, hightPy: 0.195),
-                          margin: const EdgeInsets.only(top:  0,bottom: 2),
+                          width: 200,
+                          // DimenApp.widthSc(context, widthPy: 0.5),
+                          height: 128,
+                          //DimenApp.hightSc(context, hightPy: 0.195),
+                          margin: const EdgeInsets.only(top: 0, bottom: 2),
                           padding: const EdgeInsets.only(top: 38),
                           child: TextField(
                             controller: controllerCountItems,
                             readOnly: true,
                             textAlign: TextAlign.center,
-
-                            decoration:   InputDecoration(
-
-
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               // border: OutlineInputBorder(
                               //     // borderRadius: BorderRadius.circular(10.0),
                               //     ),
-                              icon: IconButton(onPressed: (){}, icon:   FaIcon(FontAwesomeIcons.plus,color: ColorsApp.primColr,)),
-                              suffixIcon:  IconButton(onPressed: (){}, icon:   FaIcon(FontAwesomeIcons.minus ,color: ColorsApp.primColr,),),
-                            ),
-
-                          ),
-                        ),
-                        // ------
-                        SizedBox(
-                          width: 88,//DimenApp.widthSc(context, widthPy: 0.16),
-                          height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 4.5 ),
-                       //for web     // margin: const EdgeInsets.only(top: 4.5,bottom: 5),
-                            decoration: BoxDecoration(
-                              color: ColorsApp.primColr,
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(40),
-                                bottomRight: Radius.circular(40),
-                              ),
-                              border: Border.all(
-                                width: 3,
-                                color: ColorsApp.primColr,
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-
-                            child: TextButton(
-                              onPressed: () {
-                                if (CountItems > 1) {
-                                  CountItems--;
-                                  controllerCountItems.text =
-                                      CountItems.toString();
-                                }
-                              },
-                              child: const AutoSizeText('-',
-                                  style: TextStyle(
-                                    fontSize: 38,
-                                    color: Colors.black54,
+                              icon: IconButton(
+                                  onPressed: () {
+                                    if (CountItems < 55) {
+                                      CountItems++;
+                                      controllerCountItems.text =
+                                          CountItems.toString();
+                                    }
+                                  },
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.plus,
+                                    color: ColorsApp.primColr,
                                   )),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  if (CountItems > 1) {
+                                    CountItems--;
+                                    controllerCountItems.text =
+                                        CountItems.toString();
+                                  }
+                                },
+                                icon: FaIcon(
+                                  FontAwesomeIcons.minus,
+                                  color: ColorsApp.primColr,
+                                ),
+                              ),
                             ),
                           ),
                         ),
+                        /****************************************************************/
+                        //  // ------
+                        //  SizedBox(
+                        //    width: 88,//DimenApp.widthSc(context, widthPy: 0.16),
+                        //    height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
+                        //    child: Container(
+                        //      margin: const EdgeInsets.only(top: 4.5 ),
+                        // //for web     // margin: const EdgeInsets.only(top: 4.5,bottom: 5),
+                        //      decoration: BoxDecoration(
+                        //        color: ColorsApp.primColr,
+                        //        borderRadius: const BorderRadius.only(
+                        //          topRight: Radius.circular(40),
+                        //          bottomRight: Radius.circular(40),
+                        //        ),
+                        //        border: Border.all(
+                        //          width: 3,
+                        //          color: ColorsApp.primColr,
+                        //          style: BorderStyle.solid,
+                        //        ),
+                        //      ),
+                        //
+                        //      child: TextButton(
+                        //        onPressed: () {
+                        //          if (CountItems > 1) {
+                        //            CountItems--;
+                        //            controllerCountItems.text =
+                        //                CountItems.toString();
+                        //          }
+                        //        },
+                        //        child: const AutoSizeText('-',
+                        //            style: TextStyle(
+                        //              fontSize: 38,
+                        //              color: Colors.black54,
+                        //            )),
+                        //      ),
+                        //    ),
+                        //  ),
                       ],
                     ),
 
@@ -462,8 +485,7 @@ class _PageProductState extends State<PageProduct> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  PageHome()));
+                              builder: (BuildContext context) => PageHome()));
                     },
                     child: (isLoading)
                         ? const SizedBox(
