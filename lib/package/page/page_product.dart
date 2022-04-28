@@ -377,6 +377,8 @@ class _PageProductState extends State<PageProduct> {
                             textAlign: TextAlign.center,
 
                             decoration:   InputDecoration(
+
+
                               border: InputBorder.none,
                               // border: OutlineInputBorder(
                               //     // borderRadius: BorderRadius.circular(10.0),
