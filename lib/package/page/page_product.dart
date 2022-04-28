@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
@@ -90,21 +91,36 @@ class _PageProductState extends State<PageProduct> {
                     children: [
                       //name item
                       AutoSizeText('Chicken Kabob',
-                          style: TextStyle(
-                              color: ColorsApp.primColr,
-                              fontSize: 18,
+                          style: GoogleFonts.oxygen(
+                              color: ColorsApp.blak1,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold)),
+
+                      // هاي بدنا نزبها تحت جنب الكبسة
                       //price item
-                      const AutoSizeText('\$5.00',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      //   AutoSizeText('\$5.00',
+                      //     style: GoogleFonts.oxygen(
+                      //         fontSize: 17, fontWeight: FontWeight.bold)),
                     ])),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            //##################################################################
+            SizedBox(
+              height: DimenApp.hightSc(context, hightPy: 0.028),
+            ),
+            //##################################################################
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: AutoSizeText(
                   'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.oxygen(
+                    fontSize: 15,
+                    color: ColorsApp.blak50,
+                  )),
             ),
+            //##################################################################
+            SizedBox(
+              height: DimenApp.hightSc(context, hightPy: 0.028),
+            ),
+            //##################################################################
             /************************************************************************/
             //this menu for  /" Platters "\
             /************************************************************************/
@@ -125,8 +141,8 @@ class _PageProductState extends State<PageProduct> {
                         SizedBox(
                           width: DimenApp.widthSc(context, widthPy: 0.01),
                         ),
-                        const AutoSizeText('Choice of Suace',
-                            style: TextStyle(
+                        AutoSizeText('Choice of Suace',
+                            style: GoogleFonts.oxygen(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                       ],
                     ),
@@ -136,8 +152,8 @@ class _PageProductState extends State<PageProduct> {
                     Column(
                       children: <Widget>[
                         ListTile(
-                          title: const Text('Taziki Sauce',
-                              style: TextStyle(
+                          title: Text('Taziki Sauce',
+                              style: GoogleFonts.oxygen(
                                 fontSize: 18,
                               )),
                           leading: Radio(
@@ -152,8 +168,8 @@ class _PageProductState extends State<PageProduct> {
                           ),
                         ),
                         ListTile(
-                          title: const AutoSizeText('Garlic Sauce',
-                              style: TextStyle(
+                          title: AutoSizeText('Garlic Sauce',
+                              style: GoogleFonts.oxygen(
                                 fontSize: 18,
                               )),
                           leading: Radio(
@@ -168,9 +184,9 @@ class _PageProductState extends State<PageProduct> {
                           ),
                         ),
                         ListTile(
-                          title: const AutoSizeText(
+                          title: AutoSizeText(
                             'Tahini Sauce ',
-                            style: TextStyle(
+                            style: GoogleFonts.oxygen(
                               fontSize: 18,
                             ),
                           ),
@@ -209,7 +225,7 @@ class _PageProductState extends State<PageProduct> {
                         // filled: true,
                         // fillColor: ColorsApp.primColr,
                         focusColor: ColorsApp.primColr,
-                        labelStyle: TextStyle(
+                        labelStyle: GoogleFonts.oxygen(
                           color: ColorsApp.primColr,
                           // decorationStyle:TextDecorationStyle.dotted ,
                         ),
@@ -261,8 +277,8 @@ class _PageProductState extends State<PageProduct> {
                         SizedBox(
                           width: DimenApp.widthSc(context, widthPy: 0.01),
                         ),
-                        const AutoSizeText('Additional Toppings',
-                            style: TextStyle(
+                        AutoSizeText('Additional Toppings',
+                            style: GoogleFonts.oxygen(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                       ],
                     ),
@@ -277,11 +293,11 @@ class _PageProductState extends State<PageProduct> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   AutoSizeText(e.extraName,
-                                      style: const TextStyle(
+                                      style: GoogleFonts.oxygen(
                                         fontSize: 18,
                                       )),
                                   AutoSizeText(e.extraPrice,
-                                      style: const TextStyle(
+                                      style: GoogleFonts.oxygen(
                                         fontSize: 18,
                                       )),
                                 ],
@@ -307,7 +323,7 @@ class _PageProductState extends State<PageProduct> {
                         //       print(additionalToppingsChose);
                         //     },
                         //     child: const Text('Choice of Suace',
-                        //         style: TextStyle(
+                        //         style: GoogleFonts.oxygen(
                         //             fontSize: 20, fontWeight: FontWeight.bold)))
                       ],
                     ),
@@ -358,7 +374,7 @@ class _PageProductState extends State<PageProduct> {
                         //             }
                         //           },
                         //           child: const AutoSizeText('+',
-                        //               style: TextStyle(
+                        //               style: GoogleFonts.oxygen(
                         //                 fontSize: 38,
                         //                 color: Colors.black54,
                         //               )),
@@ -441,7 +457,7 @@ class _PageProductState extends State<PageProduct> {
                         //          }
                         //        },
                         //        child: const AutoSizeText('-',
-                        //            style: TextStyle(
+                        //            style: GoogleFonts.oxygen(
                         //              fontSize: 38,
                         //              color: Colors.black54,
                         //            )),
@@ -495,12 +511,24 @@ class _PageProductState extends State<PageProduct> {
                               color: Colors.white,
                               strokeWidth: 1.5,
                             ))
-                        : const AutoSizeText(
-                            'Submit',
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.black54,
-                            ),
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              AutoSizeText(
+                                'Add to Cart',
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 22,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              // price item
+                              AutoSizeText('\$5.00',
+                                  style: GoogleFonts.oxygen(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54.withOpacity(0.5),
+                                  )),
+                            ],
                           ),
                   ),
                 ),
