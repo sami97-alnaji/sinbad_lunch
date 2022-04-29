@@ -15,6 +15,7 @@ class PageBasket extends StatefulWidget {
 class _PageBasketState extends State<PageBasket> {
   /***************************************/
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _PageBasketState extends State<PageBasket> {
           children: [
             //header in page "My Cart"
             SizedBox(
-              height: DimenApp.hightSc(context, hightPy: 0.12 ),
+              height: DimenApp.hightSc(context, hightPy: 0.12),
               child: Container(
                 padding: const EdgeInsets.only(top: 35),
                 child: AStx(
@@ -38,138 +39,250 @@ class _PageBasketState extends State<PageBasket> {
                 ),
               ),
             ),
+            //Main header in page
             Container(
-              width: DimenApp.widthSc(context),
-              height: DimenApp.hightSc(context, hightPy: 0.59),
-              child: SingleChildScrollView(
+              height: DimenApp.hightSc(context, hightPy: 0.88),
+              // color: ColorsApp.grey,
+              child: Column(children: [
+              Container(
+                width: DimenApp.widthSc(context),
+                height: DimenApp.hightSc(context, hightPy: 0.59),
                 // color: ColorsApp.white1,
+                child: SingleChildScrollView(
+                  // color: ColorsApp.white1,
+                  child: Column(
+                    children: [
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My Cart',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                      AStx(
+                        'My 5d5d5d5dd',
+                        size: 20,
+                        isBold: true,
+                        colr: ColorsApp.primColr,
+                      ),
+                    ],
+                  ),
+                ),
+
+              ),
+
+              Container(
+                color: ColorsApp.grey,
+                height: DimenApp.hightSc(context, hightPy: 0.01),
+              ),
+              // Location and time
+              /************************************************************************/
+
+              SingleChildScrollView(
                 child: Column(
                   children: [
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My Cart',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
-                    ),
-                    AStx(
-                      'My 5d5d5d5dd',
-                      size: 20,
-                      isBold: true,
-                      colr: ColorsApp.primColr,
+                    SizedBox(
+                      width: DimenApp.widthSc(context),
+                      height: DimenApp.hightSc(context, hightPy: 0.15),
+                      child: Container(
+                        color: ColorsApp.white1,
+                        child: Text('items'),
+                      ),
                     ),
                   ],
                 ),
               ),
+              //button 1 Submit
+              /************************************************************************/
+              SizedBox(
+                height: DimenApp.hightSc(context, hightPy: 0.022),
+              ),
+              Center(
+                child: Container(
+                  height: DimenApp.hightSc(context, hightPy: 0.1),
+                  width: DimenApp.widthSc(context),
+                  padding: const EdgeInsets.only(bottom: 15),
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.08),
+                    width: DimenApp.widthSc(context, widthPy: 0.82),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        primary: ColorsApp.primColr,
+                        shadowColor: ColorsApp.blak50,
+                        elevation: 7,
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await Future.delayed(const Duration(seconds: 5));
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    Page_Checkout()));
+                      },
+                      child: (isLoading)
+                          ? const SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 1.5,
+                          ))
+                          : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          AStx(
+                            'Add to Cart',
+                            size: 22,
+                            colr: Colors.black54,
+                          ),
+                          // price item
+                          AStx(
+                            '\$5.00',
+                            size: 17,
+                            isBold: true,
+                            colr: Colors.black54.withOpacity(0.5),
+                          ),
+                          // AutoSizeText(
+                          //   'Add to Cart',
+                          //   style: GoogleFonts.oxygen(
+                          //     fontSize: 22,
+                          //     color: Colors.black54,
+                          //   ),
+                          // ),
+                          // price item
+                          // AutoSizeText('\$5.00',
+                          //     style: GoogleFonts.oxygen(
+                          //       fontSize: 17,
+                          //       fontWeight: FontWeight.bold,
+                          //       color: Colors.black54.withOpacity(0.5),
+                          //     )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              /************************************************************************/
+            ],
+
+              ),
               decoration: BoxDecoration(
-                color: ColorsApp.white1,
+                color: ColorsApp.grey,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(40.0),
                   // bottomRight: Radius.circular(40.0),
@@ -179,102 +292,6 @@ class _PageBasketState extends State<PageBasket> {
               ),
             ),
 
-            Container(
-              color: ColorsApp.grey,
-              height: DimenApp.hightSc(context, hightPy: 0.01),
-            ),
-            // Location and time
-            /************************************************************************/
-
-            SingleChildScrollView(
-              child: Column(
-                children: [    SizedBox(
-                    width: DimenApp.widthSc(context),
-                    height: DimenApp.hightSc(context, hightPy: 0.15),
-                    child: Container(
-                      color: ColorsApp.white1,
-                      child: Text('items'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            //button 1 Submit
-            /************************************************************************/
-
-            Center(
-              child: Container(
-                height: DimenApp.hightSc(context, hightPy: 0.1),
-                width: DimenApp.widthSc(context),
-                padding: const EdgeInsets.only(bottom: 15),
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.08),
-                  width: DimenApp.widthSc(context, widthPy: 0.82),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      primary: ColorsApp.primColr,
-                      shadowColor: ColorsApp.blak50,
-                      elevation: 7,
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await Future.delayed(const Duration(seconds: 5));
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Page_Checkout()));
-                    },
-                    child: (isLoading)
-                        ? const SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 1.5,
-                        ))
-                        : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        AStx(
-                          'Add to Cart',
-                          size: 22,
-                          colr: Colors.black54,
-                        ),
-                        // price item
-                        AStx(
-                          '\$5.00',
-                          size: 17,
-                          isBold: true,
-                          colr: Colors.black54.withOpacity(0.5),
-                        ),
-                        // AutoSizeText(
-                        //   'Add to Cart',
-                        //   style: GoogleFonts.oxygen(
-                        //     fontSize: 22,
-                        //     color: Colors.black54,
-                        //   ),
-                        // ),
-                        // price item
-                        // AutoSizeText('\$5.00',
-                        //     style: GoogleFonts.oxygen(
-                        //       fontSize: 17,
-                        //       fontWeight: FontWeight.bold,
-                        //       color: Colors.black54.withOpacity(0.5),
-                        //     )),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            /************************************************************************/
           ],
         ),
       ),
