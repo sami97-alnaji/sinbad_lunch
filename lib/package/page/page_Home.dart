@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttonCollection.dart';
 import 'package:sinbad_lunch/components/Widget/button/button_menu_iitems.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
@@ -154,10 +155,22 @@ class _PageHomeState extends State<PageHome> {
               o[i] = Colors.redAccent;
             });
           },
-          child: Text(
+
+          child: AStx(
             'sami1',
-            style: TextStyle(fontSize: 22, color: o[i]),
-          )));
+            size: 22,
+            isBold: true,
+            colr: Colors.redAccent,
+          ),
+
+
+          // Text(
+          //   'sami1',
+          //   style: TextStyle(fontSize: 22, color: o[i]),
+          // )
+      )
+
+      );
     }
     /*******************************************************/
     DateTime timeBackPressed = DateTime.now();
@@ -244,14 +257,25 @@ class _PageHomeState extends State<PageHome> {
                       padding: const EdgeInsets.only(top: 0),
                       child: Column(
                         children: [
-                          AutoSizeText(WordAppENG.specialFodItm,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28,
-                                color: ColorsApp.primColr,
-                              )),
-                          AutoSizeText(WordAppENG.gloryBeginingRestrant1,
-                              style: const TextStyle(fontSize: 18)),
+                          AStx(
+                            WordAppENG.specialFodItm,
+                            size: 28,
+                            isBold: true,
+                            colr: ColorsApp.primColr,
+                          ),
+
+
+                          // AutoSizeText(WordAppENG.specialFodItm,
+                          //     style: TextStyle(
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 28,
+                          //       color: ColorsApp.primColr,
+                          //     )),
+                          AStx(
+                            WordAppENG.gloryBeginingRestrant1,
+                          ),
+                          // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
+                          //     style: const TextStyle(fontSize: 18)),
                           SizedBox(
                             height: DimenApp.hightSc(context, hightPy: 0.23),
                             width: DimenApp.widthSc(context),
@@ -338,7 +362,11 @@ class _PageHomeState extends State<PageHome> {
                   ),
                   /************************************************************************************************************/
                   Center(
-                    child: AutoSizeText(stopping_place_Btn1,style: TextStyle(fontSize: 28,)),
+                    child: AStx(
+                      stopping_place_Btn1,
+                      size: 28,
+                    ),
+                    // AutoSizeText(stopping_place_Btn1,style: TextStyle(fontSize: 28,)),
                   ),
                   SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.028),

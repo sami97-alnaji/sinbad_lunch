@@ -9,7 +9,8 @@ class ColorsApp {
       blak50 = const Color(0xff81827f),
       white1 = const Color(0xfffbfaff),//c9e5e7
       white = const Color(0xfff9f9f9),//Colors.white70
-      red1 = const Color(0xffc92424);
+      red1 = const Color(0xffc92424),
+      grey = const Color(0xfff3f2f7);
 
 // Color convertColors(String col){
 //   return Color(int.parse('0xff'+col));

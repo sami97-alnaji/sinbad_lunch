@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_drawer.dart';
@@ -90,11 +91,16 @@ class _PageProductState extends State<PageProduct> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //name item
-                      AutoSizeText('Chicken Kabob',
-                          style: GoogleFonts.oxygen(
-                              color: ColorsApp.blak1,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
+                      AStx(
+                        'Chicken Kabob',
+                        size: 20,
+                        isBold: true,
+                      ),
+                      // AutoSizeText('Chicken Kabob',
+                      //     style: GoogleFonts.oxygen(
+                      //         color: ColorsApp.blak1,
+                      //         fontSize: 20,
+                      //         fontWeight: FontWeight.bold)),
 
                       // هاي بدنا نزبها تحت جنب الكبسة
                       //price item
@@ -109,12 +115,17 @@ class _PageProductState extends State<PageProduct> {
             //##################################################################
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AutoSizeText(
-                  'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
-                  style: GoogleFonts.oxygen(
-                    fontSize: 15,
-                    color: ColorsApp.blak50,
-                  )),
+              child:AStx(
+                    'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
+                size: 15,
+                colr: ColorsApp.blak50,
+              ),
+              // AutoSizeText(
+              //     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
+              //     style: GoogleFonts.oxygen(
+              //       fontSize: 15,
+              //       color: ColorsApp.blak50,
+              //     )),
             ),
             //##################################################################
             SizedBox(
@@ -141,9 +152,14 @@ class _PageProductState extends State<PageProduct> {
                         SizedBox(
                           width: DimenApp.widthSc(context, widthPy: 0.01),
                         ),
-                        AutoSizeText('Choice of Suace',
-                            style: GoogleFonts.oxygen(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        AStx(
+                          'Choice of Suace',
+                          size: 20,
+                          isBold: true,
+                        ),
+                        // AutoSizeText('Choice of Suace',
+                        //     style: GoogleFonts.oxygen(
+                        //         fontSize: 20, fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(
@@ -152,10 +168,13 @@ class _PageProductState extends State<PageProduct> {
                     Column(
                       children: <Widget>[
                         ListTile(
-                          title: Text('Taziki Sauce',
-                              style: GoogleFonts.oxygen(
-                                fontSize: 18,
-                              )),
+                          title: AStx(
+                            'Taziki Sauce',
+                          ),
+                          // Text('Taziki Sauce',
+                          //     style: GoogleFonts.oxygen(
+                          //       fontSize: 18,
+                          //     )),
                           leading: Radio(
                             activeColor: ColorsApp.primColr,
                             value: BestTutorSite.TazikiSauce,
@@ -168,10 +187,15 @@ class _PageProductState extends State<PageProduct> {
                           ),
                         ),
                         ListTile(
-                          title: AutoSizeText('Garlic Sauce',
-                              style: GoogleFonts.oxygen(
-                                fontSize: 18,
-                              )),
+                          title: AStx(
+                        'Garlic Sauce',
+                        ),
+                          // AutoSizeText('Garlic Sauce',
+                          //     style: GoogleFonts.oxygen(
+                          //       fontSize: 18,
+                          //     )
+
+                          // ),
                           leading: Radio(
                             activeColor: ColorsApp.primColr,
                             value: BestTutorSite.GarlicSauce,
@@ -184,12 +208,16 @@ class _PageProductState extends State<PageProduct> {
                           ),
                         ),
                         ListTile(
-                          title: AutoSizeText(
+                          title:
+                          AStx(
                             'Tahini Sauce ',
-                            style: GoogleFonts.oxygen(
-                              fontSize: 18,
-                            ),
                           ),
+                          // AutoSizeText(
+                          //   'Tahini Sauce ',
+                          //   style: GoogleFonts.oxygen(
+                          //     fontSize: 18,
+                          //   ),
+                          // ),
                           leading: Radio(
                             activeColor: ColorsApp.primColr,
                             value: BestTutorSite.TahiniSauce,
@@ -277,9 +305,14 @@ class _PageProductState extends State<PageProduct> {
                         SizedBox(
                           width: DimenApp.widthSc(context, widthPy: 0.01),
                         ),
-                        AutoSizeText('Additional Toppings',
-                            style: GoogleFonts.oxygen(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        AStx(
+                          'Additional Toppings',
+                          size: 20,
+                          isBold: true,
+                        ),
+                        // AutoSizeText('Additional Toppings',
+                        //     style: GoogleFonts.openSans(
+                        //         fontSize: 20, fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(
@@ -292,14 +325,20 @@ class _PageProductState extends State<PageProduct> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  AutoSizeText(e.extraName,
-                                      style: GoogleFonts.oxygen(
-                                        fontSize: 18,
-                                      )),
-                                  AutoSizeText(e.extraPrice,
-                                      style: GoogleFonts.oxygen(
-                                        fontSize: 18,
-                                      )),
+                                  AStx(
+                                    e.extraName,
+                                  ),
+                                  AStx(
+                                    e.extraPrice,
+                                  ),
+                                  // AutoSizeText(e.extraName,
+                                  //     style: GoogleFonts.oxygen(
+                                  //       fontSize: 18,
+                                  //     )),
+                                  // AutoSizeText(e.extraPrice,
+                                  //     style: GoogleFonts.oxygen(
+                                  //       fontSize: 18,
+                                  //     )),
                                 ],
                               ),
                               leading: Checkbox(
@@ -381,50 +420,67 @@ class _PageProductState extends State<PageProduct> {
                         //         ),
                         //       ),
                         //     ),
+
+                        /********************************************************************/
                         // text filed spinner
                         /********************************************************************/
+                        SizedBox(
+                          height:
+                              DimenApp.hightSc(context, hightPy: 0.13), //128,
+                        ),
                         Container(
-                          width: 200,
-                          // DimenApp.widthSc(context, widthPy: 0.5),
-                          height: 128,
-                          //DimenApp.hightSc(context, hightPy: 0.195),
-                          margin: const EdgeInsets.only(top: 0, bottom: 2),
-                          padding: const EdgeInsets.only(top: 38),
-                          child: TextField(
-                            controller: controllerCountItems,
-                            readOnly: true,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              // border: OutlineInputBorder(
-                              //     // borderRadius: BorderRadius.circular(10.0),
-                              //     ),
-                              icon: IconButton(
+                          width: DimenApp.widthSc(context, widthPy: 0.6),
+                          // 200,
+                          // ,
+                          height: DimenApp.hightSc(context, hightPy: 0.11),
+                          //128,
+                          // color: Colors.blue,
+
+                          // margin: const EdgeInsets.only(top: 0, bottom: 2),
+                          padding: const EdgeInsets.all(10),
+                          child: Card(
+                            color: ColorsApp.white1,
+                            child: TextField(
+                              controller: controllerCountItems,
+                              readOnly: true,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                // border: OutlineInputBorder(
+                                //     // borderRadius: BorderRadius.circular(10.0),
+                                //     ),
+                                icon: IconButton(
+                                    onPressed: () {
+                                      if (CountItems < 55) {
+                                        CountItems++;
+                                        controllerCountItems.text =
+                                            CountItems.toString();
+                                      }
+                                    },
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: ColorsApp.primColr,
+                                    )),
+                                suffixIcon: IconButton(
                                   onPressed: () {
-                                    if (CountItems < 55) {
-                                      CountItems++;
+                                    if (CountItems > 1) {
+                                      CountItems--;
                                       controllerCountItems.text =
                                           CountItems.toString();
                                     }
                                   },
                                   icon: FaIcon(
-                                    FontAwesomeIcons.plus,
+                                    FontAwesomeIcons.minus,
                                     color: ColorsApp.primColr,
-                                  )),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  if (CountItems > 1) {
-                                    CountItems--;
-                                    controllerCountItems.text =
-                                        CountItems.toString();
-                                  }
-                                },
-                                icon: FaIcon(
-                                  FontAwesomeIcons.minus,
-                                  color: ColorsApp.primColr,
+                                  ),
                                 ),
                               ),
                             ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                            shadowColor: ColorsApp.blak50,
+                            elevation: 8,
                           ),
                         ),
                         /****************************************************************/
@@ -488,8 +544,11 @@ class _PageProductState extends State<PageProduct> {
                   width: DimenApp.widthSc(context, widthPy: 0.82),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        shape: const StadiumBorder(),
-                        primary: ColorsApp.primColr),
+                      shape: const StadiumBorder(),
+                      primary: ColorsApp.primColr,
+                      shadowColor: ColorsApp.blak50,
+                      elevation: 7,
+                    ),
                     onPressed: () async {
                       setState(() {
                         isLoading = true;
@@ -514,20 +573,32 @@ class _PageProductState extends State<PageProduct> {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              AutoSizeText(
+                              AStx(
                                 'Add to Cart',
-                                style: GoogleFonts.oxygen(
-                                  fontSize: 22,
-                                  color: Colors.black54,
-                                ),
+                                size: 22,
+                                colr: Colors.black54,
                               ),
                               // price item
-                              AutoSizeText('\$5.00',
-                                  style: GoogleFonts.oxygen(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black54.withOpacity(0.5),
-                                  )),
+                              AStx(
+                                '\$5.00',
+                                size: 17,
+                                isBold: true,
+                                colr: Colors.black54.withOpacity(0.5),
+                              ),
+                              // AutoSizeText(
+                              //   'Add to Cart',
+                              //   style: GoogleFonts.oxygen(
+                              //     fontSize: 22,
+                              //     color: Colors.black54,
+                              //   ),
+                              // ),
+                              // price item
+                              // AutoSizeText('\$5.00',
+                              //     style: GoogleFonts.oxygen(
+                              //       fontSize: 17,
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.black54.withOpacity(0.5),
+                              //     )),
                             ],
                           ),
                   ),

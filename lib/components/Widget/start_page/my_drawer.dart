@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
-import 'package:sinbad_lunch/package/page/Basket/page_basket.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 import 'package:sinbad_lunch/package/page/page_about_us.dart';
