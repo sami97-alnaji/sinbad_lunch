@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 
-class ButtonTxt extends StatelessWidget {
-  ButtonTxt(this.lebal, {this.onTab, this.fSize = 18, this.colr, Key? key})
+class btnTxt extends StatelessWidget {
+  btnTxt(this.lebal, {this.onTab, this.fSize = 18, this.colr, Key? key})
       : super(key: key);
   String lebal;
   Color? colr;

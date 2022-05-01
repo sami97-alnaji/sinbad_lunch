@@ -1,14 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnSpinner.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_drawer.dart';
 import 'package:sinbad_lunch/components/image/images.dart';
+import 'package:sinbad_lunch/main.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
 enum BestTutorSite { TahiniSauce, GarlicSauce, TazikiSauce }
@@ -56,18 +60,70 @@ class _PageProductState extends State<PageProduct> {
   TextEditingController controllerCountItems = TextEditingController();
 
   /***************************************/
+
   bool isLoading = false;
   int CountItems = 1;
 
   @override
   void initState() {
     controllerCountItems.text = CountItems.toString();
+      fToast = FToast();
+      // fToast.init(globalKey.currentState!.context);
+
     super.initState();
+
+  }
+  /***************************************/
+  late FToast fToast;
+
+  Widget toast (String fMss) {
+    return
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check),
+          const SizedBox(
+            width: 12.0,
+          ),
+          const Text("This is a Custom Toast"),
+          const Text("\n"),
+          Text(fMss),
+        ],
+      ),
+    );
   }
 
+  _showBuilderToast(String fMss) {
+     fToast.init(context).showToast(
+        child: toast(fMss),
+        gravity: ToastGravity.BOTTOM,
+        toastDuration: const Duration(seconds: 2),
+        positionedToastBuilder: (context, child) {
+          return Positioned(
+            child: child,
+            top: 16.0,
+            left: 16.0,
+          );
+        });
+  }
+  _showToast(String fMss) {
+    fToast.init(context).showToast(
+      child: toast(fMss),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 8),
+    );
+  }
+  /***********************************************************************/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       drawer: const MyDrawer(),
       appBar: MyAppBar(titel: widget.title),
       body: SingleChildScrollView(
@@ -79,10 +135,20 @@ class _PageProductState extends State<PageProduct> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
+              child: CachedNetworkImage(
+                imageUrl:
                 ImageApp.imGyro,
-                height: DimenApp.hightSc(context, hightPy: 0.4),
+                fit: BoxFit.fitHeight,
+                height: DimenApp.hightSc(context, hightPy: 0.35),
+                placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+
               ),
+
+
+              // Image.asset(
+              //   ImageApp.imGyro,
+              //   height: DimenApp.hightSc(context, hightPy: 0.4),
+              // ),
             ),
             // title item
             Padding(
@@ -95,6 +161,7 @@ class _PageProductState extends State<PageProduct> {
                         'Chicken Kabob',
                         size: 20,
                         isBold: true,
+
                       ),
                       // AutoSizeText('Chicken Kabob',
                       //     style: GoogleFonts.oxygen(
@@ -119,6 +186,7 @@ class _PageProductState extends State<PageProduct> {
                     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
                 size: 15,
                 colr: ColorsApp.blak50,
+                MLin: 3,
               ),
               // AutoSizeText(
               //     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
@@ -428,61 +496,66 @@ class _PageProductState extends State<PageProduct> {
                           height:
                               DimenApp.hightSc(context, hightPy: 0.13), //128,
                         ),
-                        Container(
-                          width: DimenApp.widthSc(context, widthPy: 0.6),
-                          // 200,
-                          // ,
-                          height:80, //DimenApp.hightSc(context, hightPy: 0.11),
-                          //128,
-                          // color: Colors.blue,
 
-                          // margin: const EdgeInsets.only(top: 0, bottom: 2),
-                          padding: const EdgeInsets.all(10),
-                          child: Card(
-                            color: ColorsApp.white1,
-                            child: TextField(
-                              controller: controllerCountItems,
-                              readOnly: true,
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                // border: OutlineInputBorder(
-                                //     // borderRadius: BorderRadius.circular(10.0),
-                                //     ),
-                                icon: IconButton(
-                                    onPressed: () {
-                                      if (CountItems < 55) {
-                                        CountItems++;
-                                        controllerCountItems.text =
-                                            CountItems.toString();
-                                      }
-                                    },
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.plus,
-                                      color: ColorsApp.primColr,
-                                    )),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    if (CountItems > 1) {
-                                      CountItems--;
-                                      controllerCountItems.text =
-                                          CountItems.toString();
-                                    }
-                                  },
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.minus,
-                                    color: ColorsApp.primColr,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            shadowColor: ColorsApp.blak50,
-                            elevation: 8,
-                          ),
-                        ),
+                        BtnSpinnr(controllerCountItems: controllerCountItems,)
+
+                        ,
+
+                        // Container(
+                        //   width: DimenApp.widthSc(context, widthPy: 0.6),
+                        //   // 200,
+                        //   // ,
+                        //   height:80, //DimenApp.hightSc(context, hightPy: 0.11),
+                        //   //128,
+                        //   // color: Colors.blue,
+                        //
+                        //   // margin: const EdgeInsets.only(top: 0, bottom: 2),
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: Card(
+                        //     color: ColorsApp.white1,
+                        //     child: TextField(
+                        //       controller: controllerCountItems,
+                        //       readOnly: true,
+                        //       textAlign: TextAlign.center,
+                        //       decoration: InputDecoration(
+                        //         border: InputBorder.none,
+                        //         // border: OutlineInputBorder(
+                        //         //     // borderRadius: BorderRadius.circular(10.0),
+                        //         //     ),
+                        //         icon: IconButton(
+                        //             onPressed: () {
+                        //               if (CountItems < 55) {
+                        //                 CountItems++;
+                        //                 controllerCountItems.text =
+                        //                     CountItems.toString();
+                        //               }
+                        //             },
+                        //             icon: FaIcon(
+                        //               FontAwesomeIcons.plus,
+                        //               color: ColorsApp.primColr,
+                        //             )),
+                        //         suffixIcon: IconButton(
+                        //           onPressed: () {
+                        //             if (CountItems > 1) {
+                        //               CountItems--;
+                        //               controllerCountItems.text =
+                        //                   CountItems.toString();
+                        //             }
+                        //           },
+                        //           icon: FaIcon(
+                        //             FontAwesomeIcons.minus,
+                        //             color: ColorsApp.primColr,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(18.0),
+                        //     ),
+                        //     shadowColor: ColorsApp.blak50,
+                        //     elevation: 8,
+                        //   ),
+                        // ),
                         /****************************************************************/
                         //  // ------
                         //  SizedBox(
@@ -550,10 +623,11 @@ class _PageProductState extends State<PageProduct> {
                       elevation: 7,
                     ),
                     onPressed: () async {
+
                       setState(() {
                         isLoading = true;
                       });
-                      await Future.delayed(const Duration(seconds: 5));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         isLoading = false;
                       });
@@ -561,6 +635,19 @@ class _PageProductState extends State<PageProduct> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) => PageHome()));
+                      // Fluttertoast.showToast(
+                      //     msg: "This is Center Short Toast",
+                      //     toastLength: Toast.LENGTH_SHORT,
+                      //     // gravity: ToastGravity.CENTER,
+                      //     timeInSecForIosWeb: 5,
+                      //     backgroundColor: Colors.green.shade600.withOpacity(0.7),
+                      //     textColor: Colors.white,
+                      //     fontSize: 16.0,
+                      // );
+
+                      // _showBuilderToast();
+                      _showToast(controllerCountItems.text.toString());
+
                     },
                     child: (isLoading)
                         ? const SizedBox(

@@ -8,8 +8,8 @@ import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/Components/Widget/textFF.dart';
 import 'package:sinbad_lunch/Components/image/images.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttunEleSimple.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnEleSimple.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
 
@@ -91,10 +91,10 @@ class _LoginState extends State<Login> {
                           onPressed: () {},
                           child: Row(
                             children: [
-                              const FaIcon(FontAwesomeIcons.google),
+                                FaIcon(FontAwesomeIcons.google,color:ColorsApp.primColr,),
                               SizedBox(
                                   width: DimenApp.widthSc(context, widthPy: 0.03)),
-                              AStx("Google"),
+                              AStx("Google",colr: ColorsApp.blak50,),
                             ],
                           ),
                         ),
@@ -119,10 +119,10 @@ class _LoginState extends State<Login> {
                           onPressed: () {},
                           child: Row(
                             children: [
-                              const FaIcon(FontAwesomeIcons.facebookF),
+                                FaIcon(FontAwesomeIcons.facebookF,color:ColorsApp.primColr,),
                               SizedBox(
                                   width: DimenApp.widthSc(context, widthPy: 0.03)),
-                              AStx("Facebook"),
+                              AStx("Facebook",colr: ColorsApp.blak50,),
                             ],
                           ),
                         ),
@@ -165,7 +165,7 @@ class _LoginState extends State<Login> {
                         ),
                         Row(
                           children: [
-                            ButtonTxt(
+                            btnTxt(
                               WordAppENG.forgotPass,
                               fSize: DimenApp.hightSc(context, hightPy: 0.0209),
                               onTab: () {
@@ -180,8 +180,9 @@ class _LoginState extends State<Login> {
                         //button login
                         SizedBox(
                           width: DimenApp.widthSc(context, widthPy: 0.88),
-                          child: ButtonEleSimple(
+                          child: btnEleSimple(
                             WordAppENG.login,
+
                             onTab: () {
                               print('sami');
 
@@ -209,7 +210,7 @@ class _LoginState extends State<Login> {
                         //button registr
                         Row(
                           children: [
-                            ButtonTxt(
+                            btnTxt(
                               WordAppENG.dontHaveRegister,
                               fSize: DimenApp.hightSc(context, hightPy: 0.023),
                               onTab: () {

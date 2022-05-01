@@ -2,7 +2,7 @@ import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
-import 'package:sinbad_lunch/components/Widget/button/button_menu_iitems.dart';
+import 'package:sinbad_lunch/components/Widget/button/btn_menu_iitems.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
 import 'package:sinbad_lunch/components/image/images.dart';
@@ -84,7 +84,7 @@ class _PageBasketState extends State<PageBasket> {
                         child: Column(
                           children: [
                             ...itemsMenu.map(
-                              (e) => ButtonMenuItems(
+                              (e) => btnMenuItems(
                                   imageItem: e.imageItem,
                                   nameItem: e.nameItem,
                                   titelItem: e.titelItem,
@@ -123,7 +123,8 @@ class _PageBasketState extends State<PageBasket> {
                   //Total
                   SizedBox(
                     width: DimenApp.widthSc(context),
-                    height: DimenApp.hightSc(context, hightPy: 0.17),
+                    height:120,
+                    // DimenApp.hightSc(context, hightPy: 0.17),
                     child: Card(
                       color: ColorsApp.white1,
                       shape: RoundedRectangleBorder(
@@ -182,7 +183,8 @@ class _PageBasketState extends State<PageBasket> {
                     child: SingleChildScrollView(
                       child: SizedBox(
                         width: DimenApp.widthSc(context),
-                        height: DimenApp.hightSc(context, hightPy: 0.155),
+                        height:98,
+                        // DimenApp.hightSc(context, hightPy: 0.155),
                         // color: ColorsApp.white1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

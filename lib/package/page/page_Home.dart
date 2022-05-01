@@ -1,12 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttonCollection.dart';
-import 'package:sinbad_lunch/components/Widget/button/button_menu_iitems.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnCollection.dart';
+import 'package:sinbad_lunch/components/Widget/button/btn_menu_iitems.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_drawer.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
@@ -140,7 +141,7 @@ class _PageHomeState extends State<PageHome> {
 
   late List<Color> o = [];
   late List<Widget> b = [];
-
+  TextEditingController? controllerCountItems = TextEditingController();
   @override
   Widget build(BuildContext context) {
     /****************************************************/
@@ -206,6 +207,9 @@ class _PageHomeState extends State<PageHome> {
                   // image up screen on home page as a Advertising
                   // Card(
                   //   child:
+
+
+                  //image
                   Container(
                     height: DimenApp.hightSc(context, hightPy: 0.22),
                     width: DimenApp.widthSc(context),
@@ -251,13 +255,14 @@ class _PageHomeState extends State<PageHome> {
                   // When you click on it, a menu appears
                   /************************************************************************************************************/
                   SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.35),
+                    // height: DimenApp.hightSc(context, hightPy: 0.35),
                     width: DimenApp.widthSc(context),
                     child:
                         // Card(child:
                         Padding(
                       padding: const EdgeInsets.only(top: 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AStx(
                             WordAppENG.specialFodItm,
@@ -273,23 +278,26 @@ class _PageHomeState extends State<PageHome> {
                           //       fontSize: 28,
                           //       color: ColorsApp.primColr,
                           //     )),
-                          AStx(
-                            WordAppENG.gloryBeginingRestrant1,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0,right: 12.0,),
+                            child: AStx(
+                              WordAppENG.gloryBeginingRestrant1 ,
+                            ),
                           ),
                           // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
                           //     style: const TextStyle(fontSize: 18)),
                           SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.23),
+                            height: 190,//DimenApp.hightSc(context, hightPy: 0.28),
                             width: DimenApp.widthSc(context),
                             child:
 
-                                // ListView(
-                                //   scrollDirection:  Axis.horizontal,
-                                //   children: [
-                                //
-                                //     SizedBox(width: 20,),
-                                //     TextButton(onPressed: (){ setState(() {
-                                //       o[1]=Colors.redAccent;
+                                // ListView(orizontal,
+                            //                                 //   children: [
+                            //                                 //
+                            //                                 //     SizedBox(width: 20,),
+                            //                                 //     TextButton(onPressed: (){ setState(() {
+                            //                                 //       o[1]=Colors.redAccen
+                                //   scrollDirection:  Axis.ht;
                                 //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[1]),)),
                                 //
                                 //      SizedBox(width: 20,),
@@ -319,11 +327,11 @@ class _PageHomeState extends State<PageHome> {
                                 ListView(
                                     scrollDirection: Axis.horizontal,
                                     children: [
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
+                                  // const SizedBox(
+                                  //   width: 20,
+                                  // ),
                                   ...headlines1.map(
-                                    (e) => ButtonCollection(
+                                    (e) => btnCollection(
                                       e.label,
                                       e.imagePath,
                                       onTap: () {
@@ -378,11 +386,12 @@ class _PageHomeState extends State<PageHome> {
                   //Display the menu according to the selected button
                   /************************************************************************************************************/
                   ...itemsMenu.map(
-                    (e) => ButtonMenuItems(
+                    (e) => btnMenuItems(
                         imageItem: e.imageItem,
                         nameItem: e.nameItem,
                         titelItem: e.titelItem,
                         pricceItem: e.pricceItem,
+            controllerCountItems:controllerCountItems,
                         onTab: () {
                           Navigator.push(
                               context,

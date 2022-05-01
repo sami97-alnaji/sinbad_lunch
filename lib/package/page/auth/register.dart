@@ -4,8 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttunEleSimple.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnEleSimple.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
@@ -277,7 +277,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.088),
                     width: DimenApp.widthSc(context),
-                    child: ButtonEleSimple(WordAppENG.register, onTab: () {
+                    child: btnEleSimple(WordAppENG.register, onTab: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -292,7 +292,7 @@ class _RegisterState extends State<Register> {
 
                 /*******************************************************************/
                 // Text \ For Return The Login Page
-                ButtonTxt(WordAppENG.backToLogin, onTab: () {
+                btnTxt(WordAppENG.backToLogin, onTab: () {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

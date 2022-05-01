@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 
-class ButtonEleSimple extends StatelessWidget {
-  ButtonEleSimple(this.lebal, {this.onTab, Key? key}) : super(key: key);
+class btnEleSimple extends StatelessWidget {
+  btnEleSimple(this.lebal, {this.onTab, Key? key}) : super(key: key);
   String lebal;
   Function()? onTab=(){};
 
@@ -24,7 +24,7 @@ class ButtonEleSimple extends StatelessWidget {
             )),
         onPressed: onTab,
         child:
-            Text(lebal, style: GoogleFonts.openSans(fontSize: 18, color: ColorsApp.blak1)),
+            Text(lebal, style: GoogleFonts.openSans(fontSize: 18, color: ColorsApp.blak50)),
       ),
     );
   }

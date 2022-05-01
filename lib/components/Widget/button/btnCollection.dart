@@ -1,13 +1,15 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 // import 'package:sizer/sizer.dart';
 
-class ButtonCollection extends StatefulWidget {
-  ButtonCollection(this.label, this.imagePath, {this.onTap, Key? key})
+class btnCollection extends StatefulWidget {
+  btnCollection(this.label, this.imagePath, {this.onTap, Key? key})
       : super(key: key);
   String label;
   String imagePath;
@@ -16,10 +18,10 @@ class ButtonCollection extends StatefulWidget {
   // int? setBackColor ;
 
   @override
-  State<ButtonCollection> createState() => ButtonCollectionState();
+  State<btnCollection> createState() => btnCollectionState();
 }
 
-class ButtonCollectionState extends State<ButtonCollection> {
+class btnCollectionState extends State<btnCollection> {
   Color setBackColor = ColorsApp.white1;
 
   @override
@@ -42,41 +44,49 @@ class ButtonCollectionState extends State<ButtonCollection> {
       child: Container(
         // color: ColorsApp.primColr,
         child: SizedBox(
-          height: DimenApp.hightSc(context, hightPy: 0.4),
-          width: DimenApp.widthSc(context, widthPy: 0.23),
+          height: 190,//DimenApp.hightSc(context, hightPy: 0.4),
+          width: 100, //DimenApp.widthSc(context, widthPy: 0.23),
           child: TextButton(
             onPressed: widget.onTap,
             // child: Card(
             //   color: ColorsApp.primColr,
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.0029),
+            child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: DimenApp.hightSc(context, hightPy: 0.0029),
+                ),
+                Expanded(
+                  flex: 6,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.imagePath,
+                    fit: BoxFit.fitHeight,
+                    // height: DimenApp.hightSc(context, hightPy: 0.28),
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+
                   ),
-                  Expanded(
-                    flex: 6,
-                    child: Image.asset(widget.imagePath),
-                  ),
-                  Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: DimenApp.hightSc(context, hightPy: 0.014),
-                            right: 4,
-                            bottom: 4),
-                        child: AutoSizeText(
-                          widget.label,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: ColorsApp.blak50,
-                            // ResponsiveFlutter.of(context).fontSize(3) ,
-                          ),
-                          maxLines: 2,
+
+
+                  // Image.asset(widget.imagePath),
+                ),
+                Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: DimenApp.hightSc(context, hightPy: 0.014),
+                          right: 4,
+                          bottom: 4),
+                      child: AutoSizeText(
+                        widget.label,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: ColorsApp.blak50,
+                          // ResponsiveFlutter.of(context).fontSize(3) ,
                         ),
-                      )),
-                ],
-              ),
+                        maxLines: 2,
+                      ),
+                    )),
+              ],
             ),
             // ),
             //   style: ButtonStyle(

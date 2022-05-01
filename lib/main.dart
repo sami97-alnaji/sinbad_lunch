@@ -7,6 +7,8 @@ import 'package:sinbad_lunch/package/page/page_about_us.dart';
 import 'package:sinbad_lunch/package/page/page_product.dart';
 import 'package:sinbad_lunch/package/page/start_Page/page_splash.dart';
 
+GlobalKey globalKey = GlobalKey();
+
 void main() {
   runApp(const SinbadsLunch());
 }
@@ -23,7 +25,7 @@ class SinbadsLunch extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home:  PageProduct(title: '55f5f5',), //PageSplash(),//Login(),// PageBasket(), //PageHome(),//Register(),
+      home: const PageSplash(),//PageProduct(title: '55f5f5',), //Login(),// PageBasket(), //PageHome(),//Register(),
     );
   }
 }

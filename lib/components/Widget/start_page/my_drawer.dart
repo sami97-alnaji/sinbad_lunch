@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
-import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
+import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
@@ -20,7 +20,7 @@ class MyDrawer extends StatelessWidget {
           SizedBox(
             height: DimenApp.hightSc(context, hightPy: 0.1),
           ),
-          ButtonTxt('Menu', onTab: () {
+          btnTxt('Menu', onTab: () {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -31,11 +31,11 @@ class MyDrawer extends StatelessWidget {
           SizedBox(
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
-          ButtonTxt('About Us'),
+          btnTxt('About Us'),
           SizedBox(
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
-          ButtonTxt('About Us', onTab: () {
+          btnTxt('About Us', onTab: () {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -45,7 +45,7 @@ class MyDrawer extends StatelessWidget {
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
           // LOg OUt
-          ButtonTxt('logout', onTab: () {
+          btnTxt('logout', onTab: () {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(

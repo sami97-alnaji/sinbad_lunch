@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 
 class AStx extends StatefulWidget {
-  AStx(this.label, {this.size = 18, this.isBold = false,this.colr ,this.MLin=1, Key? key})
+  AStx(this.label, {this.size = 18, this.isBold = false,this.colr ,this.MLin=2, Key? key})
       : super(key: key);
   String label;
   bool? isBold;
@@ -35,11 +35,13 @@ class _AStxState extends State<AStx> {
         fontSize: widget.size,
         fontWeight: widget.isBold! ? FontWeight.bold : null,
         color:widget.colr ?? ColorsApp.blak1 ,
+
           ),
       maxLines: widget.MLin,
         softWrap:false,
       // overflow: TextOverflow.fade,
       overflow: TextOverflow.ellipsis,
+
     );
   }
 }
