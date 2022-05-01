@@ -1,5 +1,6 @@
 class ImageApp {
-  static String imgLogo = 'assets/images/site_logo.png';
+  static String imgLogo = 'https://likedomens.000webhostapp.com/WhatsApp_Image_2022-05-01_at_1.54.58_AM-removebg-preview.png';
+  // static String imgLogo = 'assets/images/site_logo.png';
   static String imgPlatters = 'assets/icons/Restaurant_Platters1.png';
   static String imAd = 'assets/images/home_page_img.png';
   static String imGyro = 'assets/images/gyro.png';

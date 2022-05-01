@@ -432,7 +432,7 @@ class _PageProductState extends State<PageProduct> {
                           width: DimenApp.widthSc(context, widthPy: 0.6),
                           // 200,
                           // ,
-                          height: DimenApp.hightSc(context, hightPy: 0.11),
+                          height:80, //DimenApp.hightSc(context, hightPy: 0.11),
                           //128,
                           // color: Colors.blue,
 

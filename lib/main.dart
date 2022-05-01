@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
+import 'package:sinbad_lunch/package/page/auth/login.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 import 'package:sinbad_lunch/package/page/page_about_us.dart';
@@ -20,9 +21,9 @@ class SinbadsLunch extends StatelessWidget {
       title: 'Sinbads Lunch',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.orange,
       ),
-      home:const PageBasket(), //PageProduct(title: '55f5f5',), //PageHome(),//PageSplash(),//Register(),
+      home:  PageProduct(title: '55f5f5',), //PageSplash(),//Login(),// PageBasket(), //PageHome(),//Register(),
     );
   }
 }

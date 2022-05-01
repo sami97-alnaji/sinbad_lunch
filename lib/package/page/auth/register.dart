@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttunEleSimple.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
@@ -80,15 +82,99 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 /*****************************************************************/
-
-                //header image
-                Container(
-                  height: DimenApp.hightSc(context, hightPy: 0.25),
+                SizedBox(
+                  height: DimenApp.hightSc(context, hightPy: 0.03),
+                ),
+                //logo
+                CachedNetworkImage(
+                  imageUrl: ImageApp.imgLogo,
+                  // fit: BoxFit.fitHeight,
+                  // height: DimenApp.hightSc(context, hightPy: 0.28),
                   width: DimenApp.widthSc(context),
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(ImageApp.imgLogo),
+                  placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
                 ),
                 /*****************************************************************/
+                SizedBox(
+                  height: DimenApp.hightSc(context, hightPy: 0.06),
+                ),
+                //sub Login
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                    //google login
+                    Flexible(
+                      flex: 8,
+                      child: SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.065),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: ColorsApp.white,
+                            onPrimary: ColorsApp.primColr,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              const FaIcon(FontAwesomeIcons.google),
+                              SizedBox(
+                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
+                              AStx("Google"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                    //facebook login
+                    Flexible(
+                      flex: 8,
+                      child: SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.065),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: ColorsApp.white,
+                            onPrimary: ColorsApp.primColr,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              const FaIcon(FontAwesomeIcons.facebookF),
+                              SizedBox(
+                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
+                              AStx("Facebook"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                  ],
+                ),
+
+                SizedBox(
+                  height: DimenApp.hightSc(context, hightPy: 0.02),
+                ),
+
+                // //header image
+                // Container(
+                //   height: DimenApp.hightSc(context, hightPy: 0.25),
+                //   width: DimenApp.widthSc(context),
+                //   padding: const EdgeInsets.all(12),
+                //   child: Image.asset(ImageApp.imgLogo),
+                // ),
+                /*****************************************************************/
+
                 // Container(
                 //                height: DimenApp.hightSc(context, hightPy: 0.15),
                 //                width: DimenApp.widthSc(context),
@@ -191,16 +277,14 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.088),
                     width: DimenApp.widthSc(context),
-                    child: ButtonEleSimple(WordAppENG.register, onTab:
-                        (){
-                Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                builder: (BuildContext context) =>
-                 PageHome(),
-                ),);
-                })
-                ),
+                    child: ButtonEleSimple(WordAppENG.register, onTab: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => PageHome(),
+                        ),
+                      );
+                    })),
 
                 SizedBox(
                   height: DimenApp.hightSc(context, hightPy: 0.03),
@@ -208,13 +292,13 @@ class _RegisterState extends State<Register> {
 
                 /*******************************************************************/
                 // Text \ For Return The Login Page
-                ButtonTxt(WordAppENG.backToLogin,onTab: (){
+                ButtonTxt(WordAppENG.backToLogin, onTab: () {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      const Login(),
-                    ),);
+                      builder: (BuildContext context) => const Login(),
+                    ),
+                  );
                 }),
                 SizedBox(
                   height: DimenApp.hightSc(context, hightPy: 0.03),
@@ -237,7 +321,6 @@ class _RegisterState extends State<Register> {
                 //   ),
                 // ),
                 /*******************************************************************/
-
               ],
             ),
           ),

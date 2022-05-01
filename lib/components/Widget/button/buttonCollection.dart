@@ -89,10 +89,20 @@ class ButtonCollectionState extends State<ButtonCollection> {
             //           )
             //       )
             //   ),
-            style: ButtonStyle(
-              overlayColor: MaterialStateColor.resolveWith(
-                (states) => ColorsApp.primColr,
+            style:
+            ElevatedButton.styleFrom(
+              primary: setBackColor,
+              onPrimary: ColorsApp.primColr,
+                elevation:10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
               ),
+            // ),
+            // ButtonStyle(
+            //   overlayColor: MaterialStateColor.resolveWith(
+            //     (states) => ColorsApp.primColr,
+            //   ),
+
               // side: MaterialStateProperty.resolveWith<BorderSide>(
               //         (Set<MaterialState> states) {
               //       final Color color = states.contains(MaterialState.pressed)
@@ -105,22 +115,22 @@ class ButtonCollectionState extends State<ButtonCollection> {
           ),
         ),
 
-        decoration: BoxDecoration(
-          color: setBackColor,
-          //PageHome().setBackColor,//setBackColor (),//ColorsApp.white,
-          // border: Border.all(
-          //   color: ColorsApp.primColr.withOpacity(0.88),//Colors.black38,
-          // ),
-          borderRadius: const BorderRadius.all(Radius.circular(35.0)),
-          boxShadow: [
-            BoxShadow(
-              color: ColorsApp.blak50.withOpacity(0.31),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
+        // decoration: BoxDecoration(
+        //   color: setBackColor,
+        //   //PageHome().setBackColor,//setBackColor (),//ColorsApp.white,
+        //   // border: Border.all(
+        //   //   color: ColorsApp.primColr.withOpacity(0.88),//Colors.black38,
+        //   // ),
+        //   borderRadius: const BorderRadius.all(Radius.circular(35.0)),
+        //   boxShadow: [
+        //     BoxShadow(
+        //       color: ColorsApp.blak50.withOpacity(0.31),
+        //       spreadRadius: 3,
+        //       blurRadius: 7,
+        //       offset: const Offset(0, 3), // changes position of shadow
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

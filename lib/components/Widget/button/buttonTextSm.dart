@@ -27,7 +27,7 @@ class ButtonTxt extends StatelessWidget {
       // ),
       onPressed: onTab,
       child: Text(lebal,
-          style:GoogleFonts.varelaRound(
+          style:GoogleFonts.openSans(
             textStyle: styl
           ) ),
     );

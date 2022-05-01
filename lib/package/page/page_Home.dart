@@ -45,7 +45,7 @@ class _PageHomeState extends State<PageHome> {
   List headlines = [
     [
       ImageApp.imgPlatters,
-      WordAppENG.platters + "f6ds4g684",
+  "dishes",
       () {
         PageHome().setBackColor = ColorsApp.primColr;
         print('sami');
@@ -96,7 +96,7 @@ class _PageHomeState extends State<PageHome> {
   var itemsMenu = [];
   var headlines1 = [];
   int stopping_place_Btn = 0;
-  String stopping_place_Btn1 = '';
+  String stopping_place_Btn1 = 'dishes';
 
   @override
   void initState() {
@@ -108,7 +108,7 @@ class _PageHomeState extends State<PageHome> {
         onTap: () {
           setState(() {
             PageHome().setBackColor = ColorsApp.primColr;
-            stopping_place_Btn = i;
+            // stopping_place_Btn = i;
           });
           print(stopping_place_Btn);
           print("heddfr\n " + heddfr[stopping_place_Btn] + "  \n nheddfr");
@@ -223,6 +223,8 @@ class _PageHomeState extends State<PageHome> {
                               "https://likedomens.000webhostapp.com/home_page_img.png",
                           fit: BoxFit.fitHeight,
                           height: DimenApp.hightSc(context, hightPy: 0.28),
+                          placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+
                         ),
                       ),
                     ),
@@ -249,7 +251,7 @@ class _PageHomeState extends State<PageHome> {
                   // When you click on it, a menu appears
                   /************************************************************************************************************/
                   SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.31),
+                    height: DimenApp.hightSc(context, hightPy: 0.35),
                     width: DimenApp.widthSc(context),
                     child:
                         // Card(child:

@@ -1,12 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
-
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/Components/Widget/textFF.dart';
 import 'package:sinbad_lunch/Components/image/images.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttonTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/button/buttunEleSimple.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
@@ -45,20 +46,93 @@ class _LoginState extends State<Login> {
         body: Container(
           height: DimenApp.hightSc(context),
           width: DimenApp.widthSc(context),
-          color: ColorsApp.primColr,
+          color: ColorsApp.white,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.18),
+                  height: DimenApp.hightSc(context, hightPy: 0.07),
                 ),
-                Image.asset(
-                  ImageApp.imgLogo,
-                  width: DimenApp.widthSc(context),
+                //logo
+                CachedNetworkImage(
+                    imageUrl: ImageApp.imgLogo,
+                    // fit: BoxFit.fitHeight,
+                    // height: DimenApp.hightSc(context, hightPy: 0.28),
+                    width: DimenApp.widthSc(context),
+                  placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
                 ),
+                // (
+                //   ImageApp.imgLogo,
+                //   width: DimenApp.widthSc(context),
+                // ),
                 SizedBox(
                   height: DimenApp.hightSc(context, hightPy: 0.10),
                 ),
+                //sub Login
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                  //google login
+                    Flexible(
+                      flex: 8,
+                      child: SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.065),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: ColorsApp.white,
+                            onPrimary: ColorsApp.primColr,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              const FaIcon(FontAwesomeIcons.google),
+                              SizedBox(
+                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
+                              AStx("Google"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                    //facebook login
+                    Flexible(
+                      flex: 8,
+                      child: SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.065),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: ColorsApp.white,
+                            onPrimary: ColorsApp.primColr,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              const FaIcon(FontAwesomeIcons.facebookF),
+                              SizedBox(
+                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
+                              AStx("Facebook"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    //space
+                    Flexible(flex:1,child: Container(),),
+                  ],
+                ),
+
                 Card(
                   // shape: BeveledRectangleBorder(
                   //   borderRadius: BorderRadius.circular(15.0),
@@ -93,7 +167,7 @@ class _LoginState extends State<Login> {
                           children: [
                             ButtonTxt(
                               WordAppENG.forgotPass,
-                              fSize: DimenApp.hightSc(context, hightPy: 0.02),
+                              fSize: DimenApp.hightSc(context, hightPy: 0.0209),
                               onTab: () {
                                 print('login');
                               },
@@ -112,11 +186,11 @@ class _LoginState extends State<Login> {
                               print('sami');
 
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                            PageHome(),
-                                  ),);
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => PageHome(),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -127,15 +201,7 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: DimenApp.hightSc(context, hightPy: 0.015),
                         ),
-                        //button login in google email
-                        SizedBox(
-                          width: DimenApp.widthSc(context, widthPy: 0.88),
-                          child: ElevatedButton.icon(
-                            icon: const FaIcon(FontAwesomeIcons.google),
-                            label: Text(WordAppENG.login),
-                            onPressed:  signIn,
-                          ),
-                        ),
+
                         /****************************************/
                         SizedBox(
                           height: DimenApp.hightSc(context, hightPy: 0.015),
@@ -145,14 +211,15 @@ class _LoginState extends State<Login> {
                           children: [
                             ButtonTxt(
                               WordAppENG.dontHaveRegister,
-                              fSize: DimenApp.hightSc(context, hightPy: 0.02),
+                              fSize: DimenApp.hightSc(context, hightPy: 0.023),
                               onTab: () {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                    const Register(),
-                                  ),);
+                                        const Register(),
+                                  ),
+                                );
                                 print("I don't have an account, register");
                               },
                             ),
@@ -169,13 +236,14 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-  Future signIn() async{
+
+  Future signIn() async {
     await GoogleSignInApi.login();
   }
 }
 
 class GoogleSignInApi {
-  static final _googleSingIn=GoogleSignIn();
-  static Future<GoogleSignInAccount?> login()=> _googleSingIn.signIn();
+  static final _googleSingIn = GoogleSignIn();
 
+  static Future<GoogleSignInAccount?> login() => _googleSingIn.signIn();
 }

@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sinbad_lunch/components/Colors/colors.dart';
 //TextFormField
 class TextFF extends StatelessWidget {
   TextFF(this.label, {this.typeKey=1,Key? key}) : super(key: key);
@@ -19,11 +21,31 @@ class TextFF extends StatelessWidget {
 
 
      */
-    return TextFormField(
+    return TextField(
       keyboardType:typeKeybord(typeKey),
       decoration: InputDecoration(
-        border: const UnderlineInputBorder(),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorsApp.primColr),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorsApp.primColr),
+        ),
         labelText: label,
+          labelStyle:GoogleFonts.openSans(
+color: ColorsApp.blak50
+          ),
+      ),
+      // decoration: InputDecoration(
+      //
+      //   border:   UnderlineInputBorder(
+      //     labelText: label,
+      //   ),
+      //
+      // ),
+
+
+      style: GoogleFonts.openSans(
+
       ),
     );
   }

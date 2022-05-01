@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/image/images.dart';
+import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/package/page/auth/login.dart';
 
 
@@ -31,7 +33,7 @@ class _PageSplashState extends State<PageSplash> {
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= const Duration(seconds: 2);
+        final isExitWarning = difference >= const Duration(seconds: 4);
 
         timeBackPressed = DateTime.now();
         if (isExitWarning) {
@@ -44,9 +46,17 @@ class _PageSplashState extends State<PageSplash> {
         }
       },
       child: Container(
-        color: ColorsApp.primColr,
+        color: ColorsApp.white1,
         child: Center(
-          child: Image.asset(ImageApp.imgLogo),
+          child:
+
+          CachedNetworkImage(
+            imageUrl: ImageApp.imgLogo,
+            // fit: BoxFit.fitHeight,
+            // height: DimenApp.hightSc(context, hightPy: 0.28),
+            width: DimenApp.widthSc(context),
+            placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+          ),
         ),
       ),
     );

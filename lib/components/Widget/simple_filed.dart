@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 
@@ -101,6 +102,9 @@ class TFiled extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 borderSide: BorderSide(color: ColorsApp.primColr, width: 3),
               ),
+            ),
+            style: GoogleFonts.openSans(
+              // fontSize: 25,
             ),
           ),
         ),
