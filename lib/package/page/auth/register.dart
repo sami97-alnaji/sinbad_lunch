@@ -73,12 +73,10 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   alignment: Alignment.center,
-                  child: Text(
+                  child: AStx(
                     'Register',
-                    style: TextStyle(
-                      color: ColorsApp.blak1,
-                      fontSize: 35,
-                    ),
+                    colr: ColorsApp.blak50,
+                      size: 35,
                   ),
                 ),
                 /*****************************************************************/
