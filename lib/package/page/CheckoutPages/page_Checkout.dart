@@ -1,3 +1,6 @@
+// ignore: file_names
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';

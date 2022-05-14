@@ -1,9 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
+import 'package:sinbad_lunch/Controller/menu/getAllMenu.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/btnCollection.dart';
@@ -12,10 +14,14 @@ import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_drawer.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
 import 'package:sinbad_lunch/components/image/images.dart';
+import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
+import 'package:sinbad_lunch/model/menu/get_all/get_food.dart';
+import 'package:sinbad_lunch/model/menu/get_all/get_menu_type.dart';
 import 'package:sinbad_lunch/package/definitions/items_menu/items_menu.dart';
 import 'package:sinbad_lunch/package/page/page_product.dart';
 import 'package:sinbad_lunch/package/test%20Bottun%20top%20the%20page/headlines.dart';
 
+// ignore: must_be_immutable
 class PageHome extends StatefulWidget {
   PageHome({Key? key}) : super(key: key);
   Color setBackColor = ColorsApp.white;
@@ -46,7 +52,7 @@ class _PageHomeState extends State<PageHome> {
   List headlines = [
     [
       ImageApp.imgPlatters,
-  "dishes",
+      "dishes",
       () {
         PageHome().setBackColor = ColorsApp.primColr;
         print('sami');
@@ -136,14 +142,27 @@ class _PageHomeState extends State<PageHome> {
         pricceItem: '\$51.00',
       ));
     }
+    setFirstLocation();
     super.initState();
+  }
+
+  setFirstLocation() async {
+    var num = await GetAllMenu().get_menu_type_Data();
+    stopping_place_Btn = num[0].menu_type_id!;
+    stopping_place_Btn1 = num[0].menu_type_name!;
   }
 
   late List<Color> o = [];
   late List<Widget> b = [];
   TextEditingController? controllerCountItems = TextEditingController();
+  var count;
   @override
   Widget build(BuildContext context) {
+    /****************************************************/
+       count =Provider.of<ProductPageVariables>(context);
+
+
+
     /****************************************************/
     for (int i = 0; i < 10; i++) {
       o.add(Colors.blue);
@@ -151,27 +170,24 @@ class _PageHomeState extends State<PageHome> {
     /*******************************************************/
     for (int i = 0; i < 10; i++) {
       b.add(TextButton(
-          onPressed: () {
-            setState(() {
-              o[i] = Colors.redAccent;
-            });
-          },
+        onPressed: () {
+          setState(() {
+            o[i] = Colors.redAccent;
+          });
+        },
 
-          child: AStx(
-            'sami1',
-            size: 22,
-            isBold: true,
-            colr: Colors.redAccent,
-          ),
+        child: AStx(
+          'sami1',
+          size: 22,
+          isBold: true,
+          colr: Colors.redAccent,
+        ),
 
-
-          // Text(
-          //   'sami1',
-          //   style: TextStyle(fontSize: 22, color: o[i]),
-          // )
-      )
-
-      );
+        // Text(
+        //   'sami1',
+        //   style: TextStyle(fontSize: 22, color: o[i]),
+        // )
+      ));
     }
     /*******************************************************/
     DateTime timeBackPressed = DateTime.now();
@@ -208,7 +224,6 @@ class _PageHomeState extends State<PageHome> {
                   // Card(
                   //   child:
 
-
                   //image
                   Container(
                     height: DimenApp.hightSc(context, hightPy: 0.22),
@@ -227,8 +242,10 @@ class _PageHomeState extends State<PageHome> {
                               "https://likedomens.000webhostapp.com/home_page_img.png",
                           fit: BoxFit.fitHeight,
                           height: DimenApp.hightSc(context, hightPy: 0.28),
-                          placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
-
+                          placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(
+                            color: ColorsApp.primColr,
+                          )),
                         ),
                       ),
                     ),
@@ -271,7 +288,6 @@ class _PageHomeState extends State<PageHome> {
                             colr: ColorsApp.primColr,
                           ),
 
-
                           // AutoSizeText(WordAppENG.specialFodItm,
                           //     style: TextStyle(
                           //       fontWeight: FontWeight.bold,
@@ -279,91 +295,129 @@ class _PageHomeState extends State<PageHome> {
                           //       color: ColorsApp.primColr,
                           //     )),
                           Padding(
-                            padding: const EdgeInsets.only(left: 12.0,right: 12.0,),
+                            padding: const EdgeInsets.only(
+                              left: 12.0,
+                              right: 12.0,
+                            ),
                             child: AStx(
-                              WordAppENG.gloryBeginingRestrant1 ,
+                              WordAppENG.gloryBeginingRestrant1,
                             ),
                           ),
                           // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
                           //     style: const TextStyle(fontSize: 18)),
                           SizedBox(
-                            height: 190,//DimenApp.hightSc(context, hightPy: 0.28),
+                            height: 190,
+                            //DimenApp.hightSc(context, hightPy: 0.28),
                             width: DimenApp.widthSc(context),
-                            child:
-
-                                // ListView(orizontal,
+                            /**************************************************/
+                            child: FutureBuilderGet_menu_type(),
+                            /**************************************************/
+                            // ListView(orizontal,
                             //                                 //   children: [
                             //                                 //
                             //                                 //     SizedBox(width: 20,),
                             //                                 //     TextButton(onPressed: (){ setState(() {
                             //                                 //       o[1]=Colors.redAccen
-                                //   scrollDirection:  Axis.ht;
-                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[1]),)),
-                                //
-                                //      SizedBox(width: 20,),
-                                //     TextButton(onPressed: (){ setState(() {
-                                //       o[2]=Colors.redAccent;
-                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[2]),)),
-                                //
-                                //      SizedBox(width: 20,),
-                                //     TextButton(onPressed: (){ setState(() {
-                                //       o[3]=Colors.redAccent;
-                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[3]),)),
-                                //
-                                //      SizedBox(width: 20,),
-                                //     TextButton(onPressed: (){ setState(() {
-                                //       o[4]=Colors.redAccent;
-                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[4]),)),
-                                //
-                                //      SizedBox(width: 20,),
-                                //     TextButton(onPressed: (){ setState(() {
-                                //       o[5]=Colors.redAccent;
-                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[5]),)),
-                                //
-                                //
-                                //   ],
-                                // )
+                            //   scrollDirection:  Axis.ht;
+                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[1]),)),
+                            //
+                            //      SizedBox(width: 20,),
+                            //     TextButton(onPressed: (){ setState(() {
+                            //       o[2]=Colors.redAccent;
+                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[2]),)),
+                            //
+                            //      SizedBox(width: 20,),
+                            //     TextButton(onPressed: (){ setState(() {
+                            //       o[3]=Colors.redAccent;
+                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[3]),)),
+                            //
+                            //      SizedBox(width: 20,),
+                            //     TextButton(onPressed: (){ setState(() {
+                            //       o[4]=Colors.redAccent;
+                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[4]),)),
+                            //
+                            //      SizedBox(width: 20,),
+                            //     TextButton(onPressed: (){ setState(() {
+                            //       o[5]=Colors.redAccent;
+                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[5]),)),
+                            //
+                            //
+                            //   ],
+                            // )
+/*********************************************************/
+                            // ListView(
+                            //     scrollDirection: Axis.horizontal,
+                            //     children: [
+                            //   // const SizedBox(
+                            //   //   width: 20,
+                            //   // ),
+                            //   ...headlines1.map(
+                            //     (e) => btnCollection(
+                            //       e.label,
+                            //       e.imagePath,
+                            //       onTap: () {
+                            //         funcOne();
+                            //         setState(() {
+                            //           // ButtonCollectionState().setBackColor = ColorsApp.primColr;
+                            //           // Col.f = ColorsApp.primColr;
+                            //           stopping_place_Btn1 = e.label;
+                            //         });
+                            //         print(stopping_place_Btn1);
+                            //         // print("heddfr\n "+heddfr[stopping_place_Btn] +"  \n nheddfr");
+                            //       }, //e.onTap,
+                            //     ),
+                            //   ),
+                            // ]
+                            //
+                            //     // List.generate(
+                            //     //   headlines.length,
+                            //     //   (index) => ButtonCollection(
+                            //     //     headlines[index][1].toString(),
+                            //     //     headlines[index][0].toString(),
+                            //     //     onTab: headlines[index][2] as Function()?,
+                            //     //   ),
+                            //     // ),
+                            //
+                            //     /************************************************************************************/
+                            //
+                            //     // Here, according to the button you choose
+                            //     // Show me my list
+                            //     // Each menu is based on what he chose the button
+                            //     /**********************************************************************************/
+                            //     ),
+                            /**************************************************/
 
-                                ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                  // const SizedBox(
-                                  //   width: 20,
-                                  // ),
-                                  ...headlines1.map(
-                                    (e) => btnCollection(
-                                      e.label,
-                                      e.imagePath,
-                                      onTap: () {
-                                        funcOne();
-                                        setState(() {
-                                          // ButtonCollectionState().setBackColor = ColorsApp.primColr;
-                                          // Col.f = ColorsApp.primColr;
-                                          stopping_place_Btn1 = e.label;
-                                        });
-                                        print(stopping_place_Btn1);
-                                        // print("heddfr\n "+heddfr[stopping_place_Btn] +"  \n nheddfr");
-                                      }, //e.onTap,
-                                    ),
-                                  ),
-                                ]
-
-                                    // List.generate(
-                                    //   headlines.length,
-                                    //   (index) => ButtonCollection(
-                                    //     headlines[index][1].toString(),
-                                    //     headlines[index][0].toString(),
-                                    //     onTab: headlines[index][2] as Function()?,
-                                    //   ),
-                                    // ),
-
-                                    /************************************************************************************/
-
-                                    // Here, according to the button you choose
-                                    // Show me my list
-                                    // Each menu is based on what he chose the button
-                                    /**********************************************************************************/
-                                    ),
+                            // FutureBuilder<List<get_food>>(
+                            //     future: GetAllMenu().get_food_Data(),
+                            //     // if you mean this method well return image url
+                            //     builder: (BuildContext context1,
+                            //         AsyncSnapshot<List<get_food>> snapshot) {
+                            //       if (snapshot.connectionState == ConnectionState.done) {
+                            //         // additions = snapshot.data;
+                            //         // return buildAddition(additions) ;
+                            //         foods = snapshot.data;
+                            //         return buildFood(foods) ;
+                            //         // print("\n\t" +
+                            //         //     w.additions_id.toString() +
+                            //         //     "\t" +
+                            //         //     w.additions_name.toString() +
+                            //         //     "\t" +
+                            //         //     w.additions_description.toString()
+                            //         //     +"\t" +
+                            //         //     w.additions_price.toString()
+                            //         // );
+                            //         // setState(() {
+                            //         //   GetAllMenu.res;
+                            //         // });
+                            //
+                            //
+                            //       } else if (snapshot.connectionState == ConnectionState.waiting) {
+                            //         return Text("loading ...");
+                            //       } else {
+                            //         return Container();
+                            //       }
+                            //     },
+                            //   ),
                           ),
                         ],
                       ),
@@ -385,21 +439,23 @@ class _PageHomeState extends State<PageHome> {
                   /************************************************************************************************************/
                   //Display the menu according to the selected button
                   /************************************************************************************************************/
-                  ...itemsMenu.map(
-                    (e) => btnMenuItems(
-                        imageItem: e.imageItem,
-                        nameItem: e.nameItem,
-                        titelItem: e.titelItem,
-                        pricceItem: e.pricceItem,
-            controllerCountItems:controllerCountItems,
-                        onTab: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      PageProduct(title: e.nameItem)));
-                        }),
-                  ),
+                  //       ...itemsMenu.map(
+                  //         (e) => btnMenuItems(
+                  //             imageItem: e.imageItem,
+                  //             nameItem: e.nameItem,
+                  //             titelItem: e.titelItem,
+                  //             pricceItem: e.pricceItem,
+                  // controllerCountItems:controllerCountItems,
+                  //             onTab: () {
+                  //               Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                       builder: (BuildContext context) =>
+                  //                           PageProduct(title: e.nameItem)));
+                  //             }),
+                  //       ),
+
+                  FutureBuilderGetFoodMenu(),
                   /************************************************************************************************************/
                   SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.028),
@@ -413,4 +469,139 @@ class _PageHomeState extends State<PageHome> {
       ),
     );
   }
+
+/// *****************************************************************************/
+  List<get_food>? foods;
+
+  FutureBuilderGetFoodMenu() => FutureBuilder<List<get_food>>(
+        future: GetAllMenu().get_food_Data(),
+        // if you mean this method well return image url
+        builder:
+            (BuildContext context1, AsyncSnapshot<List<get_food>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            foods = snapshot.data;
+            return buildFood(foods);
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("loading ...");
+          } else {
+            return Container();
+          }
+        },
+      );
+
+  Widget buildFood(List<get_food>? foods) {
+    return ListView.builder(
+      shrinkWrap: true,
+//menu_type_id
+      itemCount: foods!.length,
+      physics:   const BouncingScrollPhysics(),
+      // scrollDirection:Axis.vertical,
+      itemBuilder: (context, index) {
+        final food = foods[index];
+        if(food.menu_type_id==stopping_place_Btn) {
+          return btnMenuItems(
+              imageItem: food.food_image??ImageApp.imgLogo,
+              nameItem: food.food_name ?? '',
+              titelItem: food.food_description ?? '',
+              pricceItem: food.food_price ?? 99.1,
+              controllerCountItems: controllerCountItems,
+              onTab: () {
+
+                count.reVariables();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            PageProduct(food: food)));
+              });
+        }else{
+          return Container();
+        }
+        //   Card(
+        //   child: Row(
+        //       children:
+        //       [
+        //         Column(
+        //           children: [
+        //             AStx(food.food_id!.toString(),MLin: 2,),
+        //             AStx(food.kitchen_id!.toString(),MLin: 2,),
+        //             AStx(food.food_name!.toString(),MLin: 2,),
+        //             AStx(food.food_description!.toString(),MLin: 2,),
+        //             AStx(food.food_image!.toString(),MLin: 2,),
+        //             AStx(food.food_price!.toString(),MLin: 2,),
+        //           ],
+        //         ),
+        //       ]
+        //   ),
+        // );
+      },
+    );
+  }
+
+/// *****************************************************************************/
+  List<get_menu_type>? menuTypes;
+
+  FutureBuilderGet_menu_type() {
+
+      return FutureBuilder<List<get_menu_type>>(
+        future: GetAllMenu().get_menu_type_Data(),
+        // if you mean this method well return image url
+        builder: (BuildContext context,
+            AsyncSnapshot<List<get_menu_type>> snapshot) {
+          try {
+          if(snapshot.connectionState == ConnectionState.none){
+            return Center(child: AStx('some think is Warring'),);
+          }else if (snapshot.connectionState == ConnectionState.done) {
+            menuTypes = snapshot.data;
+            return buildMenuType(menuTypes);
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("loading ...");
+          }  else if (snapshot.connectionState == ConnectionState.active) {
+            return CircularProgressIndicator(color: ColorsApp.primColr,);
+          } else {
+            return Container();
+          } } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Container();
+
+      }
+        },
+      );
+
+
+
+  }
+
+  Widget buildMenuType(List<get_menu_type>? menuTypes) {
+    try {
+    return ListView.builder(
+      itemCount: menuTypes!.length,
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        final menuType = menuTypes[index];
+        return btnCollection(
+          menuType.menu_type_name!.toString(),
+          menuType.image_menu!.toString(),
+          onTap: () {
+            funcOne();
+            setState(() {
+              stopping_place_Btn1 = menuType.menu_type_name!.toString();
+              stopping_place_Btn = menuType.menu_type_id!;
+            });
+            print(stopping_place_Btn1);
+          }, //e.onTap,
+        );
+      },
+    );
+    } on Exception catch (_) {
+      print("throwing new error");
+
+      throw Center(child: AStx('some think is Warring'),);
+
+    }
+  }
+/*******************************************************************************/
+
 }

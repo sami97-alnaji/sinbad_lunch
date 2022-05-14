@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_function_declarations_over_variables
+
 import 'dart:ui';
 
 import 'package:sinbad_lunch/components/Colors/colors.dart';

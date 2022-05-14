@@ -1,15 +1,19 @@
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 
+// ignore: must_be_immutable
 class AStx extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   AStx(this.label, {this.size = 18, this.isBold = false,this.colr ,this.MLin=2, Key? key})
-      : super(key: key);
+      : super(key: key)  ;
   String label;
   bool? isBold;
   double? size;
   Color? colr;
+  // ignore: non_constant_identifier_names
   int? MLin;
 
   @override

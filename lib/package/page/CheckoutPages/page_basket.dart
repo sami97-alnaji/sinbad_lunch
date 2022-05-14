@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino(1).dart';
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
@@ -19,10 +20,10 @@ class PageBasket extends StatefulWidget {
 }
 
 class _PageBasketState extends State<PageBasket> {
-  /***************************************/
+  /// *************************************/
   bool isLoading = false;
 
-  /***************************************/
+  /// *************************************/
   @override
   void initState() {
     for (int i = 0; i < 15; i++) {
@@ -36,10 +37,10 @@ class _PageBasketState extends State<PageBasket> {
     super.initState();
   }
 
-  /***************************************/
+  /// *************************************/
   var itemsMenu = [];
 
-  /***************************************/
+  /// *************************************/
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +92,12 @@ class _PageBasketState extends State<PageBasket> {
                                   pricceItem: e.pricceItem,
                           // height:0.15,
                                   onTab: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                PageProduct(
-                                                    title: e.nameItem)));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (BuildContext context) =>
+                                    //             PageProduct(
+                                    //                 title: e.nameItem)));
                                   }),
                             ),
                           ],

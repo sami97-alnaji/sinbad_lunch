@@ -1,3 +1,6 @@
+// ignore: file_names
+// ignore_for_file: slash_for_doc_comments
+
 import 'package:flutter/material.dart';
 
 /****************************************************/
@@ -38,9 +41,9 @@ class _ButtonStatesState extends State<ButtonStates> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(40),
+        padding: const EdgeInsets.all(40),
         child: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             onEnd: () => setState(() {
               isAnimating = !isAnimating;
             }),
@@ -62,11 +65,11 @@ class _ButtonStatesState extends State<ButtonStates> {
         state = ButtonState.submitting;
       });
       //await 2 sec // you need to implement your server response here.
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       setState(() {
         state = ButtonState.completed;
       });
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       setState(() {
         state = ButtonState.init;
       });

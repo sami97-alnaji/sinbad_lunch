@@ -1,28 +1,25 @@
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
+import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 
+
+
+// ignore: must_be_immutable
 class BtnSpinnr extends StatelessWidget {
-  BtnSpinnr({this.controllerCountItems,this.wdt,this.hit, Key? key}) : super(key: key);
-
-  TextEditingController? controllerCountItems; //= TextEditingController();
-  int CountItems = 1;
+  BtnSpinnr({this.wdt,this.hit, Key? key}) : super(key: key);
   double? wdt,hit;
-  // void initState() {
-  //   controllerCountItems?.text = CountItems.toString();
-  //
-  //
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // controllerCountItems?.text = CountItems.toString();
+    var count=Provider.of<ProductPageVariables>(context);
     return Container(
-      width: wdt??DimenApp.widthSc(context, widthPy: 0.6),//DimenApp.widthSc(context, widthPy: 0.6),
+      width:  wdt??DimenApp.widthSc(context, widthPy: 0.6),//DimenApp.widthSc(context, widthPy: 0.6),
       // 200,
       // ,
-      height: hit??80,//80, //DimenApp.hightSc(context, hightPy: 0.11),
+      height:  hit??80,//80, //DimenApp.hightSc(context, hightPy: 0.11),
       //128,
       // color: Colors.blue,
 
@@ -31,7 +28,7 @@ class BtnSpinnr extends StatelessWidget {
       child: Card(
         color: ColorsApp.white1,
         child: TextField(
-          controller: controllerCountItems!,
+          controller: count.controllerCountItems,
           readOnly: true,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
@@ -40,12 +37,7 @@ class BtnSpinnr extends StatelessWidget {
             //     // borderRadius: BorderRadius.circular(10.0),
             //     ),
             icon: IconButton(
-                onPressed: () {
-                  if (CountItems < 60) {
-                    CountItems++;
-                    controllerCountItems!.text = CountItems.toString();
-                  }
-                },
+                onPressed: ()=>count.pulss(),
                 icon: FaIcon(
                   FontAwesomeIcons.plus,
                   color: ColorsApp.green,
@@ -53,12 +45,7 @@ class BtnSpinnr extends StatelessWidget {
                   // size: 13,
                 )),
             suffixIcon: IconButton(
-              onPressed: () {
-                if (CountItems > 1) {
-                  CountItems--;
-                  controllerCountItems!.text = CountItems.toString();
-                }
-              },
+              onPressed: () =>count.minuss(),
               icon: FaIcon(
                 FontAwesomeIcons.minus,
                 color: ColorsApp.green,

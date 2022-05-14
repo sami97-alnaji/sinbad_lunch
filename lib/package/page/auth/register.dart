@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
@@ -50,276 +51,284 @@ class _RegisterState extends State<Register> {
       },
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                // Text Filed for register
-                /*****************************************************************/
-                // Text for name of page
+          child: GestureDetector(
+            onHorizontalDragCancel: (){
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
+            },
+            onTap: (){
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
+            },
+            child: Center(
+              child: Column(
+                children: [
+                  // Text Filed for register
+                  /*****************************************************************/
+                  // Text for name of page
 // SizedBox(height:  DimenApp.hightSc(context, hightPy: 0.1),),
-                //---------------------------------------------------
-                // Text('REgister',style: TextStyle(
-                //   color: ColorsApp.primColr,
-                //   fontSize: 35,
-                // ),),
-                Container(
-                  height: DimenApp.hightSc(context, hightPy: 0.25),
-                  width: DimenApp.widthSc(context),
-                  decoration: BoxDecoration(
-                    color: ColorsApp.primColr,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
+                  //---------------------------------------------------
+                  // Text('REgister',style: TextStyle(
+                  //   color: ColorsApp.primColr,
+                  //   fontSize: 35,
+                  // ),),
+                  Container(
+                    height: DimenApp.hightSc(context, hightPy: 0.25),
+                    width: DimenApp.widthSc(context),
+                    decoration: BoxDecoration(
+                      color: ColorsApp.primColr,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: AStx(
+                      'Register',
+                      colr: ColorsApp.blak50,
+                        size: 35,
                     ),
                   ),
-                  alignment: Alignment.center,
-                  child: AStx(
-                    'Register',
-                    colr: ColorsApp.blak50,
-                      size: 35,
+                  /*****************************************************************/
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.03),
                   ),
-                ),
-                /*****************************************************************/
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.03),
-                ),
-                //logo
-                CachedNetworkImage(
-                  imageUrl: ImageApp.imgLogo,
-                  // fit: BoxFit.fitHeight,
-                  // height: DimenApp.hightSc(context, hightPy: 0.28),
-                  width: DimenApp.widthSc(context),
-                  placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
-                ),
-                /*****************************************************************/
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.06),
-                ),
-                //sub Login
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    //space
-                    Flexible(flex:1,child: Container(),),
-                    //google login
-                    Flexible(
-                      flex: 8,
-                      child: SizedBox(
-                        height: DimenApp.hightSc(context, hightPy: 0.065),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: ColorsApp.white,
-                            onPrimary: ColorsApp.primColr,
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(11.0),
+                  //logo
+                  CachedNetworkImage(
+                    imageUrl: ImageApp.imgLogo,
+                    // fit: BoxFit.fitHeight,
+                    // height: DimenApp.hightSc(context, hightPy: 0.28),
+                    width: DimenApp.widthSc(context),
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+                  ),
+                  /*****************************************************************/
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.06),
+                  ),
+                  //sub Login
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                      //google login
+                      Flexible(
+                        flex: 8,
+                        child: SizedBox(
+                          height: DimenApp.hightSc(context, hightPy: 0.065),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: ColorsApp.white,
+                              onPrimary: ColorsApp.primColr,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11.0),
+                              ),
                             ),
-                          ),
-                          onPressed: () {},
-                          child: Row(
-                            children: [
-                              const FaIcon(FontAwesomeIcons.google),
-                              SizedBox(
-                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
-                              AStx("Google"),
-                            ],
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.google),
+                                SizedBox(
+                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                AStx("Google"),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    //space
-                    Flexible(flex:1,child: Container(),),
-                    //facebook login
-                    Flexible(
-                      flex: 8,
-                      child: SizedBox(
-                        height: DimenApp.hightSc(context, hightPy: 0.065),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: ColorsApp.white,
-                            onPrimary: ColorsApp.primColr,
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(11.0),
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                      //facebook login
+                      Flexible(
+                        flex: 8,
+                        child: SizedBox(
+                          height: DimenApp.hightSc(context, hightPy: 0.065),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: ColorsApp.white,
+                              onPrimary: ColorsApp.primColr,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11.0),
+                              ),
                             ),
-                          ),
-                          onPressed: () {},
-                          child: Row(
-                            children: [
-                              const FaIcon(FontAwesomeIcons.facebookF),
-                              SizedBox(
-                                  width: DimenApp.widthSc(context, widthPy: 0.03)),
-                              AStx("Facebook"),
-                            ],
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.facebookF),
+                                SizedBox(
+                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                AStx("Facebook"),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    //space
-                    Flexible(flex:1,child: Container(),),
-                  ],
-                ),
-
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.02),
-                ),
-
-                // //header image
-                // Container(
-                //   height: DimenApp.hightSc(context, hightPy: 0.25),
-                //   width: DimenApp.widthSc(context),
-                //   padding: const EdgeInsets.all(12),
-                //   child: Image.asset(ImageApp.imgLogo),
-                // ),
-                /*****************************************************************/
-
-                // Container(
-                //                height: DimenApp.hightSc(context, hightPy: 0.15),
-                //                width: DimenApp.widthSc(context),
-                //                decoration: BoxDecoration(
-                //                  color: ColorsApp.white1,
-                //                  borderRadius: const BorderRadius.only(
-                //                    bottomLeft: Radius.circular(50),
-                //                    bottomRight: Radius.circular(50),
-                //                  ),
-                //                ),
-                //                alignment: Alignment.center,
-                //                child:   Text('REgister',style: TextStyle(
-                //                  color: ColorsApp.primColr,
-                //                  fontSize: 35,
-                //                ),),
-                //              ),
-
-                /*******************************************************************/
-                // Text Filed for First Name
-                TFiled(
-                  hint: WordAppENG.firstName,
-                  keyboardType: TextInputType.text,
-                  pIcon: Icon(
-                    Icons.perm_identity_rounded,
-                    color: ColorsApp.primColr,
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                    ],
                   ),
-                ),
-                /*******************************************************************/
-                // Text Filed for Last Name
-                TFiled(
-                  hint: WordAppENG.lastName,
-                  keyboardType: TextInputType.text,
-                  pIcon: Icon(
-                    Icons.people_outlined,
-                    color: ColorsApp.primColr,
-                  ),
-                ),
-                /*******************************************************************/
-                // Drop Down Menu For Select Company Name
 
-                /*******************************************************************/
-                // Text Filed for Email Name
-                TFiled(
-                  hint: WordAppENG.email,
-                  keyboardType: TextInputType.text,
-                  pIcon: Icon(
-                    Icons.email,
-                    color: ColorsApp.primColr,
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.02),
                   ),
-                ),
-                /*******************************************************************/
-                // Text Filed for Phone Number
-                TFiled(
-                  hint: WordAppENG.phone,
-                  keyboardType: TextInputType.text,
-                  pIcon: Icon(
-                    Icons.phone,
-                    color: ColorsApp.primColr,
-                  ),
-                ),
-                /*******************************************************************/
-                // Text Filed for Password
-                TFiled(
-                    hint: WordAppENG.password,
+
+                  // //header image
+                  // Container(
+                  //   height: DimenApp.hightSc(context, hightPy: 0.25),
+                  //   width: DimenApp.widthSc(context),
+                  //   padding: const EdgeInsets.all(12),
+                  //   child: Image.asset(ImageApp.imgLogo),
+                  // ),
+                  /*****************************************************************/
+
+                  // Container(
+                  //                height: DimenApp.hightSc(context, hightPy: 0.15),
+                  //                width: DimenApp.widthSc(context),
+                  //                decoration: BoxDecoration(
+                  //                  color: ColorsApp.white1,
+                  //                  borderRadius: const BorderRadius.only(
+                  //                    bottomLeft: Radius.circular(50),
+                  //                    bottomRight: Radius.circular(50),
+                  //                  ),
+                  //                ),
+                  //                alignment: Alignment.center,
+                  //                child:   Text('REgister',style: TextStyle(
+                  //                  color: ColorsApp.primColr,
+                  //                  fontSize: 35,
+                  //                ),),
+                  //              ),
+
+                  /*******************************************************************/
+                  // Text Filed for First Name
+                  TFiled(
+                    hint: WordAppENG.firstName,
                     keyboardType: TextInputType.text,
                     pIcon: Icon(
-                      Icons.lock_rounded,
+                      Icons.perm_identity_rounded,
                       color: ColorsApp.primColr,
                     ),
-                    isObscureText: _obscureText,
-                    // pIcon: Icon(
-                    // Icons.lock,
-                    // color: AppColors.blue,
-                    // ),
-                    sIcon: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: _iconSuffix,
+                  ),
+                  /*******************************************************************/
+                  // Text Filed for Last Name
+                  TFiled(
+                    hint: WordAppENG.lastName,
+                    keyboardType: TextInputType.text,
+                    pIcon: Icon(
+                      Icons.people_outlined,
+                      color: ColorsApp.primColr,
                     ),
-                    onSIcon: () {
-                      setState(() {
-                        if (_obscureText) {
-                          _iconSuffix = FaIcon(
-                            FontAwesomeIcons.eye,
-                            color: ColorsApp.blak1,
-                          );
-                          _obscureText = false;
-                        } else {
-                          _iconSuffix = FaIcon(
-                            FontAwesomeIcons.eyeSlash,
-                            color: ColorsApp.blak1,
-                          );
-                          _obscureText = true;
-                        }
-                      });
-                    }),
+                  ),
+                  /*******************************************************************/
+                  // Drop Down Menu For Select Company Name
 
-                /*******************************************************************/
-                // Button to Submit
-
-                SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.088),
-                    width: DimenApp.widthSc(context),
-                    child: btnEleSimple(WordAppENG.register, onTab: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => PageHome(),
-                        ),
-                      );
-                    })),
-
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.03),
-                ),
-
-                /*******************************************************************/
-                // Text \ For Return The Login Page
-                btnTxt(WordAppENG.backToLogin, onTab: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const Login(),
+                  /*******************************************************************/
+                  // Text Filed for Email Name
+                  TFiled(
+                    hint: WordAppENG.email,
+                    keyboardType: TextInputType.text,
+                    pIcon: Icon(
+                      Icons.email,
+                      color: ColorsApp.primColr,
                     ),
-                  );
-                }),
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.03),
-                ),
-                /*******************************************************************/
-                //end Page
+                  ),
+                  /*******************************************************************/
+                  // Text Filed for Phone Number
+                  TFiled(
+                    hint: WordAppENG.phone,
+                    keyboardType: TextInputType.text,
+                    pIcon: Icon(
+                      Icons.phone,
+                      color: ColorsApp.primColr,
+                    ),
+                  ),
+                  /*******************************************************************/
+                  // Text Filed for Password
+                  TFiled(
+                      hint: WordAppENG.password,
+                      keyboardType: TextInputType.text,
+                      pIcon: Icon(
+                        Icons.lock_rounded,
+                        color: ColorsApp.primColr,
+                      ),
+                      isObscureText: _obscureText,
+                      // pIcon: Icon(
+                      // Icons.lock,
+                      // color: AppColors.blue,
+                      // ),
+                      sIcon: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: _iconSuffix,
+                      ),
+                      onSIcon: () {
+                        setState(() {
+                          if (_obscureText) {
+                            _iconSuffix = FaIcon(
+                              FontAwesomeIcons.eye,
+                              color: ColorsApp.blak1,
+                            );
+                            _obscureText = false;
+                          } else {
+                            _iconSuffix = FaIcon(
+                              FontAwesomeIcons.eyeSlash,
+                              color: ColorsApp.blak1,
+                            );
+                            _obscureText = true;
+                          }
+                        });
+                      }),
 
-                /*******************************************************************/
-                /*******************************************************************/
-                /*******************************************************************/
-                // SimpleFiled(
-                //   keyboardType: TextInputType.number,
-                //   controller: controllerValue['age'],
-                //   onValidator: (value) =>
-                //       AppValidators.isAge(value),
-                //   hint: KeyLang.age,
-                //   pIcon: Icon(
-                //     Icons.filter_vintage_outlined,
-                //     color: AppColors.blue,
-                //   ),
-                // ),
-                /*******************************************************************/
-              ],
+                  /*******************************************************************/
+                  // Button to Submit
+
+                  SizedBox(
+                      height: DimenApp.hightSc(context, hightPy: 0.088),
+                      width: DimenApp.widthSc(context),
+                      child: btnEleSimple(WordAppENG.register, onTab: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => PageHome(),
+                          ),
+                        );
+                      })),
+
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.03),
+                  ),
+
+                  /*******************************************************************/
+                  // Text \ For Return The Login Page
+                  btnTxt(WordAppENG.backToLogin, onTab: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const Login(),
+                      ),
+                    );
+                  }),
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.03),
+                  ),
+                  /*******************************************************************/
+                  //end Page
+
+                  /*******************************************************************/
+                  /*******************************************************************/
+                  /*******************************************************************/
+                  // SimpleFiled(
+                  //   keyboardType: TextInputType.number,
+                  //   controller: controllerValue['age'],
+                  //   onValidator: (value) =>
+                  //       AppValidators.isAge(value),
+                  //   hint: KeyLang.age,
+                  //   pIcon: Icon(
+                  //     Icons.filter_vintage_outlined,
+                  //     color: AppColors.blue,
+                  //   ),
+                  // ),
+                  /*******************************************************************/
+                ],
+              ),
             ),
           ),
         ),

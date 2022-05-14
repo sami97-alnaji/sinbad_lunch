@@ -6,7 +6,7 @@ class WordAppENG {
       login = 'Login',
       entrPass = 'Enter your Password',
       forgotPass = 'Forgot password',
-      dontHaveRegister = "I don\'t have an account, register",
+      dontHaveRegister = "I don't have an account, register",
       platters ='Sandwish Combos1', //'Platters',
       platters1 ='Sandwish Combos1', //'Platters',
       platters2 ='Sandwish Combos2', //'Platters',
@@ -23,8 +23,8 @@ class WordAppENG {
       gloryBeginingRestrant1 =
           'We have the glory beginning in restaurant business',
       contentOfAboutUs =
-          "Ever felt that restaurant food was becoming industrialized\?\n"
-          "Mass market?  Prepackaged?  The people of Sinbad\’s Grill  noticed.\n"
+          "Ever felt that restaurant food was becoming industrialized?\n"
+          "Mass market?  Prepackaged?  The people of Sinbad’s Grill  noticed.\n"
           "We set out in the opposite direction.\n"
           "We emphasize fresh, full flavored, "
           "honest food… meticulously made "

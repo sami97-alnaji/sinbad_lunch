@@ -1,8 +1,9 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino(1).dart';
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
@@ -44,8 +45,8 @@ class btnCollectionState extends State<btnCollection> {
       child: Container(
         // color: ColorsApp.primColr,
         child: SizedBox(
-          height: 190,//DimenApp.hightSc(context, hightPy: 0.4),
-          width: 100, //DimenApp.widthSc(context, widthPy: 0.23),
+          height: 199,//DimenApp.hightSc(context, hightPy: 0.4),
+          width: 123, //DimenApp.widthSc(context, widthPy: 0.23),
           child: TextButton(
             onPressed: widget.onTap,
             // child: Card(

@@ -51,11 +51,13 @@ class _PageSplashState extends State<PageSplash> {
           child:
 
           CachedNetworkImage(
+            key: UniqueKey(),
             imageUrl: ImageApp.imgLogo,
             // fit: BoxFit.fitHeight,
             // height: DimenApp.hightSc(context, hightPy: 0.28),
             width: DimenApp.widthSc(context),
             placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+
           ),
         ),
       ),

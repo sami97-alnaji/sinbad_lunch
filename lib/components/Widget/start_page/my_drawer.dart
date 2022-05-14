@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
@@ -7,9 +8,14 @@ import 'package:sinbad_lunch/package/page/auth/register.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 import 'package:sinbad_lunch/package/page/page_about_us.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -63,18 +69,45 @@ class MyDrawer extends StatelessWidget {
 
                 // color: ColorsApp.primColr,
                 children: [
+
+                  // Flexible(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 23.0, bottom: 29),
+                  //     child:  Container(
+                  //       height: 40,
+                  //       width: 40,
+                  //       child: Expanded(
+                  //         child: ElevatedButton(onPressed: (){}, child: AStx('915',colr: ColorsApp.white,size: 1,),
+                  //           style: ElevatedButton.styleFrom(
+                  //
+                  //             primary: ColorsApp.blak1,
+                  //             onPrimary:
+                  //             ColorsApp.white1.withOpacity(0.7),
+                  //             elevation: 10,
+                  //             shape: RoundedRectangleBorder(
+                  //
+                  //               borderRadius: BorderRadius.circular(55.0),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 23.0, bottom: 29),
                     child: Icon(
                       Icons.circle,
-                      color: ColorsApp.red1,
-                      size: 28,
+                      color: ColorsApp.blak1,
+                      size: 40,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 33.0, top: 7),
-                    child: Text('1'),
+                    Flexible(
+                      child: Padding(
+                      padding: const EdgeInsets.only(left: 31.0, top: 9),
+                      child: AStx('958',colr: ColorsApp.white,size: 15),
                   ),
+                    ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: IconButton(

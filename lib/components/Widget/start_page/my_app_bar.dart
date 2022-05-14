@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 
@@ -16,10 +18,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleTextStyle: TextStyle(color: ColorsApp.white1, fontSize: 18),
       title: Text(titel),
       actions: [
-        IconButton(
-          onPressed: () {Navigator.pop(context);},
-          icon: const Icon(Icons.arrow_forward_rounded),
-        ),
+        titel == 'Home'
+            ? Container()
+            : IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_forward_rounded),
+              ),
       ],
     );
   }
