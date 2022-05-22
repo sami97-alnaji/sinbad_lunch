@@ -13,16 +13,11 @@ import 'package:sinbad_lunch/package/test%20Bottun%20top%20the%20page/testHttp.d
 GlobalKey globalKey = GlobalKey();
 
 void main() {
-  runApp(
-      MultiProvider(
-    providers: [
-  ChangeNotifierProvider<ProductPageVariables>(
-  create: (context)=>ProductPageVariables(),),
-
-    ],
-      child:
-      const SinbadsLunch()
-  ));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<ProductPageVariables>(
+      create: (context) => ProductPageVariables(),
+    ),
+  ], child: const SinbadsLunch()));
 }
 
 class SinbadsLunch extends StatelessWidget {
@@ -31,15 +26,14 @@ class SinbadsLunch extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return   MaterialApp(
-        title: 'Sinbads Lunch',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
-        ),
-        home: PageSplash(),//PageHome(),//const testHttp(),//PageProduct(title: '55f5f5',), //Login(),// PageBasket(), //Register(),
-
+    return MaterialApp(
+      title: 'Sinbads Lunch',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+      home:
+          const PageSplash(), //PageHome(),//const testHttp(),//PageProduct(title: '55f5f5',), //Login(),// PageBasket(), //Register(),
     );
   }
 }
-

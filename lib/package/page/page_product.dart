@@ -21,17 +21,12 @@ import 'package:sinbad_lunch/model/menu/get_all/get_list_suace.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_suace.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
-enum BestTutorSite {
-  TahiniSauce, GarlicSauce, TazikiSauce
+enum BestTutorSite { TahiniSauce, GarlicSauce, TazikiSauce }
 
-
-}
-
-class  Order{
+class Order {
   get_food? plate;
   List<AdditionalTopping>? additional;
   get_suace? suace;
-
 }
 
 // class Sauce{
@@ -41,7 +36,6 @@ class  Order{
 //
 // Sauce({this.sauceId,this.saucePrice, this.sauceName});
 // }
-
 
 class AdditionalTopping {
   int? additions_id;
@@ -63,6 +57,7 @@ class PageProduct extends StatefulWidget {
 
   // String title;
   get_food food;
+
   // static TextEditingController controllerCountItems = TextEditingController();
   @override
   _PageProductState createState() => _PageProductState();
@@ -70,6 +65,7 @@ class PageProduct extends StatefulWidget {
 
 class _PageProductState extends State<PageProduct> {
   BestTutorSite _site = BestTutorSite.TazikiSauce;
+
   // ignore: unused_field
 
   ///**********************************************************************/
@@ -77,13 +73,24 @@ class _PageProductState extends State<PageProduct> {
   ///sauce
 
   var sSc = [];
-   String _sauceSelectionId ='';
-   double _sauceSelectionPrice=0;
 
+  var free1Adding = [];
+  var free2Adding = [];
+  var free3Adding = [];
+
+  var titleFree1  = '';
+  var titleFree2  = '';
+  var titleFree3  = '';
+
+  String _sauceSelectionId = '';
+  String _freeAdding1SelectionId = '';
+  String _freeAdding2SelectionId = '';
+  String _freeAdding3SelectionId = '';
+  double _sauceSelectionPrice = 0;
 
   splitSauce() async {
-    var x=await GetAllMenu().get_query_suace(widget.food.food_id!);
-print('widget.food.food_id!  = '+widget.food.food_id!.toString());
+    var x = await GetAllMenu().get_query_suace(widget.food.food_id!);
+    print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
     for (var ss in x) {
       print(ss.suace_id);
       setState(() {
@@ -94,9 +101,90 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
         //   saucePrice:ss.price ,
         // ));
       });
-      _sauceSelectionId=x[0].suace_id! .toString();
+      _sauceSelectionId = x[0].suace_id!.toString();
     }
   }
+
+  splitFreeAdding() async {
+    // print('widget.food.is_free1.toString()');
+    // print(widget.food.is_free1.toString());
+    var x =widget.food.is_free1 != -1 || widget.food.is_free2 != -1 || widget.food.is_free3 != -1 ? await GetAllMenu().get_food_Data() :[] ;
+    var title = widget.food.is_free1 != -1 || widget.food.is_free2 != -1 || widget.food.is_free3 != -1 ? await GetAllMenu().get_menu_type_Data() :[] ;
+    for(var tt in title){
+      setState(() {
+        if(widget.food.is_free1==tt.menu_type_id){
+          titleFree1=tt.menu_type_name;
+        }
+        if(widget.food.is_free2==tt.menu_type_id){
+          titleFree2=tt.menu_type_name;
+        }
+        if(widget.food.is_free3==tt.menu_type_id){
+          titleFree3=tt.menu_type_name;
+        }
+      });
+
+
+    }
+    if (widget.food.is_free1 != -1) {
+      // print('splitFreeadding1');
+      // var x = await GetAllMenu().get_food_Data();
+      // print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
+
+      for (var ss in x) {
+        if (widget.food.is_free1! == ss.menu_type_id) {
+
+          print(ss.menu_type_id);
+          setState(() {
+            free1Adding.add(ss);
+            // sSc.add(Sauce(
+            //   sauceId:ss.suace_id,
+            //   sauceName:ss.suace_name ,
+            //   saucePrice:ss.price ,
+            // ));
+          });
+        }
+      }
+    }
+
+    if (widget.food.is_free2 != -1) {
+      // print('splitFreeadding1');
+      // var x = await GetAllMenu().get_food_Data();
+      // print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
+      for (var ss in x) {
+        if (widget.food.is_free2! == ss.menu_type_id) {
+          print(ss.menu_type_id);
+          setState(() {
+            free2Adding.add(ss);
+            // sSc.add(Sauce(
+            //   sauceId:ss.suace_id,
+            //   sauceName:ss.suace_name ,
+            //   saucePrice:ss.price ,
+            // ));
+          });
+        }
+      }
+    }
+
+    if (widget.food.is_free3 != -1) {
+      // print('splitFreeadding1');
+
+      // print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
+      for (var ss in x) {
+        if (widget.food.is_free3! == ss.menu_type_id) {
+          print(ss.menu_type_id);
+          setState(() {
+            free3Adding.add(ss);
+            // sSc.add(Sauce(
+            //   sauceId:ss.suace_id,
+            //   sauceName:ss.suace_name ,
+            //   saucePrice:ss.price ,
+            // ));
+          });
+        }
+      }
+    }
+  }
+
   ///**********************************************************************/
   // var additionalToppings = [
   //   additionalTopping(extraName: 'Add Extra Meat',extraPrice: 1.99, extraStute1: false),
@@ -118,7 +206,6 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
 
   /// ********************************************/
 
-
   /// *************************************/
 
   bool isLoading = false;
@@ -127,12 +214,13 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
   int additionalnum = -1;
 
   List<get_list_additions>? list_additions;
+
   ///**********************************************************************/
 
   ///additions
 
   var sAd = [];
-  double additionsSelectionPrice=0;
+  double additionsSelectionPrice = 0;
 
   // FutureBuilderGetAdditions() => FutureBuilder<List<get_additions>>(
   //   future: GetAllMenu().get_additions_Data(),
@@ -151,20 +239,20 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
   // );
 
   splitAdditions(/*List<get_additions>? additions*/) async {
-    var x=await GetAllMenu().get_additions_Data();
+    var x = await GetAllMenu().get_additions_Data();
     for (var rr in x) {
       print(rr.additions_name);
       setState(() {
         sAd.add(AdditionalTopping(
           additions_id: rr.additions_id,
           extraName: rr.additions_name,
-          extraPrice: rr.additions_price??9.9,
+          extraPrice: rr.additions_price ?? 9.9,
           extraStute1: false,
         ));
       });
-
     }
   }
+
   ///**********************************************************************/
   @override
   void initState() {
@@ -176,7 +264,11 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
     splitAdditions();
     splitSauce();
     // set_list_additions();
-
+    splitFreeAdding();
+    print('widget.food');
+    print(widget.food.food_name);
+    print(widget.food.is_free1);
+    print('End');
     // list_suaces = [];
     // GetAllMenuGet_additions_Data();
     super.initState();
@@ -312,684 +404,685 @@ print('widget.food.food_id!  = '+widget.food.food_id!.toString());
 
   /// *********************************************************************/
 
-
-
-
   TextEditingController? controllerInstruction = TextEditingController();
-
-
 
   /// *********************************************************************/
   @override
   Widget build(BuildContext context) {
     // FutureBuilderGetAdditions();
     // list_suaces = [];
-    int num=0;
-    double total=0;
-    var count=Provider.of<ProductPageVariables>(context);
-setState(() {
-  num=int.tryParse(count.controllerCountItems!.text.toString())??1;
-  print('nummm'+num.toString());
-  // BtnSpinnr.controllerCountItems;
-  total=(widget.food.food_price!+additionsSelectionPrice+_sauceSelectionPrice)*num;
-});
+    int num = 0;
+    double total = 0;
+    var count = Provider.of<ProductPageVariables>(context);
+    setState(() {
+      num = int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
+      print('nummm' + num.toString());
+      // BtnSpinnr.controllerCountItems;
+      total = (widget.food.food_price! +
+              additionsSelectionPrice +
+              _sauceSelectionPrice) *
+          num;
+    });
 
     return Scaffold(
-        drawer: const MyDrawer(),
-        appBar: MyAppBar(titel: widget.food.food_name!),
-        body: SingleChildScrollView(
-          child: GestureDetector(
-            onHorizontalDragCancel: (){
-              SystemChannels.textInput.invokeMethod('TextInput.hide');
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.025),
+      drawer: const MyDrawer(),
+      appBar: MyAppBar(titel: widget.food.food_name!),
+      body: SingleChildScrollView(
+        child: GestureDetector(
+          onHorizontalDragCancel: () {
+            SystemChannels.textInput.invokeMethod('TextInput.hide');
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: DimenApp.hightSc(context, hightPy: 0.025),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CachedNetworkImage(
+                  imageUrl: widget.food.food_image!,
+                  fit: BoxFit.fitHeight,
+                  height: DimenApp.hightSc(context, hightPy: 0.35),
+                  placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                    color: ColorsApp.primColr,
+                  )),
                 ),
-                Padding(
+
+                // Image.asset(
+                //   ImageApp.imGyro,
+                //   height: DimenApp.hightSc(context, hightPy: 0.4),
+                // ),
+              ),
+              // title item
+              Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CachedNetworkImage(
-                    imageUrl: widget.food.food_image!,
-                    fit: BoxFit.fitHeight,
-                    height: DimenApp.hightSc(context, hightPy: 0.35),
-                    placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(
-                      color: ColorsApp.primColr,
-                    )),
-                  ),
-
-                  // Image.asset(
-                  //   ImageApp.imGyro,
-                  //   height: DimenApp.hightSc(context, hightPy: 0.4),
-                  // ),
-                ),
-                // title item
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //name item
-                          Expanded(
-                            child: AStx(
-                              widget.food.food_name!,
-                              colr: ColorsApp.forPass1,
-                              size: 24,
-
-                              isBold: true,
-                            ),
-                          ),
-                          // AutoSizeText('Chicken Kabob',
-                          //     style: GoogleFonts.oxygen(
-                          //         color: ColorsApp.blak1,
-                          //         fontSize: 20,
-                          //         fontWeight: FontWeight.bold)),
-
-                          // هاي بدنا نزبها تحت جنب الكبسة
-                          //price item
-                          Padding(
-                            padding: const EdgeInsets.only(left: 11.0,top: 4.2,right: 11.0),
-                            child: AStx('\$${widget.food.food_price!}',
-                               size: 22,colr: ColorsApp.primColr,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //name item
+                        Expanded(
+                          child: AStx(
+                            widget.food.food_name!,
+                            colr: ColorsApp.forPass1,
+                            size: 24,
                             isBold: true,
-                              ),
                           ),
-                        ])),
-                //##################################################################
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.028),
+                        ),
+                        // AutoSizeText('Chicken Kabob',
+                        //     style: GoogleFonts.oxygen(
+                        //         color: ColorsApp.blak1,
+                        //         fontSize: 20,
+                        //         fontWeight: FontWeight.bold)),
+
+                        // هاي بدنا نزبها تحت جنب الكبسة
+                        //price item
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 11.0, top: 4.2, right: 11.0),
+                          child: AStx(
+                            '\$${widget.food.food_price!}',
+                            size: 22,
+                            colr: ColorsApp.primColr,
+                            isBold: true,
+                          ),
+                        ),
+                      ])),
+              //##################################################################
+              SizedBox(
+                height: DimenApp.hightSc(context, hightPy: 0.028),
+              ),
+              //##################################################################
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AStx(
+                  widget.food.food_description!,
+                  size: 15,
+                  colr: ColorsApp.blak50,
+                  MLin: 3,
                 ),
-                //##################################################################
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AStx(
-                    widget.food.food_description!,
-                    size: 15,
-                    colr: ColorsApp.blak50,
-                    MLin: 3,
-                  ),
-                  // AutoSizeText(
-                  //     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
-                  //     style: GoogleFonts.oxygen(
-                  //       fontSize: 15,
-                  //       color: ColorsApp.blak50,
-                  //     )),
-                ),
-                //##################################################################
-                SizedBox(
-                  height: DimenApp.hightSc(context, hightPy: 0.028),
-                ),
-                //##################################################################
-                /************************************************************************/
-                //this menu for  /" Platters "\
-                /************************************************************************/
+                // AutoSizeText(
+                //     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
+                //     style: GoogleFonts.oxygen(
+                //       fontSize: 15,
+                //       color: ColorsApp.blak50,
+                //     )),
+              ),
+              //##################################################################
+              SizedBox(
+                height: DimenApp.hightSc(context, hightPy: 0.028),
+              ),
+              //##################################################################
+              /************************************************************************/
+              //this menu for  /" Platters "\
+              /************************************************************************/
 
 //   width: DimenApp.widthSc(context),
 //           height: DimenApp.hightSc(context),
 
-                /************************************************************************/
-                // Choice of Suace (radio button)
-                /************************************************************************/
-                SizedBox(
-                  width: DimenApp.widthSc(context),
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: DimenApp.widthSc(context, widthPy: 0.01),
-                            ),
-                            AStx(
-                              'Choice of Sauce',
-                              colr: ColorsApp.forPass1,
-                              size: 20,
-                              isBold: true,
-                            ),
-                            // AutoSizeText('Choice of Suace',
-                            //     style: GoogleFonts.oxygen(
-                            //         fontSize: 20, fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                        SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.05),
-                        ),
-                        Column(
-                          children:  [
-                            /****************************************************************/
+              /************************************************************************/
+              // Choice of Suace (radio button)
+              /************************************************************************/
+              SizedBox(
+                width: DimenApp.widthSc(context),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: DimenApp.widthSc(context, widthPy: 0.01),
+                          ),
+                          AStx(
+                            'Choice of Sauce',
+                            colr: ColorsApp.forPass1,
+                            size: 20,
+                            isBold: true,
+                          ),
+                          // AutoSizeText('Choice of Suace',
+                          //     style: GoogleFonts.oxygen(
+                          //         fontSize: 20, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.05),
+                      ),
+                      Column(
+                        children: [
+                          /****************************************************************/
 
-
-                            ...sSc.map((e) =>funSauce(e )
-                            , ),
-                            /****************************************************************/
-                            // ListTile(
-                            //   title: AStx(
-                            //     'Taziki Sauce',
-                            //     colr: ColorsApp.blakText,
-                            //   ),
-                            //   // Text('Taziki Sauce',
-                            //   //     style: GoogleFonts.oxygen(
-                            //   //       fontSize: 18,
-                            //   //     )),
-                            //   trailing:  AStx('01.2'),
-                            //   leading: Radio(
-                            //     activeColor: ColorsApp.primColr,
-                            //     value: BestTutorSite.TazikiSauce,
-                            //     groupValue: _site,
-                            //     onChanged: (BestTutorSite? value) {
-                            //       setState(() {
-                            //         _site = value!;
-                            //       });
-                            //     },
-                            //   ),
-                            // ),
-                            // ListTile(
-                            //   title: AStx(
-                            //     'Garlic Sauce',
-                            //     colr: ColorsApp.blakText,
-                            //   ),
-                            //   // AutoSizeText('Garlic Sauce',
-                            //   //     style: GoogleFonts.oxygen(
-                            //   //       fontSize: 18,
-                            //   //     )
-                            //
-                            //   // ),
-                            //   leading: Radio(
-                            //     activeColor: ColorsApp.primColr,
-                            //     value: BestTutorSite.GarlicSauce,
-                            //     groupValue: _site,
-                            //     onChanged: (BestTutorSite? value) {
-                            //       setState(() {
-                            //         _site = value!;
-                            //       });
-                            //     },
-                            //   ),
-                            // ),
-                            // ListTile(
-                            //   title: AStx(
-                            //     'Tahini Sauce ',
-                            //     colr: ColorsApp.blakText,
-                            //   ),
-                            //   // AutoSizeText(
-                            //   //   'Tahini Sauce ',
-                            //   //   style: GoogleFonts.oxygen(
-                            //   //     fontSize: 18,
-                            //   //   ),
-                            //   // ),
-                            //   leading: Radio(
-                            //     activeColor: ColorsApp.primColr,
-                            //     value: BestTutorSite.TahiniSauce,
-                            //     groupValue: _site,
-                            //     onChanged: (BestTutorSite? value) {
-                            //       setState(() {
-                            //         _site = value!;
-                            //       });
-                            //     },
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        /****************************************************************/
-
-                      ],
-                    ),
+                          ...sSc.map(
+                            (e) => funSauce(su: e),
+                          ),
+                          /****************************************************************/
+                          // ListTile(
+                          //   title: AStx(
+                          //     'Taziki Sauce',
+                          //     colr: ColorsApp.blakText,
+                          //   ),
+                          //   // Text('Taziki Sauce',
+                          //   //     style: GoogleFonts.oxygen(
+                          //   //       fontSize: 18,
+                          //   //     )),
+                          //   trailing:  AStx('01.2'),
+                          //   leading: Radio(
+                          //     activeColor: ColorsApp.primColr,
+                          //     value: BestTutorSite.TazikiSauce,
+                          //     groupValue: _site,
+                          //     onChanged: (BestTutorSite? value) {
+                          //       setState(() {
+                          //         _site = value!;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
+                          // ListTile(
+                          //   title: AStx(
+                          //     'Garlic Sauce',
+                          //     colr: ColorsApp.blakText,
+                          //   ),
+                          //   // AutoSizeText('Garlic Sauce',
+                          //   //     style: GoogleFonts.oxygen(
+                          //   //       fontSize: 18,
+                          //   //     )
+                          //
+                          //   // ),
+                          //   leading: Radio(
+                          //     activeColor: ColorsApp.primColr,
+                          //     value: BestTutorSite.GarlicSauce,
+                          //     groupValue: _site,
+                          //     onChanged: (BestTutorSite? value) {
+                          //       setState(() {
+                          //         _site = value!;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
+                          // ListTile(
+                          //   title: AStx(
+                          //     'Tahini Sauce ',
+                          //     colr: ColorsApp.blakText,
+                          //   ),
+                          //   // AutoSizeText(
+                          //   //   'Tahini Sauce ',
+                          //   //   style: GoogleFonts.oxygen(
+                          //   //     fontSize: 18,
+                          //   //   ),
+                          //   // ),
+                          //   leading: Radio(
+                          //     activeColor: ColorsApp.primColr,
+                          //     value: BestTutorSite.TahiniSauce,
+                          //     groupValue: _site,
+                          //     onChanged: (BestTutorSite? value) {
+                          //       setState(() {
+                          //         _site = value!;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                      /****************************************************************/
+                    ],
                   ),
                 ),
-                /************************************************************************/
-                // Instruction  (text area)
-                /************************************************************************/
-                SizedBox(
-                  width: DimenApp.widthSc(context),
-                  child: Card(
-                    color: ColorsApp.white1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        color: ColorsApp.white,
-                        child: TextField(
-                          // expands: true,
-                          decoration: InputDecoration(
-                            // filled: true,
-                            // fillColor: ColorsApp.primColr,
-                            focusColor: ColorsApp.primColr,
-                            labelStyle: GoogleFonts.oxygen(
+              ),
+              /************************************************************************/
+              // Instruction  (text area)
+              /************************************************************************/
+              SizedBox(
+                width: DimenApp.widthSc(context),
+                child: Card(
+                  color: ColorsApp.white1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      color: ColorsApp.white,
+                      child: TextField(
+                        // expands: true,
+                        decoration: InputDecoration(
+                          // filled: true,
+                          // fillColor: ColorsApp.primColr,
+                          focusColor: ColorsApp.primColr,
+                          labelStyle: GoogleFonts.oxygen(
+                            color: ColorsApp.primColr,
+                            // decorationStyle:TextDecorationStyle.dotted ,
+                          ),
+                          border: const OutlineInputBorder(
+                              // borderSide: BorderSide(
+                              //   width: 0,
+                              //   style: BorderStyle.none,
+                              //   color: ColorsApp.primColr,
+                              // ),
+                              // borderRadius: BorderRadius.circular(80.0),
+                              ),
+                          labelText: 'Instruction',
+                          hintText: 'instruction manual！\n\n\n\n\n',
+                          focusedBorder: OutlineInputBorder(
+                            // borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide(
                               color: ColorsApp.primColr,
-                              // decorationStyle:TextDecorationStyle.dotted ,
-
-                            ),
-                            border: const OutlineInputBorder(
-                                // borderSide: BorderSide(
-                                //   width: 0,
-                                //   style: BorderStyle.none,
-                                //   color: ColorsApp.primColr,
-                                // ),
-                                // borderRadius: BorderRadius.circular(80.0),
-                                ),
-                            labelText: 'Instruction',
-                            hintText: 'instruction manual！\n\n\n\n\n',
-                            focusedBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(25.0),
-                              borderSide: BorderSide(
-                                color: ColorsApp.primColr,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(25.0),
-                              borderSide: BorderSide(
-                                color: ColorsApp.primColr,
-                                width: 2.0,
-                              ),
                             ),
                           ),
-                          cursorColor: ColorsApp.primColr,
-                          controller: controllerInstruction,
-                          minLines: null,
-                          // any number you need (It works as the rows for the textarea)
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 4,
+                          enabledBorder: OutlineInputBorder(
+                            // borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide(
+                              color: ColorsApp.primColr,
+                              width: 2.0,
+                            ),
+                          ),
                         ),
+                        cursorColor: ColorsApp.primColr,
+                        controller: controllerInstruction,
+                        minLines: null,
+                        // any number you need (It works as the rows for the textarea)
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 4,
                       ),
                     ),
                   ),
                 ),
-                /************************************************************************/
-                //Additional Toppings (checkbox)
-                /************************************************************************/
-                SizedBox(
-                  width: DimenApp.widthSc(context),
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: DimenApp.widthSc(context, widthPy: 0.01),
-                            ),
-                            AStx(
-                              'Additional Toppings',
-                              colr: ColorsApp.forPass1,
-                              size: 20,
-                              isBold: true,
-                            ),
-                            // AutoSizeText('Additional Toppings',
-                            //     style: GoogleFonts.openSans(
-                            //         fontSize: 20, fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                        SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.05),
-                        ),
-                        Column(
-                          children: <Widget>[
-                            /****************************************************/
-                            // // listAdditionsIsEmpty!=-1?
-                            // // FutureBuilderGetAdditions(),
-                            //
-                            // // ListView.builder(
-                            // //   shrinkWrap: true,
-                            // //   itemCount: listAddi.length,
-                            // //   physics: const NeverScrollableScrollPhysics(),
-                            // //   // scrollDirection: Axis.horizontal,
-                            // //   itemBuilder: (context, index) {
-                            // //     // final list_addition = list_additions[index];
-                            // //     return listAddi[index];
-                            // //   },
-                            // // ),
-                            //
-                            // ...listAddi.map((e) => e),
-                            /****************************************************/
+              ),
+              /************************************************************************/
+              //Additional Toppings (checkbox)
+              /************************************************************************/
+              SizedBox(
+                width: DimenApp.widthSc(context),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: DimenApp.widthSc(context, widthPy: 0.01),
+                          ),
+                          AStx(
+                            'Additional Toppings',
+                            colr: ColorsApp.forPass1,
+                            size: 20,
+                            isBold: true,
+                          ),
+                          // AutoSizeText('Additional Toppings',
+                          //     style: GoogleFonts.openSans(
+                          //         fontSize: 20, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.05),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          /****************************************************/
+                          // // listAdditionsIsEmpty!=-1?
+                          // // FutureBuilderGetAdditions(),
+                          //
+                          // // ListView.builder(
+                          // //   shrinkWrap: true,
+                          // //   itemCount: listAddi.length,
+                          // //   physics: const NeverScrollableScrollPhysics(),
+                          // //   // scrollDirection: Axis.horizontal,
+                          // //   itemBuilder: (context, index) {
+                          // //     // final list_addition = list_additions[index];
+                          // //     return listAddi[index];
+                          // //   },
+                          // // ),
+                          //
+                          // ...listAddi.map((e) => e),
+                          /****************************************************/
 
-                            ...sAd.map((e) =>
-                            ListTile(
-                              title: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 8,
-                                    child: AStx(
-                                      e.extraName,
-                                      colr: ColorsApp.blakText,
-                                      MLin: 2,
+                          ...sAd.map((e) => ListTile(
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 8,
+                                      child: AStx(
+                                        e.extraName,
+                                        colr: ColorsApp.blakText,
+                                        MLin: 2,
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: AStx(
-                                      '\$'+ e.extraPrice.toString(),
-                                         colr: ColorsApp.primColr,
-                                      MLin: 2,
+                                    Expanded(
+                                      flex: 2,
+                                      child: AStx(
+                                        '\$' + e.extraPrice.toString(),
+                                        colr: ColorsApp.primColr,
+                                        MLin: 2,
+                                      ),
                                     ),
-                                  ),
-                                  // AutoSizeText(e.extraName,
-                                  //     style: GoogleFonts.oxygen(
-                                  //       fontSize: 18,
-                                  //     )),
-                                  // AutoSizeText(e.extraPrice,
-                                  //     style: GoogleFonts.oxygen(
-                                  //       fontSize: 18,
-                                  //     )),
-                                ],
-                              ),
-                              leading: Checkbox(
-                                activeColor: ColorsApp.primColr,
-                                value: e.extraStute1,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    e.extraStute1 = value!;
-                                    if (e.extraStute1) {
-                                      setState(() {
-                                        additionalToppingsChose.add(e.additions_id);
-                                        additionsSelectionPrice+=e.extraPrice;
-                                      });
+                                    // AutoSizeText(e.extraName,
+                                    //     style: GoogleFonts.oxygen(
+                                    //       fontSize: 18,
+                                    //     )),
+                                    // AutoSizeText(e.extraPrice,
+                                    //     style: GoogleFonts.oxygen(
+                                    //       fontSize: 18,
+                                    //     )),
+                                  ],
+                                ),
+                                leading: Checkbox(
+                                  activeColor: ColorsApp.primColr,
+                                  value: e.extraStute1,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      e.extraStute1 = value!;
+                                      if (e.extraStute1) {
+                                        setState(() {
+                                          additionalToppingsChose
+                                              .add(e.additions_id);
+                                          additionsSelectionPrice +=
+                                              e.extraPrice;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          additionalToppingsChose
+                                              .remove(e.additions_id);
+                                          additionsSelectionPrice -=
+                                              e.extraPrice;
+                                        });
+                                      }
+                                    });
+                                  },
+                                ),
+                              )),
+                          /***************************************************/
+                          TextButton(
+                              onPressed: () {
+                                print(additionalToppingsChose);
+                                print(additionsSelectionPrice);
+                                print(controllerInstruction!.text);
+                              },
+                              child: Text('Choice of Suace',
+                                  style: GoogleFonts.oxygen(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)))
+                        ],
+                      ),
 
-                                    } else {
-                                      setState(() {
-                                        additionalToppingsChose
-                                            .remove(e.additions_id);
-                                        additionsSelectionPrice-=e.extraPrice;
-                                      });
-
-                                    }
-                                  });
-                                },
-                              ),
-                            )),
-                            /***************************************************/
-                            TextButton(
-                                onPressed: () {
-                                  print(additionalToppingsChose);
-                                  print(additionsSelectionPrice);
-                                  print( controllerInstruction!.text );
-
-                                },
-                                child:  Text('Choice of Suace',
-                                    style: GoogleFonts.oxygen(
-                                        fontSize: 20, fontWeight: FontWeight.bold)))
-                          ],
-                        ),
-
-                        /****************************************************************/
-                      ],
-                    ),
+                      /****************************************************************/
+                    ],
                   ),
                 ),
-                /************************************************************************/
-                //count items  (spinner button)
-                /************************************************************************/
-                Center(
-                  child: SizedBox(
-                    width: DimenApp.widthSc(
-                      context,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //     // ++++++
-                            //     SizedBox(
-                            //       width:88 ,//DimenApp.widthSc(context, widthPy: 0.16),
-                            //       height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                            //       child: Container(
-                            //      margin: const EdgeInsets.only(top: 4.5 ),
-                            // //for web        margin: const EdgeInsets.only(top: 4.5,bottom: 5),
-                            //         decoration: BoxDecoration(
-                            //           color: ColorsApp.primColr,
-                            //           borderRadius: const BorderRadius.only(
-                            //             topLeft: Radius.circular(40),
-                            //             bottomLeft: Radius.circular(40),
-                            //           ),
-                            //           border: Border.all(
-                            //             width: 3,
-                            //             color: ColorsApp.primColr,
-                            //             style: BorderStyle.solid,
-                            //           ),
-                            //         ),
-                            //         child: TextButton(
-                            //           onPressed: () {
-                            //             if (CountItems < 55) {
-                            //               CountItems++;
-                            //               controllerCountItems.text =
-                            //                   CountItems.toString();
-                            //             }
-                            //           },
-                            //           child: const AutoSizeText('+',
-                            //               style: GoogleFonts.oxygen(
-                            //                 fontSize: 38,
-                            //                 color: Colors.black54,
-                            //               )),
-                            //         ),
-                            //       ),
-                            //     ),
+              ),
+              /************************************************************************/
+              //for free like drink (radio button)
+              /************************************************************************/
+              freePluginFormat(free1Adding, 1,titleFree1),
+              freePluginFormat(free2Adding, 2,titleFree2),
+              freePluginFormat(free3Adding, 3,titleFree3),
+              /************************************************************************/
+              //count items  (spinner button)
+              /************************************************************************/
+              Center(
+                child: SizedBox(
+                  width: DimenApp.widthSc(
+                    context,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //     // ++++++
+                          //     SizedBox(
+                          //       width:88 ,//DimenApp.widthSc(context, widthPy: 0.16),
+                          //       height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
+                          //       child: Container(
+                          //      margin: const EdgeInsets.only(top: 4.5 ),
+                          // //for web        margin: const EdgeInsets.only(top: 4.5,bottom: 5),
+                          //         decoration: BoxDecoration(
+                          //           color: ColorsApp.primColr,
+                          //           borderRadius: const BorderRadius.only(
+                          //             topLeft: Radius.circular(40),
+                          //             bottomLeft: Radius.circular(40),
+                          //           ),
+                          //           border: Border.all(
+                          //             width: 3,
+                          //             color: ColorsApp.primColr,
+                          //             style: BorderStyle.solid,
+                          //           ),
+                          //         ),
+                          //         child: TextButton(
+                          //           onPressed: () {
+                          //             if (CountItems < 55) {
+                          //               CountItems++;
+                          //               controllerCountItems.text =
+                          //                   CountItems.toString();
+                          //             }
+                          //           },
+                          //           child: const AutoSizeText('+',
+                          //               style: GoogleFonts.oxygen(
+                          //                 fontSize: 38,
+                          //                 color: Colors.black54,
+                          //               )),
+                          //         ),
+                          //       ),
+                          //     ),
 
-                            /********************************************************************/
-                            // text filed spinner
-                            /********************************************************************/
-                            SizedBox(
-                              height:
-                                  DimenApp.hightSc(context, hightPy: 0.13), //128,
-                            ),
+                          /********************************************************************/
+                          // text filed spinner
+                          /********************************************************************/
+                          SizedBox(
+                            height:
+                                DimenApp.hightSc(context, hightPy: 0.13), //128,
+                          ),
 
-                            BtnSpinnr(
+                          BtnSpinnr(
                               // controllerCountItems:  controllerCountItems,
-                            ),
-
-                            // Container(
-                            //   width: DimenApp.widthSc(context, widthPy: 0.6),
-                            //   // 200,
-                            //   // ,
-                            //   height:80, //DimenApp.hightSc(context, hightPy: 0.11),
-                            //   //128,
-                            //   // color: Colors.blue,
-                            //
-                            //   // margin: const EdgeInsets.only(top: 0, bottom: 2),
-                            //   padding: const EdgeInsets.all(10),
-                            //   child: Card(
-                            //     color: ColorsApp.white1,
-                            //     child: TextField(
-                            //       controller: controllerCountItems,
-                            //       readOnly: true,
-                            //       textAlign: TextAlign.center,
-                            //       decoration: InputDecoration(
-                            //         border: InputBorder.none,
-                            //         // border: OutlineInputBorder(
-                            //         //     // borderRadius: BorderRadius.circular(10.0),
-                            //         //     ),
-                            //         icon: IconButton(
-                            //             onPressed: () {
-                            //               if (CountItems < 55) {
-                            //                 CountItems++;
-                            //                 controllerCountItems.text =
-                            //                     CountItems.toString();
-                            //               }
-                            //             },
-                            //             icon: FaIcon(
-                            //               FontAwesomeIcons.plus,
-                            //               color: ColorsApp.primColr,
-                            //             )),
-                            //         suffixIcon: IconButton(
-                            //           onPressed: () {
-                            //             if (CountItems > 1) {
-                            //               CountItems--;
-                            //               controllerCountItems.text =
-                            //                   CountItems.toString();
-                            //             }
-                            //           },
-                            //           icon: FaIcon(
-                            //             FontAwesomeIcons.minus,
-                            //             color: ColorsApp.primColr,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(18.0),
-                            //     ),
-                            //     shadowColor: ColorsApp.blak50,
-                            //     elevation: 8,
-                            //   ),
-                            // ),
-
-                            /****************************************************************/
-                            //  // ------
-
-                            //  SizedBox(
-                            //    width: 88,//DimenApp.widthSc(context, widthPy: 0.16),
-                            //    height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                            //    child: Container(
-                            //      margin: const EdgeInsets.only(top: 4.5 ),
-                            // //for web     // margin: const EdgeInsets.only(top: 4.5,bottom: 5),
-                            //      decoration: BoxDecoration(
-                            //        color: ColorsApp.primColr,
-                            //        borderRadius: const BorderRadius.only(
-                            //          topRight: Radius.circular(40),
-                            //          bottomRight: Radius.circular(40),
-                            //        ),
-                            //        border: Border.all(
-                            //          width: 3,
-                            //          color: ColorsApp.primColr,
-                            //          style: BorderStyle.solid,
-                            //        ),
-                            //      ),
-                            //
-                            //      child: TextButton(
-                            //        onPressed: () {
-                            //          if (CountItems > 1) {
-                            //            CountItems--;
-                            //            controllerCountItems.text =
-                            //                CountItems.toString();
-                            //          }
-                            //        },
-                            //        child: const AutoSizeText('-',
-                            //            style: GoogleFonts.oxygen(
-                            //              fontSize: 38,
-                            //              color: Colors.black54,
-                            //            )),
-                            //      ),
-                            //    ),
-                            //  ),
-                          ],
-                        ),
-
-                        /****************************************************************/
-                      ],
-                    ),
-                  ),
-                ),
-                /************************************************************************/
-                //Button add to cart
-                /************************************************************************/
-                //button 1 Submit
-                /************************************************************************/
-                Center(
-                  child: Container(
-                    height: DimenApp.hightSc(context, hightPy: 0.1),
-                    width: DimenApp.widthSc(context),
-                    padding: const EdgeInsets.only(bottom: 15),
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      height: DimenApp.hightSc(context, hightPy: 0.08),
-                      width: DimenApp.widthSc(context, widthPy: 0.82),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          primary: ColorsApp.primColr,
-                          shadowColor: ColorsApp.blak50,
-                          elevation: 7,
-                        ),
-                        onPressed: () async {
-                          for (var i in additionalToppingsChose) {
-                            print('additionalToppingsChose   ${i.additions_name}');
-                          }
-                          setState(() {
-                            isLoading = true;
-                          });
-                          await Future.delayed(const Duration(seconds: 1));
-                          setState(() {
-                            isLoading = false;
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) => PageHome()));
-                          // Fluttertoast.showToast(
-                          //     msg: "This is Center Short Toast",
-                          //     toastLength: Toast.LENGTH_SHORT,
-                          //     // gravity: ToastGravity.CENTER,
-                          //     timeInSecForIosWeb: 5,
-                          //     backgroundColor: Colors.green.shade600.withOpacity(0.7),
-                          //     textColor: Colors.white,
-                          //     fontSize: 16.0,
-                          // );
-
-                          // _showBuilderToast();
-                          _showToast(count.controllerCountItems!.text.toString());
-                          print('listAdditionsIsEmpty $listAdditionsIsEmpty');
-                          print(widget.food.food_id);
-                        },
-                        child: (isLoading)
-                            ? const SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 1.5,
-                                ))
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  AStx(
-                                    'Add to Cart',
-                                    size: 22,
-                                    colr: Colors.black54,
-                                  ),
-                                  // price item
-                                  AStx(
-                                    '\$$total',
-                                    size: 20,
-                                    isBold: true,
-                                    colr: Colors.black54.withOpacity(0.5),
-                                  ),
-                                  // AutoSizeText(
-                                  //   'Add to Cart',
-                                  //   style: GoogleFonts.oxygen(
-                                  //     fontSize: 22,
-                                  //     color: Colors.black54,
-                                  //   ),
-                                  // ),
-                                  // price item
-                                  // AutoSizeText('\$5.00',
-                                  //     style: GoogleFonts.oxygen(
-                                  //       fontSize: 17,
-                                  //       fontWeight: FontWeight.bold,
-                                  //       color: Colors.black54.withOpacity(0.5),
-                                  //     )),
-                                ],
                               ),
+
+                          // Container(
+                          //   width: DimenApp.widthSc(context, widthPy: 0.6),
+                          //   // 200,
+                          //   // ,
+                          //   height:80, //DimenApp.hightSc(context, hightPy: 0.11),
+                          //   //128,
+                          //   // color: Colors.blue,
+                          //
+                          //   // margin: const EdgeInsets.only(top: 0, bottom: 2),
+                          //   padding: const EdgeInsets.all(10),
+                          //   child: Card(
+                          //     color: ColorsApp.white1,
+                          //     child: TextField(
+                          //       controller: controllerCountItems,
+                          //       readOnly: true,
+                          //       textAlign: TextAlign.center,
+                          //       decoration: InputDecoration(
+                          //         border: InputBorder.none,
+                          //         // border: OutlineInputBorder(
+                          //         //     // borderRadius: BorderRadius.circular(10.0),
+                          //         //     ),
+                          //         icon: IconButton(
+                          //             onPressed: () {
+                          //               if (CountItems < 55) {
+                          //                 CountItems++;
+                          //                 controllerCountItems.text =
+                          //                     CountItems.toString();
+                          //               }
+                          //             },
+                          //             icon: FaIcon(
+                          //               FontAwesomeIcons.plus,
+                          //               color: ColorsApp.primColr,
+                          //             )),
+                          //         suffixIcon: IconButton(
+                          //           onPressed: () {
+                          //             if (CountItems > 1) {
+                          //               CountItems--;
+                          //               controllerCountItems.text =
+                          //                   CountItems.toString();
+                          //             }
+                          //           },
+                          //           icon: FaIcon(
+                          //             FontAwesomeIcons.minus,
+                          //             color: ColorsApp.primColr,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(18.0),
+                          //     ),
+                          //     shadowColor: ColorsApp.blak50,
+                          //     elevation: 8,
+                          //   ),
+                          // ),
+
+                          /****************************************************************/
+                          //  // ------
+
+                          //  SizedBox(
+                          //    width: 88,//DimenApp.widthSc(context, widthPy: 0.16),
+                          //    height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
+                          //    child: Container(
+                          //      margin: const EdgeInsets.only(top: 4.5 ),
+                          // //for web     // margin: const EdgeInsets.only(top: 4.5,bottom: 5),
+                          //      decoration: BoxDecoration(
+                          //        color: ColorsApp.primColr,
+                          //        borderRadius: const BorderRadius.only(
+                          //          topRight: Radius.circular(40),
+                          //          bottomRight: Radius.circular(40),
+                          //        ),
+                          //        border: Border.all(
+                          //          width: 3,
+                          //          color: ColorsApp.primColr,
+                          //          style: BorderStyle.solid,
+                          //        ),
+                          //      ),
+                          //
+                          //      child: TextButton(
+                          //        onPressed: () {
+                          //          if (CountItems > 1) {
+                          //            CountItems--;
+                          //            controllerCountItems.text =
+                          //                CountItems.toString();
+                          //          }
+                          //        },
+                          //        child: const AutoSizeText('-',
+                          //            style: GoogleFonts.oxygen(
+                          //              fontSize: 38,
+                          //              color: Colors.black54,
+                          //            )),
+                          //      ),
+                          //    ),
+                          //  ),
+                        ],
                       ),
+
+                      /****************************************************************/
+                    ],
+                  ),
+                ),
+              ),
+              /************************************************************************/
+              //Button add to cart
+              /************************************************************************/
+              //button 1 Submit
+              /************************************************************************/
+              Center(
+                child: Container(
+                  height: DimenApp.hightSc(context, hightPy: 0.1),
+                  width: DimenApp.widthSc(context),
+                  padding: const EdgeInsets.only(bottom: 15),
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.08),
+                    width: DimenApp.widthSc(context, widthPy: 0.82),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        primary: ColorsApp.primColr,
+                        shadowColor: ColorsApp.blak50,
+                        elevation: 7,
+                      ),
+                      onPressed: () async {
+                        for (var i in additionalToppingsChose) {
+                          print(
+                              'additionalToppingsChose   ${i.additions_name}');
+                        }
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await Future.delayed(const Duration(seconds: 1));
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => PageHome()));
+                        // Fluttertoast.showToast(
+                        //     msg: "This is Center Short Toast",
+                        //     toastLength: Toast.LENGTH_SHORT,
+                        //     // gravity: ToastGravity.CENTER,
+                        //     timeInSecForIosWeb: 5,
+                        //     backgroundColor: Colors.green.shade600.withOpacity(0.7),
+                        //     textColor: Colors.white,
+                        //     fontSize: 16.0,
+                        // );
+
+                        // _showBuilderToast();
+                        _showToast(count.controllerCountItems!.text.toString());
+                        print('listAdditionsIsEmpty $listAdditionsIsEmpty');
+                        print(widget.food.food_id);
+                      },
+                      child: (isLoading)
+                          ? const SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 1.5,
+                              ))
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                AStx(
+                                  'Add to Cart',
+                                  size: 22,
+                                  colr: Colors.black54,
+                                ),
+                                // price item
+                                AStx(
+                                  '\$$total',
+                                  size: 20,
+                                  isBold: true,
+                                  colr: Colors.black54.withOpacity(0.5),
+                                ),
+                                // AutoSizeText(
+                                //   'Add to Cart',
+                                //   style: GoogleFonts.oxygen(
+                                //     fontSize: 22,
+                                //     color: Colors.black54,
+                                //   ),
+                                // ),
+                                // price item
+                                // AutoSizeText('\$5.00',
+                                //     style: GoogleFonts.oxygen(
+                                //       fontSize: 17,
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Colors.black54.withOpacity(0.5),
+                                //     )),
+                              ],
+                            ),
                     ),
                   ),
                 ),
-                /************************************************************************/
-              ],
-            ),
+              ),
+              /************************************************************************/
+            ],
           ),
         ),
-      )
-    ;
-
+      ),
+    );
   }
 
 /*******************************************************************************/
   //get_additions
   /// *****************************************************************************/
   List<get_additions>? additions;
-
-
 
 //   Widget buildAdditions(List<get_additions>? additions) {
 //     return ListView.builder(
@@ -1057,9 +1150,6 @@ setState(() {
 //       },
 //     );
 //   }
-
-
-
 
 /*******************************************************************************/
   //get_list_additions
@@ -1176,35 +1266,163 @@ setState(() {
       },
     );
   }
+
 /*******************************************************************************/
-///Radio Button
-funSauce(get_suace su) {
-  String prc=  su.price == 0.0 ? 'free':'\$'+su.price!.toString();
-  return ListTile(
-  title: AStx(
-    su.suace_name!,
-    colr: ColorsApp.blakText,
-  ),
-  // Text('Taziki Sauce',
-  //     style: GoogleFonts.oxygen(
-  //       fontSize: 18,
-  //     )),
-  trailing:  AStx(prc,colr: ColorsApp.primColr),
-  leading: Radio(
-    activeColor: ColorsApp.primColr,
-    value: su.suace_id.toString(),
-    groupValue: _sauceSelectionId,
-    onChanged: (String? value ) {
+
+  ///Radio Button
+  funSauce({get_food? food, get_suace? su, int? freeNum = 0}) {
+    String prc = su != null
+        ? (su.price == 0.0 ? 'free' : '\$' + su.price!.toString())
+        : "";
+    return ListTile(
+      title: AStx(
+        food == null ? su!.suace_name! : food.food_name!,
+        colr: ColorsApp.blakText,
+      ),
+      // Text('Taziki Sauce',
+      //     style: GoogleFonts.oxygen(
+      //       fontSize: 18,
+      //     )),
+      trailing: food == null ? AStx(prc, colr: ColorsApp.primColr) : null,
+      leading: Radio(
+        activeColor: ColorsApp.primColr,
+        value: su != null ? su.suace_id.toString() : food!.food_id.toString(),
+        groupValue: freeNum == 0
+            ? _sauceSelectionId
+            : freeNum == 1
+                ? _freeAdding1SelectionId
+                : freeNum == 2
+                    ? _freeAdding2SelectionId
+                    : _freeAdding3SelectionId,
+        onChanged: (String? value) {
           setState(() {
-            _sauceSelectionId = value!;
-            _sauceSelectionPrice=su.price!;
+            freeNum == 0
+                ? _sauceSelectionId = value!
+                : freeNum == 1
+                    ? _freeAdding1SelectionId = value!
+                    : freeNum == 2
+                        ? _freeAdding2SelectionId = value!
+                        : _freeAdding3SelectionId = value!;
+            // ignore: unnecessary_null_comparison
+            _sauceSelectionPrice = (su != null ? su.price : 0)!;
           });
         },
-  ),
-);
-}
+      ),
+    );
+  }
 
+/*******************************************************************************/
+/*******************************************************************************/
+////////////////////////////Free plugin format
+  freePluginFormat(List freeAdding, int freeNum ,String titleFree) {
+    return !freeAdding.isEmpty
+        ? SizedBox(
+            width: DimenApp.widthSc(context),
+            child: Card(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: DimenApp.widthSc(context, widthPy: 0.01),
+                      ),
+                      AStx(
+                        'Free   ${titleFree}',
+                        colr: ColorsApp.forPass1,
+                        size: 20,
+                        isBold: true,
+                      ),
+                      // AutoSizeText('Choice of Suace',
+                      //     style: GoogleFonts.oxygen(
+                      //         fontSize: 20, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.05),
+                  ),
+                  Column(
+                    children: [
+                      /****************************************************************/
 
+                      ...freeAdding.map(
+                        (e) => funSauce(food: e, freeNum: freeNum),
+                      ),
+                      /****************************************************************/
+                      // ListTile(
+                      //   title: AStx(
+                      //     'Taziki Sauce',
+                      //     colr: ColorsApp.blakText,
+                      //   ),
+                      //   // Text('Taziki Sauce',
+                      //   //     style: GoogleFonts.oxygen(
+                      //   //       fontSize: 18,
+                      //   //     )),
+                      //   trailing:  AStx('01.2'),
+                      //   leading: Radio(
+                      //     activeColor: ColorsApp.primColr,
+                      //     value: BestTutorSite.TazikiSauce,
+                      //     groupValue: _site,
+                      //     onChanged: (BestTutorSite? value) {
+                      //       setState(() {
+                      //         _site = value!;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   title: AStx(
+                      //     'Garlic Sauce',
+                      //     colr: ColorsApp.blakText,
+                      //   ),
+                      //   // AutoSizeText('Garlic Sauce',
+                      //   //     style: GoogleFonts.oxygen(
+                      //   //       fontSize: 18,
+                      //   //     )
+                      //
+                      //   // ),
+                      //   leading: Radio(
+                      //     activeColor: ColorsApp.primColr,
+                      //     value: BestTutorSite.GarlicSauce,
+                      //     groupValue: _site,
+                      //     onChanged: (BestTutorSite? value) {
+                      //       setState(() {
+                      //         _site = value!;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   title: AStx(
+                      //     'Tahini Sauce ',
+                      //     colr: ColorsApp.blakText,
+                      //   ),
+                      //   // AutoSizeText(
+                      //   //   'Tahini Sauce ',
+                      //   //   style: GoogleFonts.oxygen(
+                      //   //     fontSize: 18,
+                      //   //   ),
+                      //   // ),
+                      //   leading: Radio(
+                      //     activeColor: ColorsApp.primColr,
+                      //     value: BestTutorSite.TahiniSauce,
+                      //     groupValue: _site,
+                      //     onChanged: (BestTutorSite? value) {
+                      //       setState(() {
+                      //         _site = value!;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                  /****************************************************************/
+                ],
+              ),
+            ),
+          )
+        : Container();
+  }
+/*******************************************************************************/
 /*******************************************************************************/
 
 }

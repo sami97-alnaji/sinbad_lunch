@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,13 +19,13 @@ class btnMenuItems extends StatelessWidget {
       Key? key})
       : super(key: key);
   TextEditingController? controllerCountItems;
-  String? imageItem, nameItem,  titelItem;
+  String? imageItem, nameItem, titelItem;
   Function()? onTab = () {};
-  double? pricceItem,height;
+  double? pricceItem, height;
 
   @override
   Widget build(BuildContext context) {
-    double imgSiz =90;
+    double imgSiz = 90;
     return SizedBox(
       height: DimenApp.hightSc(context, hightPy: height ?? 0.38),
       child: Container(
@@ -39,14 +41,15 @@ class btnMenuItems extends StatelessWidget {
                 Expanded(
                   flex: 7,
                   // child: Card(
-                  child:
-                  CachedNetworkImage(
-                    imageUrl:  imageItem!,
+                  child: CachedNetworkImage(
+                    imageUrl: imageItem!,
                     fit: BoxFit.fitHeight,
                     height: imgSiz,
                     width: imgSiz,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
-
+                    placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(
+                      color: ColorsApp.primColr,
+                    )),
                   ),
 
                   // Image.asset(
@@ -77,29 +80,31 @@ class btnMenuItems extends StatelessWidget {
                                 children: [
                                   Container(
                                     // height: DimenApp.hightSc(context, hightPy: height ?? 0.28),
-                                    width: DimenApp.widthSc(context, widthPy: 0.6),
+                                    width:
+                                        DimenApp.widthSc(context, widthPy: 0.6),
                                     child: AStx(nameItem!,
                                         size: 18,
                                         isBold: true,
                                         colr: ColorsApp.primColr,
-                                    MLin: 2),
+                                        MLin: 2),
                                   ),
                                   // Container(
                                   //   // height: DimenApp.hightSc(context, hightPy:  0.2),
                                   //   width: DimenApp.widthSc(context ),
                                   //   child:
-                                    Flexible(
-                                      child: SizedBox(
-                                        height: 30,
-                                        width:  DimenApp.widthSc(context,widthPy: 0.5 ),
-                                        child: AStx(
-                                          titelItem!,
-                                          size: 18,
-                                          colr: ColorsApp.blak50,
-                                          MLin: 3,
-                                        ),
+                                  Flexible(
+                                    child: SizedBox(
+                                      height: 30,
+                                      width: DimenApp.widthSc(context,
+                                          widthPy: 0.5),
+                                      child: AStx(
+                                        titelItem!,
+                                        size: 18,
+                                        colr: ColorsApp.blak50,
+                                        MLin: 3,
                                       ),
                                     ),
+                                  ),
                                   // ),
                                 ],
                               ),
@@ -113,8 +118,8 @@ class btnMenuItems extends StatelessWidget {
                             children: [
                               Expanded(
                                 flex: 3,
-                                child: AStx("\$"+
-                                  pricceItem!.toString(),
+                                child: AStx(
+                                  "\$" + pricceItem!.toString(),
                                   size: 20,
                                   isBold: true,
                                 ),
@@ -122,7 +127,7 @@ class btnMenuItems extends StatelessWidget {
                               SizedBox(
                                 width: DimenApp.widthSc(context, widthPy: 0.1),
                                 child: ElevatedButton(
-                                  onPressed:onTab,
+                                  onPressed: onTab,
                                   child: FaIcon(
                                     FontAwesomeIcons.plus,
                                     color: ColorsApp.white1,

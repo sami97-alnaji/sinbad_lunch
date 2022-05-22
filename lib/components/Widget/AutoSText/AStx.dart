@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,9 @@ import 'package:sinbad_lunch/components/Colors/colors.dart';
 // ignore: must_be_immutable
 class AStx extends StatefulWidget {
   // ignore: non_constant_identifier_names
-  AStx(this.label, {this.size = 18, this.isBold = false,this.colr ,this.MLin=2, Key? key})
-      : super(key: key)  ;
+  AStx(this.label,
+      {this.size = 18, this.isBold = false, this.colr, this.MLin = 2, Key? key})
+      : super(key: key);
   String label;
   bool? isBold;
   double? size;
@@ -38,14 +40,12 @@ class _AStxState extends State<AStx> {
       style: GoogleFonts.openSans(
         fontSize: widget.size,
         fontWeight: widget.isBold! ? FontWeight.bold : null,
-        color:widget.colr ?? ColorsApp.blak1 ,
-
-          ),
+        color: widget.colr ?? ColorsApp.blak1,
+      ),
       maxLines: widget.MLin,
-        softWrap:false,
+      softWrap: false,
       // overflow: TextOverflow.fade,
       overflow: TextOverflow.ellipsis,
-
     );
   }
 }

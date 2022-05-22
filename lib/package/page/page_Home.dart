@@ -1,5 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
-
+//flutter run -d chrome --web-renderer html
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -125,7 +125,7 @@ class _PageHomeState extends State<PageHome> {
     /****************************************************/
     /****************************************************/
     for (int i = 0; i < headlines.length; i++) {
-      int uu = i * 787456;
+      // int uu = i * 787456;
 
       setState(() {
         heddfr.add(headlines[i][1]);
@@ -156,12 +156,11 @@ class _PageHomeState extends State<PageHome> {
   late List<Widget> b = [];
   TextEditingController? controllerCountItems = TextEditingController();
   var count;
+
   @override
   Widget build(BuildContext context) {
     /****************************************************/
-       count =Provider.of<ProductPageVariables>(context);
-
-
+    count = Provider.of<ProductPageVariables>(context);
 
     /****************************************************/
     for (int i = 0; i < 10; i++) {
@@ -236,18 +235,77 @@ class _PageHomeState extends State<PageHome> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: SizedBox.fromSize(
-                        size: const Size.fromRadius(48),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "https://likedomens.000webhostapp.com/home_page_img.png",
-                          fit: BoxFit.fitHeight,
-                          height: DimenApp.hightSc(context, hightPy: 0.28),
-                          placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                            color: ColorsApp.primColr,
+                          size: const Size.fromRadius(48),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              //image set
+                              // Image.network( 'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
+                              //   fit: BoxFit.fitHeight,
+                              //   height:
+                              //   DimenApp.hightSc(context, hightPy: 0.28),
+                              //     loadingBuilder: (  ctx,   child,   loadingProgress) {
+                              //       if (loadingProgress == null) {
+                              //         return child;
+                              //       }else {
+                              //         return const Center(
+                              //           child: CircularProgressIndicator(
+                              //             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                              //           ),
+                              //         );
+                              //       }
+                              //     },
+
+
+
+                              // ),
+                              CachedNetworkImage(
+                                imageUrl:
+                                    'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
+                                // "https://likedomens.000webhostapp.com/home_page_img.png",
+                                fit: BoxFit.fitHeight,
+                                height:
+                                    DimenApp.hightSc(context, hightPy: 0.28),
+                                placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(
+                                  color: ColorsApp.primColr,
+                                )),
+                              ),
+                              // text set above the image ;
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 135.0, left: 10, right: 10),
+                                child: AStx(
+                                  'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY',
+                                  colr: ColorsApp.text1home,
+                                  size: 16,
+                                  isBold: true,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 86.0, left: 20, right: 20),
+                                child: AStx(
+                                  'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S',
+                                  colr: ColorsApp.text2home,
+                                  size: 13,
+                                  isBold: true,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 15, left: 30, right: 30),
+                                child: AStx(
+                                  ' WE ONLY ACCEPT '
+                                  ' ORDERS FROM 6:00AM  TILL 10:00 AM\n  ANY'
+                                  ' ORDER AFTER 10:00 WILL NOT BE  FILLED',
+                                  colr: ColorsApp.text3home,
+                                  size: 14,
+                                  isBold: true,
+                                ),
+                              ),
+                            ],
                           )),
-                        ),
-                      ),
                     ),
                     // child: CircleAvatar(
                     //    radius: 2,
@@ -470,7 +528,7 @@ class _PageHomeState extends State<PageHome> {
     );
   }
 
-/// *****************************************************************************/
+  /// *****************************************************************************/
   List<get_food>? foods;
 
   FutureBuilderGetFoodMenu() => FutureBuilder<List<get_food>>(
@@ -479,7 +537,7 @@ class _PageHomeState extends State<PageHome> {
         builder:
             (BuildContext context1, AsyncSnapshot<List<get_food>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            foods = snapshot.data;
+            foods = snapshot.data ;
             return buildFood(foods);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("loading ...");
@@ -494,19 +552,18 @@ class _PageHomeState extends State<PageHome> {
       shrinkWrap: true,
 //menu_type_id
       itemCount: foods!.length,
-      physics:   const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       // scrollDirection:Axis.vertical,
       itemBuilder: (context, index) {
         final food = foods[index];
-        if(food.menu_type_id==stopping_place_Btn) {
+        if (food.menu_type_id == stopping_place_Btn) {
           return btnMenuItems(
-              imageItem: food.food_image??ImageApp.imgLogo,
+              imageItem: food.food_image ?? ImageApp.imgLogo,
               nameItem: food.food_name ?? '',
               titelItem: food.food_description ?? '',
               pricceItem: food.food_price ?? 99.1,
               controllerCountItems: controllerCountItems,
               onTab: () {
-
                 count.reVariables();
                 Navigator.push(
                     context,
@@ -514,7 +571,7 @@ class _PageHomeState extends State<PageHome> {
                         builder: (BuildContext context) =>
                             PageProduct(food: food)));
               });
-        }else{
+        } else {
           return Container();
         }
         //   Card(
@@ -538,68 +595,69 @@ class _PageHomeState extends State<PageHome> {
     );
   }
 
-/// *****************************************************************************/
+  /// *****************************************************************************/
   List<get_menu_type>? menuTypes;
 
   FutureBuilderGet_menu_type() {
-
-      return FutureBuilder<List<get_menu_type>>(
-        future: GetAllMenu().get_menu_type_Data(),
-        // if you mean this method well return image url
-        builder: (BuildContext context,
-            AsyncSnapshot<List<get_menu_type>> snapshot) {
-          try {
-          if(snapshot.connectionState == ConnectionState.none){
-            return Center(child: AStx('some think is Warring'),);
-          }else if (snapshot.connectionState == ConnectionState.done) {
-            menuTypes = snapshot.data;
+    return FutureBuilder<List<get_menu_type>>(
+      future: GetAllMenu().get_menu_type_Data(),
+      // if you mean this method well return image url
+      builder:
+          (BuildContext context, AsyncSnapshot<List<get_menu_type>> snapshot) {
+        try {
+          if (snapshot.connectionState == ConnectionState.none) {
+            return Center(
+              child: AStx('some think is Warring'),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            menuTypes = snapshot.data  ;
             return buildMenuType(menuTypes);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("loading ...");
-          }  else if (snapshot.connectionState == ConnectionState.active) {
-            return CircularProgressIndicator(color: ColorsApp.primColr,);
+          } else if (snapshot.connectionState == ConnectionState.active) {
+            return CircularProgressIndicator(
+              color: ColorsApp.primColr,
+            );
           } else {
             return Container();
-          } } on Exception catch (_) {
-        print("throwing new error");
+          }
+        } on Exception catch (_) {
+          print("throwing new error");
 
-        throw Container();
-
-      }
-        },
-      );
-
-
-
+          throw Container();
+        }
+      },
+    );
   }
 
   Widget buildMenuType(List<get_menu_type>? menuTypes) {
     try {
-    return ListView.builder(
-      itemCount: menuTypes!.length,
-      physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        final menuType = menuTypes[index];
-        return btnCollection(
-          menuType.menu_type_name!.toString(),
-          menuType.image_menu!.toString(),
-          onTap: () {
-            funcOne();
-            setState(() {
-              stopping_place_Btn1 = menuType.menu_type_name!.toString();
-              stopping_place_Btn = menuType.menu_type_id!;
-            });
-            print(stopping_place_Btn1);
-          }, //e.onTap,
-        );
-      },
-    );
+      return ListView.builder(
+        itemCount: menuTypes!.length,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final menuType = menuTypes[index];
+          return btnCollection(
+            menuType.menu_type_name!.toString(),
+            menuType.image_menu!.toString(),
+            onTap: () {
+              funcOne();
+              setState(() {
+                stopping_place_Btn1 = menuType.menu_type_name!.toString();
+                stopping_place_Btn = menuType.menu_type_id!;
+              });
+              print(stopping_place_Btn1);
+            }, //e.onTap,
+          );
+        },
+      );
     } on Exception catch (_) {
       print("throwing new error");
 
-      throw Center(child: AStx('some think is Warring'),);
-
+      throw Center(
+        child: AStx('some think is Warring'),
+      );
     }
   }
 /*******************************************************************************/

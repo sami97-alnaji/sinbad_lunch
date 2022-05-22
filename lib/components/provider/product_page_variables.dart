@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class ProductPageVariables with ChangeNotifier {
   TextEditingController? controllerCountItems = TextEditingController();
 
-  // ignore: non_constant_identifier_names
   int _CountItems = 1;
 
   set CountItems(int value) {
@@ -13,16 +12,14 @@ class ProductPageVariables with ChangeNotifier {
     notifyListeners();
   }
 
-
-
   reVariables() {
     //   controllerCountItems = TextEditingController();
     //
 
-      CountItems = 1;
+    CountItems = 1;
     controllerCountItems!.text = _CountItems.toString();
     // print('provider');
-      notifyListeners();
+    notifyListeners();
   }
 
   minuss() {
@@ -32,7 +29,6 @@ class ProductPageVariables with ChangeNotifier {
       print(controllerCountItems!.text);
     }
     notifyListeners();
-
   }
 
   pulss() {
@@ -43,5 +39,4 @@ class ProductPageVariables with ChangeNotifier {
     }
     notifyListeners();
   }
-
 }
