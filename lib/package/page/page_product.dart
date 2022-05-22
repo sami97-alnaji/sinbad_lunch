@@ -21,21 +21,12 @@ import 'package:sinbad_lunch/model/menu/get_all/get_list_suace.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_suace.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
-enum BestTutorSite { TahiniSauce, GarlicSauce, TazikiSauce }
 
 class Order {
   get_food? plate;
   List<AdditionalTopping>? additional;
   get_suace? suace;
 }
-
-// class Sauce{
-//   int?sauceId;
-// double? saucePrice;
-// String? sauceName;
-//
-// Sauce({this.sauceId,this.saucePrice, this.sauceName});
-// }
 
 class AdditionalTopping {
   int? additions_id;
@@ -64,8 +55,6 @@ class PageProduct extends StatefulWidget {
 }
 
 class _PageProductState extends State<PageProduct> {
-  BestTutorSite _site = BestTutorSite.TazikiSauce;
-
   // ignore: unused_field
 
   ///**********************************************************************/
@@ -78,9 +67,9 @@ class _PageProductState extends State<PageProduct> {
   var free2Adding = [];
   var free3Adding = [];
 
-  var titleFree1  = '';
-  var titleFree2  = '';
-  var titleFree3  = '';
+  var titleFree1 = '';
+  var titleFree2 = '';
+  var titleFree3 = '';
 
   String _sauceSelectionId = '';
   String _freeAdding1SelectionId = '';
@@ -95,71 +84,52 @@ class _PageProductState extends State<PageProduct> {
       print(ss.suace_id);
       setState(() {
         sSc.add(ss);
-        // sSc.add(Sauce(
-        //   sauceId:ss.suace_id,
-        //   sauceName:ss.suace_name ,
-        //   saucePrice:ss.price ,
-        // ));
       });
       _sauceSelectionId = x[0].suace_id!.toString();
     }
   }
 
   splitFreeAdding() async {
-    // print('widget.food.is_free1.toString()');
-    // print(widget.food.is_free1.toString());
-    var x =widget.food.is_free1 != -1 || widget.food.is_free2 != -1 || widget.food.is_free3 != -1 ? await GetAllMenu().get_food_Data() :[] ;
-    var title = widget.food.is_free1 != -1 || widget.food.is_free2 != -1 || widget.food.is_free3 != -1 ? await GetAllMenu().get_menu_type_Data() :[] ;
-    for(var tt in title){
+    var x = widget.food.is_free1 != -1 ||
+        widget.food.is_free2 != -1 ||
+        widget.food.is_free3 != -1
+        ? await GetAllMenu().get_food_Data()
+        : [];
+    var title = widget.food.is_free1 != -1 ||
+        widget.food.is_free2 != -1 ||
+        widget.food.is_free3 != -1
+        ? await GetAllMenu().get_menu_type_Data()
+        : [];
+    for (var tt in title) {
       setState(() {
-        if(widget.food.is_free1==tt.menu_type_id){
-          titleFree1=tt.menu_type_name;
+        if (widget.food.is_free1 == tt.menu_type_id) {
+          titleFree1 = tt.menu_type_name;
         }
-        if(widget.food.is_free2==tt.menu_type_id){
-          titleFree2=tt.menu_type_name;
+        if (widget.food.is_free2 == tt.menu_type_id) {
+          titleFree2 = tt.menu_type_name;
         }
-        if(widget.food.is_free3==tt.menu_type_id){
-          titleFree3=tt.menu_type_name;
+        if (widget.food.is_free3 == tt.menu_type_id) {
+          titleFree3 = tt.menu_type_name;
         }
       });
-
-
     }
     if (widget.food.is_free1 != -1) {
-      // print('splitFreeadding1');
-      // var x = await GetAllMenu().get_food_Data();
-      // print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
-
       for (var ss in x) {
         if (widget.food.is_free1! == ss.menu_type_id) {
-
           print(ss.menu_type_id);
           setState(() {
             free1Adding.add(ss);
-            // sSc.add(Sauce(
-            //   sauceId:ss.suace_id,
-            //   sauceName:ss.suace_name ,
-            //   saucePrice:ss.price ,
-            // ));
           });
         }
       }
     }
 
     if (widget.food.is_free2 != -1) {
-      // print('splitFreeadding1');
-      // var x = await GetAllMenu().get_food_Data();
-      // print('widget.food.food_id!  = ' + widget.food.food_id!.toString());
       for (var ss in x) {
         if (widget.food.is_free2! == ss.menu_type_id) {
           print(ss.menu_type_id);
           setState(() {
             free2Adding.add(ss);
-            // sSc.add(Sauce(
-            //   sauceId:ss.suace_id,
-            //   sauceName:ss.suace_name ,
-            //   saucePrice:ss.price ,
-            // ));
           });
         }
       }
@@ -186,22 +156,8 @@ class _PageProductState extends State<PageProduct> {
   }
 
   ///**********************************************************************/
-  // var additionalToppings = [
-  //   additionalTopping(extraName: 'Add Extra Meat',extraPrice: 1.99, extraStute1: false),
-  //   additionalTopping('Calamata', '\$0.75', false),
-  //   additionalTopping('Jalapeno', '\$0.75', false),
-  //   additionalTopping('Extra Feta Sauce', '\$0.75', false),
-  //   additionalTopping('Extra Garlic Sauce', '\$0.75', false),
-  //   additionalTopping('Extra Tahini Sauce', '\$0.75', false),
-  //   additionalTopping('Extra Taziki Sauce', '\$0.75', false),
-  //   additionalTopping('Feta', '\$0.75', false),
-  //   additionalTopping('Sriacha', '\$1.00', false),
-  //   additionalTopping('Hummus', '\$0.75', false),
-  // ];
 
   bool value = false;
-
-  // List<get_additions> additionalToppingsChose = [];
   var additionalToppingsChose = [];
 
   /// ********************************************/
@@ -222,55 +178,36 @@ class _PageProductState extends State<PageProduct> {
   var sAd = [];
   double additionsSelectionPrice = 0;
 
-  // FutureBuilderGetAdditions() => FutureBuilder<List<get_additions>>(
-  //   future: GetAllMenu().get_additions_Data(),
-  //   // if you mean this method well return image url
-  //   builder: (BuildContext context1,
-  //       AsyncSnapshot<List<get_additions>> snapshot) {
-  //     if (snapshot.connectionState == ConnectionState.done) {
-  //       additions = snapshot.data;
-  //       return splictAdditi(additions);
-  //     } else if (snapshot.connectionState == ConnectionState.waiting) {
-  //       return const Text("loading ...");
-  //     } else {
-  //       return Container();
-  //     }
-  //   },
-  // );
-
-  splitAdditions(/*List<get_additions>? additions*/) async {
+  splitAdditions() async {
     var x = await GetAllMenu().get_additions_Data();
-    for (var rr in x) {
-      print(rr.additions_name);
-      setState(() {
-        sAd.add(AdditionalTopping(
-          additions_id: rr.additions_id,
-          extraName: rr.additions_name,
-          extraPrice: rr.additions_price ?? 9.9,
-          extraStute1: false,
-        ));
-      });
+    var l = await GetAllMenu().get_list_additions_Data();
+    for (var ll in l) {
+      if (widget.food.food_id == ll.food_id) {
+        for (var rr in x) {
+          if (ll.additions_id == rr.additions_id) {
+            print(rr.additions_name);
+            setState(() {
+              sAd.add(AdditionalTopping(
+                additions_id: rr.additions_id,
+                extraName: rr.additions_name,
+                extraPrice: rr.additions_price ?? 9.9,
+                extraStute1: false,
+              ));
+            });
+          }
+        }
+      }
     }
   }
 
   ///**********************************************************************/
   @override
   void initState() {
-    // BtnSpinnr.controllerCountItems!.text = CountItems.toString();
     fToast = FToast();
-    // fToast.init(globalKey.currentState!.context);
     setExtraStute();
-    // FutureBuilderGetAdditions();
     splitAdditions();
     splitSauce();
-    // set_list_additions();
     splitFreeAdding();
-    print('widget.food');
-    print(widget.food.food_name);
-    print(widget.food.is_free1);
-    print('End');
-    // list_suaces = [];
-    // GetAllMenuGet_additions_Data();
     super.initState();
   }
 
@@ -279,78 +216,10 @@ class _PageProductState extends State<PageProduct> {
     for (var i in w) {
       extraStute.addAll({i.additions_id: false});
     }
-    print('sdsdsdsd  $additionalnum');
-
-    // await FutureBuilderGetAdditions();
   }
 
   var x = false;
   var isSelection = [];
-
-  // GetAllMenuGet_additions_Data() async {
-  //   var cv = await GetAllMenu().get_additions_Data(widget.food.food_id!);
-  //   var lcv = await GetAllMenu().get_list_additions_Data();
-  //   for (var j in cv) {
-  //     for (var i in lcv) {
-  //       j.stut = false;
-  //       // print(' listAdditionsIsEmpty55dd55d5d5 += ${i}  ');
-  //       if (i.food_id == widget.food.food_id) {
-  //         // listAdditionsIsEmpty += 1;
-  //         isSelection.add(false);
-  //         if (i.additions_id == j.additions_id) {
-  //           setState(() {
-  //             listAdditionsIsEmpty = listAdditionsIsEmpty + 1;
-  //           });
-  //
-  //           listAddi.add(ListTile(
-  //             title: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 AStx(
-  //                   j.additions_name!,
-  //                 ),
-  //                 AStx(
-  //                   j.additions_price!.toString(),
-  //                 ),
-  //               ],
-  //             ),
-  //             leading: Checkbox(
-  //               activeColor: ColorsApp.primColr,
-  //               value: j.stut,
-  //               // isSelection[listAdditionsIsEmpty],//extraStute[additionalnum],
-  //               onChanged: (bool? value) {
-  //                 setState(() {
-  //                   x = value!;
-  //                   j.stut = value;
-  //                   isSelection[listAdditionsIsEmpty] =
-  //                       !isSelection[listAdditionsIsEmpty];
-  //                   additionalnum = j.additions_id!;
-  //                   // print(
-  //                   //     ' extraStute[additionalnum]  ${extraStute[additionalnum]}');
-  //                   // extraStute[additionalnum] = value!;
-  //                   // print(
-  //                   //     ' extraStute[additionalnum]Aftr  ${extraStute[additionalnum]}');
-  //                   //
-  //                   // print(' additionalnum  ${additionalnum}');
-  //                   if (j.stut! /*isSelection[listAdditionsIsEmpty]*/) {
-  //                     print(
-  //                         'j. isSelection[listAdditionsIsEmpty] ${isSelection[listAdditionsIsEmpty]}');
-  //
-  //                     additionalToppingsChose.add(j);
-  //                   } else {
-  //                     print('j.stutdddd');
-  //                     additionalToppingsChose.remove(j);
-  //                   }
-  //                 });
-  //               },
-  //             ),
-  //           ));
-  //           setState(() {});
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   int whereIs = 0;
   var hereAm = [];
@@ -380,6 +249,7 @@ class _PageProductState extends State<PageProduct> {
     );
   }
 
+  // ignore: unused_element
   _showBuilderToast(String fMss) {
     fToast.init(context).showToast(
         child: toast(fMss),
@@ -396,10 +266,10 @@ class _PageProductState extends State<PageProduct> {
 
   _showToast(String fMss) {
     fToast.init(context).showToast(
-          child: toast(fMss),
-          gravity: ToastGravity.BOTTOM,
-          toastDuration: const Duration(seconds: 8),
-        );
+      child: toast(fMss),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 8),
+    );
   }
 
   /// *********************************************************************/
@@ -419,8 +289,8 @@ class _PageProductState extends State<PageProduct> {
       print('nummm' + num.toString());
       // BtnSpinnr.controllerCountItems;
       total = (widget.food.food_price! +
-              additionsSelectionPrice +
-              _sauceSelectionPrice) *
+          additionsSelectionPrice +
+          _sauceSelectionPrice) *
           num;
     });
 
@@ -444,16 +314,12 @@ class _PageProductState extends State<PageProduct> {
                   imageUrl: widget.food.food_image!,
                   fit: BoxFit.fitHeight,
                   height: DimenApp.hightSc(context, hightPy: 0.35),
-                  placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(
-                    color: ColorsApp.primColr,
-                  )),
+                  placeholder: (context, url) =>
+                      Center(
+                          child: CircularProgressIndicator(
+                            color: ColorsApp.primColr,
+                          )),
                 ),
-
-                // Image.asset(
-                //   ImageApp.imGyro,
-                //   height: DimenApp.hightSc(context, hightPy: 0.4),
-                // ),
               ),
               // title item
               Padding(
@@ -470,11 +336,6 @@ class _PageProductState extends State<PageProduct> {
                             isBold: true,
                           ),
                         ),
-                        // AutoSizeText('Chicken Kabob',
-                        //     style: GoogleFonts.oxygen(
-                        //         color: ColorsApp.blak1,
-                        //         fontSize: 20,
-                        //         fontWeight: FontWeight.bold)),
 
                         // هاي بدنا نزبها تحت جنب الكبسة
                         //price item
@@ -502,12 +363,6 @@ class _PageProductState extends State<PageProduct> {
                   colr: ColorsApp.blak50,
                   MLin: 3,
                 ),
-                // AutoSizeText(
-                //     'Chicken kabob Platter served with rice, salad, and suace add extra meat \$1.99',
-                //     style: GoogleFonts.oxygen(
-                //       fontSize: 15,
-                //       color: ColorsApp.blak50,
-                //     )),
               ),
               //##################################################################
               SizedBox(
@@ -518,116 +373,10 @@ class _PageProductState extends State<PageProduct> {
               //this menu for  /" Platters "\
               /************************************************************************/
 
-//   width: DimenApp.widthSc(context),
-//           height: DimenApp.hightSc(context),
-
               /************************************************************************/
               // Choice of Suace (radio button)
               /************************************************************************/
-              SizedBox(
-                width: DimenApp.widthSc(context),
-                child: Card(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: DimenApp.widthSc(context, widthPy: 0.01),
-                          ),
-                          AStx(
-                            'Choice of Sauce',
-                            colr: ColorsApp.forPass1,
-                            size: 20,
-                            isBold: true,
-                          ),
-                          // AutoSizeText('Choice of Suace',
-                          //     style: GoogleFonts.oxygen(
-                          //         fontSize: 20, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: DimenApp.hightSc(context, hightPy: 0.05),
-                      ),
-                      Column(
-                        children: [
-                          /****************************************************************/
-
-                          ...sSc.map(
-                            (e) => funSauce(su: e),
-                          ),
-                          /****************************************************************/
-                          // ListTile(
-                          //   title: AStx(
-                          //     'Taziki Sauce',
-                          //     colr: ColorsApp.blakText,
-                          //   ),
-                          //   // Text('Taziki Sauce',
-                          //   //     style: GoogleFonts.oxygen(
-                          //   //       fontSize: 18,
-                          //   //     )),
-                          //   trailing:  AStx('01.2'),
-                          //   leading: Radio(
-                          //     activeColor: ColorsApp.primColr,
-                          //     value: BestTutorSite.TazikiSauce,
-                          //     groupValue: _site,
-                          //     onChanged: (BestTutorSite? value) {
-                          //       setState(() {
-                          //         _site = value!;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                          // ListTile(
-                          //   title: AStx(
-                          //     'Garlic Sauce',
-                          //     colr: ColorsApp.blakText,
-                          //   ),
-                          //   // AutoSizeText('Garlic Sauce',
-                          //   //     style: GoogleFonts.oxygen(
-                          //   //       fontSize: 18,
-                          //   //     )
-                          //
-                          //   // ),
-                          //   leading: Radio(
-                          //     activeColor: ColorsApp.primColr,
-                          //     value: BestTutorSite.GarlicSauce,
-                          //     groupValue: _site,
-                          //     onChanged: (BestTutorSite? value) {
-                          //       setState(() {
-                          //         _site = value!;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                          // ListTile(
-                          //   title: AStx(
-                          //     'Tahini Sauce ',
-                          //     colr: ColorsApp.blakText,
-                          //   ),
-                          //   // AutoSizeText(
-                          //   //   'Tahini Sauce ',
-                          //   //   style: GoogleFonts.oxygen(
-                          //   //     fontSize: 18,
-                          //   //   ),
-                          //   // ),
-                          //   leading: Radio(
-                          //     activeColor: ColorsApp.primColr,
-                          //     value: BestTutorSite.TahiniSauce,
-                          //     groupValue: _site,
-                          //     onChanged: (BestTutorSite? value) {
-                          //       setState(() {
-                          //         _site = value!;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                      /****************************************************************/
-                    ],
-                  ),
-                ),
-              ),
+              choiceOfSuace(),
               /************************************************************************/
               // Instruction  (text area)
               /************************************************************************/
@@ -650,13 +399,13 @@ class _PageProductState extends State<PageProduct> {
                             // decorationStyle:TextDecorationStyle.dotted ,
                           ),
                           border: const OutlineInputBorder(
-                              // borderSide: BorderSide(
-                              //   width: 0,
-                              //   style: BorderStyle.none,
-                              //   color: ColorsApp.primColr,
-                              // ),
-                              // borderRadius: BorderRadius.circular(80.0),
-                              ),
+                            // borderSide: BorderSide(
+                            //   width: 0,
+                            //   style: BorderStyle.none,
+                            //   color: ColorsApp.primColr,
+                            // ),
+                            // borderRadius: BorderRadius.circular(80.0),
+                          ),
                           labelText: 'Instruction',
                           hintText: 'instruction manual！\n\n\n\n\n',
                           focusedBorder: OutlineInputBorder(
@@ -687,131 +436,13 @@ class _PageProductState extends State<PageProduct> {
               /************************************************************************/
               //Additional Toppings (checkbox)
               /************************************************************************/
-              SizedBox(
-                width: DimenApp.widthSc(context),
-                child: Card(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: DimenApp.widthSc(context, widthPy: 0.01),
-                          ),
-                          AStx(
-                            'Additional Toppings',
-                            colr: ColorsApp.forPass1,
-                            size: 20,
-                            isBold: true,
-                          ),
-                          // AutoSizeText('Additional Toppings',
-                          //     style: GoogleFonts.openSans(
-                          //         fontSize: 20, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: DimenApp.hightSc(context, hightPy: 0.05),
-                      ),
-                      Column(
-                        children: <Widget>[
-                          /****************************************************/
-                          // // listAdditionsIsEmpty!=-1?
-                          // // FutureBuilderGetAdditions(),
-                          //
-                          // // ListView.builder(
-                          // //   shrinkWrap: true,
-                          // //   itemCount: listAddi.length,
-                          // //   physics: const NeverScrollableScrollPhysics(),
-                          // //   // scrollDirection: Axis.horizontal,
-                          // //   itemBuilder: (context, index) {
-                          // //     // final list_addition = list_additions[index];
-                          // //     return listAddi[index];
-                          // //   },
-                          // // ),
-                          //
-                          // ...listAddi.map((e) => e),
-                          /****************************************************/
-
-                          ...sAd.map((e) => ListTile(
-                                title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 8,
-                                      child: AStx(
-                                        e.extraName,
-                                        colr: ColorsApp.blakText,
-                                        MLin: 2,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: AStx(
-                                        '\$' + e.extraPrice.toString(),
-                                        colr: ColorsApp.primColr,
-                                        MLin: 2,
-                                      ),
-                                    ),
-                                    // AutoSizeText(e.extraName,
-                                    //     style: GoogleFonts.oxygen(
-                                    //       fontSize: 18,
-                                    //     )),
-                                    // AutoSizeText(e.extraPrice,
-                                    //     style: GoogleFonts.oxygen(
-                                    //       fontSize: 18,
-                                    //     )),
-                                  ],
-                                ),
-                                leading: Checkbox(
-                                  activeColor: ColorsApp.primColr,
-                                  value: e.extraStute1,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      e.extraStute1 = value!;
-                                      if (e.extraStute1) {
-                                        setState(() {
-                                          additionalToppingsChose
-                                              .add(e.additions_id);
-                                          additionsSelectionPrice +=
-                                              e.extraPrice;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          additionalToppingsChose
-                                              .remove(e.additions_id);
-                                          additionsSelectionPrice -=
-                                              e.extraPrice;
-                                        });
-                                      }
-                                    });
-                                  },
-                                ),
-                              )),
-                          /***************************************************/
-                          TextButton(
-                              onPressed: () {
-                                print(additionalToppingsChose);
-                                print(additionsSelectionPrice);
-                                print(controllerInstruction!.text);
-                              },
-                              child: Text('Choice of Suace',
-                                  style: GoogleFonts.oxygen(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)))
-                        ],
-                      ),
-
-                      /****************************************************************/
-                    ],
-                  ),
-                ),
-              ),
+              additionalToppings(),
               /************************************************************************/
               //for free like drink (radio button)
               /************************************************************************/
-              freePluginFormat(free1Adding, 1,titleFree1),
-              freePluginFormat(free2Adding, 2,titleFree2),
-              freePluginFormat(free3Adding, 3,titleFree3),
+              freePluginFormat(free1Adding, 1, titleFree1),
+              freePluginFormat(free2Adding, 2, titleFree2),
+              freePluginFormat(free3Adding, 3, titleFree3),
               /************************************************************************/
               //count items  (spinner button)
               /************************************************************************/
@@ -826,13 +457,6 @@ class _PageProductState extends State<PageProduct> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //     // ++++++
-                          //     SizedBox(
-                          //       width:88 ,//DimenApp.widthSc(context, widthPy: 0.16),
-                          //       height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                          //       child: Container(
-                          //      margin: const EdgeInsets.only(top: 4.5 ),
-                          // //for web        margin: const EdgeInsets.only(top: 4.5,bottom: 5),
                           //         decoration: BoxDecoration(
                           //           color: ColorsApp.primColr,
                           //           borderRadius: const BorderRadius.only(
@@ -845,129 +469,19 @@ class _PageProductState extends State<PageProduct> {
                           //             style: BorderStyle.solid,
                           //           ),
                           //         ),
-                          //         child: TextButton(
-                          //           onPressed: () {
-                          //             if (CountItems < 55) {
-                          //               CountItems++;
-                          //               controllerCountItems.text =
-                          //                   CountItems.toString();
-                          //             }
-                          //           },
-                          //           child: const AutoSizeText('+',
-                          //               style: GoogleFonts.oxygen(
-                          //                 fontSize: 38,
-                          //                 color: Colors.black54,
-                          //               )),
-                          //         ),
-                          //       ),
-                          //     ),
 
                           /********************************************************************/
                           // text filed spinner
                           /********************************************************************/
                           SizedBox(
                             height:
-                                DimenApp.hightSc(context, hightPy: 0.13), //128,
+                            DimenApp.hightSc(context, hightPy: 0.13), //128,
                           ),
 
-                          BtnSpinnr(
-                              // controllerCountItems:  controllerCountItems,
-                              ),
-
-                          // Container(
-                          //   width: DimenApp.widthSc(context, widthPy: 0.6),
-                          //   // 200,
-                          //   // ,
-                          //   height:80, //DimenApp.hightSc(context, hightPy: 0.11),
-                          //   //128,
-                          //   // color: Colors.blue,
-                          //
-                          //   // margin: const EdgeInsets.only(top: 0, bottom: 2),
-                          //   padding: const EdgeInsets.all(10),
-                          //   child: Card(
-                          //     color: ColorsApp.white1,
-                          //     child: TextField(
-                          //       controller: controllerCountItems,
-                          //       readOnly: true,
-                          //       textAlign: TextAlign.center,
-                          //       decoration: InputDecoration(
-                          //         border: InputBorder.none,
-                          //         // border: OutlineInputBorder(
-                          //         //     // borderRadius: BorderRadius.circular(10.0),
-                          //         //     ),
-                          //         icon: IconButton(
-                          //             onPressed: () {
-                          //               if (CountItems < 55) {
-                          //                 CountItems++;
-                          //                 controllerCountItems.text =
-                          //                     CountItems.toString();
-                          //               }
-                          //             },
-                          //             icon: FaIcon(
-                          //               FontAwesomeIcons.plus,
-                          //               color: ColorsApp.primColr,
-                          //             )),
-                          //         suffixIcon: IconButton(
-                          //           onPressed: () {
-                          //             if (CountItems > 1) {
-                          //               CountItems--;
-                          //               controllerCountItems.text =
-                          //                   CountItems.toString();
-                          //             }
-                          //           },
-                          //           icon: FaIcon(
-                          //             FontAwesomeIcons.minus,
-                          //             color: ColorsApp.primColr,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(18.0),
-                          //     ),
-                          //     shadowColor: ColorsApp.blak50,
-                          //     elevation: 8,
-                          //   ),
-                          // ),
+                          BtnSpinnr(),
 
                           /****************************************************************/
                           //  // ------
-
-                          //  SizedBox(
-                          //    width: 88,//DimenApp.widthSc(context, widthPy: 0.16),
-                          //    height: 60,//DimenApp.hightSc(context, hightPy: 0.084),
-                          //    child: Container(
-                          //      margin: const EdgeInsets.only(top: 4.5 ),
-                          // //for web     // margin: const EdgeInsets.only(top: 4.5,bottom: 5),
-                          //      decoration: BoxDecoration(
-                          //        color: ColorsApp.primColr,
-                          //        borderRadius: const BorderRadius.only(
-                          //          topRight: Radius.circular(40),
-                          //          bottomRight: Radius.circular(40),
-                          //        ),
-                          //        border: Border.all(
-                          //          width: 3,
-                          //          color: ColorsApp.primColr,
-                          //          style: BorderStyle.solid,
-                          //        ),
-                          //      ),
-                          //
-                          //      child: TextButton(
-                          //        onPressed: () {
-                          //          if (CountItems > 1) {
-                          //            CountItems--;
-                          //            controllerCountItems.text =
-                          //                CountItems.toString();
-                          //          }
-                          //        },
-                          //        child: const AutoSizeText('-',
-                          //            style: GoogleFonts.oxygen(
-                          //              fontSize: 38,
-                          //              color: Colors.black54,
-                          //            )),
-                          //      ),
-                          //    ),
-                          //  ),
                         ],
                       ),
 
@@ -1013,15 +527,6 @@ class _PageProductState extends State<PageProduct> {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) => PageHome()));
-                        // Fluttertoast.showToast(
-                        //     msg: "This is Center Short Toast",
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     // gravity: ToastGravity.CENTER,
-                        //     timeInSecForIosWeb: 5,
-                        //     backgroundColor: Colors.green.shade600.withOpacity(0.7),
-                        //     textColor: Colors.white,
-                        //     fontSize: 16.0,
-                        // );
 
                         // _showBuilderToast();
                         _showToast(count.controllerCountItems!.text.toString());
@@ -1030,43 +535,29 @@ class _PageProductState extends State<PageProduct> {
                       },
                       child: (isLoading)
                           ? const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 1.5,
-                              ))
+                          width: 30,
+                          height: 30,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 1.5,
+                          ))
                           : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                AStx(
-                                  'Add to Cart',
-                                  size: 22,
-                                  colr: Colors.black54,
-                                ),
-                                // price item
-                                AStx(
-                                  '\$$total',
-                                  size: 20,
-                                  isBold: true,
-                                  colr: Colors.black54.withOpacity(0.5),
-                                ),
-                                // AutoSizeText(
-                                //   'Add to Cart',
-                                //   style: GoogleFonts.oxygen(
-                                //     fontSize: 22,
-                                //     color: Colors.black54,
-                                //   ),
-                                // ),
-                                // price item
-                                // AutoSizeText('\$5.00',
-                                //     style: GoogleFonts.oxygen(
-                                //       fontSize: 17,
-                                //       fontWeight: FontWeight.bold,
-                                //       color: Colors.black54.withOpacity(0.5),
-                                //     )),
-                              ],
-                            ),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          AStx(
+                            'Add to Cart',
+                            size: 22,
+                            colr: Colors.black54,
+                          ),
+                          // price item
+                          AStx(
+                            '\$$total',
+                            size: 20,
+                            isBold: true,
+                            colr: Colors.black54.withOpacity(0.5),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -1084,73 +575,6 @@ class _PageProductState extends State<PageProduct> {
   /// *****************************************************************************/
   List<get_additions>? additions;
 
-//   Widget buildAdditions(List<get_additions>? additions) {
-//     return ListView.builder(
-//       shrinkWrap: true,
-// //menu_type_id
-//       itemCount: additions!.length,
-//       physics: const BouncingScrollPhysics(),
-//       // scrollDirection:Axis.vertical,
-//       itemBuilder: (context, index) {
-//         final addition = additions[index];
-//         additionalnum = addition.additions_id!;
-//         print(' listAdditions += ${listAdditions!.length}  ');
-//         for (var i = listAdditions!.length - 1; i >= 0; i--) {
-//           // print(' listAdditionsIsEmpty55dd55d5d5 += ${i}  ');
-//           if (listAdditions![i].food_id == widget.food.food_id) {
-//             // listAdditionsIsEmpty += 1;
-//
-//             if (listAdditions![i].additions_id == addition.additions_id) {
-//               // listAdditionsIsEmpty = listAdditionsIsEmpty + 1;
-//
-//               listAddi.add(ListTile(
-//                 title: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     AStx(
-//                       addition.additions_name! + 'dsd',
-//                       colr: ColorsApp.blakText,
-//                     ),
-//                     AStx(
-//                       addition.additions_price!.toString() + 'dsd',
-//                       colr: ColorsApp.blakText,
-//                     ),
-//                   ],
-//                 ),
-//                 leading: Checkbox(
-//                   activeColor: ColorsApp.primColr,
-//                   value: extraStute[additionalnum],
-//                   onChanged: (bool? value) {
-//                     setState(() {
-//                       additionalnum = addition.additions_id!;
-//                       print(
-//                           ' extraStute[additionalnum]  ${extraStute[additionalnum]}');
-//                       extraStute[additionalnum] = value!;
-//                       print(
-//                           ' extraStute[additionalnum]Aftr  ${extraStute[additionalnum]}');
-//
-//                       print(' additionalnum  $additionalnum');
-//                       if (extraStute[additionalnum]!) {
-//                         additionalToppingsChose.add(addition);
-//                       } else {
-//                         additionalToppingsChose.remove(addition);
-//                       }
-//                     });
-//                   },
-//                 ),
-//               ));
-//             }
-//           }
-//         }
-//
-//         // for(var i in listAddi) {
-//         //   return i;
-//         // }
-//         return Container();
-//       },
-//     );
-//   }
-
 /*******************************************************************************/
   //get_list_additions
   /// *****************************************************************************/
@@ -1158,22 +582,11 @@ class _PageProductState extends State<PageProduct> {
   List<get_list_additions>? listAdditions;
   int listAdditionsIsEmpty = -1;
 
-  // set_list_additions() async {
-  //   List<get_list_additions>? listAdditions1 =
-  //       await GetAllMenu().get_list_additions_Data();
-  //   setState(() {
-  //     listAdditions = listAdditions1;
-  //   });
-  // }
-
   Widget buildListAdditions() {
-    // FutureBuilderGetAdditions();
     return ListView.builder(
       itemCount: listAddi.length,
       physics: const BouncingScrollPhysics(),
-      // scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        // final list_addition = list_additions[index];
         return listAddi[index];
       },
     );
@@ -1184,7 +597,8 @@ class _PageProductState extends State<PageProduct> {
   /// *****************************************************************************/
   List<get_suace>? suaces;
 
-  FutureBuilderGetSuace() => FutureBuilder<List<get_suace>>(
+  FutureBuilderGetSuace() =>
+      FutureBuilder<List<get_suace>>(
         future: GetAllMenu().get_suace_Data(),
         // if you mean this method well return image url
         builder:
@@ -1211,24 +625,6 @@ class _PageProductState extends State<PageProduct> {
         final suace = suaces[index];
 
         return Text(suace.suace_name!);
-
-        //   Card(
-        //   child: Row(
-        //       children:
-        //       [
-        //         Column(
-        //           children: [
-        //             AStx(food.food_id!.toString(),MLin: 2,),
-        //             AStx(food.kitchen_id!.toString(),MLin: 2,),
-        //             AStx(food.food_name!.toString(),MLin: 2,),
-        //             AStx(food.food_description!.toString(),MLin: 2,),
-        //             AStx(food.food_image!.toString(),MLin: 2,),
-        //             AStx(food.food_price!.toString(),MLin: 2,),
-        //           ],
-        //         ),
-        //       ]
-        //   ),
-        // );
       },
     );
   }
@@ -1239,7 +635,8 @@ class _PageProductState extends State<PageProduct> {
   /// *****************************************************************************/
   List<get_list_suace>? list_suaces;
 
-  FutureBuilderGet_menu_type() => FutureBuilder<List<get_list_suace>>(
+  FutureBuilderGet_menu_type() =>
+      FutureBuilder<List<get_list_suace>>(
         future: GetAllMenu().get_list_suace_Data(),
         // if you mean this method well return image url
         builder: (BuildContext context,
@@ -1279,10 +676,6 @@ class _PageProductState extends State<PageProduct> {
         food == null ? su!.suace_name! : food.food_name!,
         colr: ColorsApp.blakText,
       ),
-      // Text('Taziki Sauce',
-      //     style: GoogleFonts.oxygen(
-      //       fontSize: 18,
-      //     )),
       trailing: food == null ? AStx(prc, colr: ColorsApp.primColr) : null,
       leading: Radio(
         activeColor: ColorsApp.primColr,
@@ -1290,21 +683,23 @@ class _PageProductState extends State<PageProduct> {
         groupValue: freeNum == 0
             ? _sauceSelectionId
             : freeNum == 1
-                ? _freeAdding1SelectionId
-                : freeNum == 2
-                    ? _freeAdding2SelectionId
-                    : _freeAdding3SelectionId,
+            ? _freeAdding1SelectionId
+            : freeNum == 2
+            ? _freeAdding2SelectionId
+            : _freeAdding3SelectionId,
         onChanged: (String? value) {
           setState(() {
             freeNum == 0
                 ? _sauceSelectionId = value!
                 : freeNum == 1
-                    ? _freeAdding1SelectionId = value!
-                    : freeNum == 2
-                        ? _freeAdding2SelectionId = value!
-                        : _freeAdding3SelectionId = value!;
+                ? _freeAdding1SelectionId = value!
+                : freeNum == 2
+                ? _freeAdding2SelectionId = value!
+                : _freeAdding3SelectionId = value!;
             // ignore: unnecessary_null_comparison
-            _sauceSelectionPrice = (su != null ? su.price : 0)!;
+            if (su != null) {
+              _sauceSelectionPrice = su.price!;
+            }
           });
         },
       ),
@@ -1314,114 +709,194 @@ class _PageProductState extends State<PageProduct> {
 /*******************************************************************************/
 /*******************************************************************************/
 ////////////////////////////Free plugin format
-  freePluginFormat(List freeAdding, int freeNum ,String titleFree) {
-    return !freeAdding.isEmpty
+  freePluginFormat(List freeAdding, int freeNum, String titleFree) {
+    return freeAdding.isNotEmpty
         ? SizedBox(
-            width: DimenApp.widthSc(context),
-            child: Card(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: DimenApp.widthSc(context, widthPy: 0.01),
-                      ),
-                      AStx(
-                        'Free   ${titleFree}',
-                        colr: ColorsApp.forPass1,
-                        size: 20,
-                        isBold: true,
-                      ),
-                      // AutoSizeText('Choice of Suace',
-                      //     style: GoogleFonts.oxygen(
-                      //         fontSize: 20, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.05),
-                  ),
-                  Column(
-                    children: [
-                      /****************************************************************/
-
-                      ...freeAdding.map(
-                        (e) => funSauce(food: e, freeNum: freeNum),
-                      ),
-                      /****************************************************************/
-                      // ListTile(
-                      //   title: AStx(
-                      //     'Taziki Sauce',
-                      //     colr: ColorsApp.blakText,
-                      //   ),
-                      //   // Text('Taziki Sauce',
-                      //   //     style: GoogleFonts.oxygen(
-                      //   //       fontSize: 18,
-                      //   //     )),
-                      //   trailing:  AStx('01.2'),
-                      //   leading: Radio(
-                      //     activeColor: ColorsApp.primColr,
-                      //     value: BestTutorSite.TazikiSauce,
-                      //     groupValue: _site,
-                      //     onChanged: (BestTutorSite? value) {
-                      //       setState(() {
-                      //         _site = value!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // ListTile(
-                      //   title: AStx(
-                      //     'Garlic Sauce',
-                      //     colr: ColorsApp.blakText,
-                      //   ),
-                      //   // AutoSizeText('Garlic Sauce',
-                      //   //     style: GoogleFonts.oxygen(
-                      //   //       fontSize: 18,
-                      //   //     )
-                      //
-                      //   // ),
-                      //   leading: Radio(
-                      //     activeColor: ColorsApp.primColr,
-                      //     value: BestTutorSite.GarlicSauce,
-                      //     groupValue: _site,
-                      //     onChanged: (BestTutorSite? value) {
-                      //       setState(() {
-                      //         _site = value!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // ListTile(
-                      //   title: AStx(
-                      //     'Tahini Sauce ',
-                      //     colr: ColorsApp.blakText,
-                      //   ),
-                      //   // AutoSizeText(
-                      //   //   'Tahini Sauce ',
-                      //   //   style: GoogleFonts.oxygen(
-                      //   //     fontSize: 18,
-                      //   //   ),
-                      //   // ),
-                      //   leading: Radio(
-                      //     activeColor: ColorsApp.primColr,
-                      //     value: BestTutorSite.TahiniSauce,
-                      //     groupValue: _site,
-                      //     onChanged: (BestTutorSite? value) {
-                      //       setState(() {
-                      //         _site = value!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                  /****************************************************************/
-                ],
-              ),
+      width: DimenApp.widthSc(context),
+      child: Card(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: DimenApp.widthSc(context, widthPy: 0.01),
+                ),
+                AStx(
+                  'Free   $titleFree',
+                  colr: ColorsApp.forPass1,
+                  size: 20,
+                  isBold: true,
+                ),
+                // AutoSizeText('Choice of Suace',
+                //     style: GoogleFonts.oxygen(
+                //         fontSize: 20, fontWeight: FontWeight.bold)),
+              ],
             ),
-          )
+            SizedBox(
+              height: DimenApp.hightSc(context, hightPy: 0.05),
+            ),
+            Column(
+              children: [
+                /****************************************************************/
+
+                ...freeAdding.map(
+                      (e) => funSauce(food: e, freeNum: freeNum),
+                ),
+                /****************************************************************/
+              ],
+            ),
+            /****************************************************************/
+          ],
+        ),
+      ),
+    )
         : Container();
   }
+
+/// *****************************************************************************/
+  choiceOfSuace() {
+  return   sSc.isNotEmpty
+        ? SizedBox(
+      width: DimenApp.widthSc(context),
+      child: Card(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: DimenApp.widthSc(context, widthPy: 0.01),
+                ),
+                AStx(
+                  'Choice of Sauce',
+                  colr: ColorsApp.forPass1,
+                  size: 20,
+                  isBold: true,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: DimenApp.hightSc(context, hightPy: 0.05),
+            ),
+            Column(
+              children: [
+                /****************************************************************/
+
+                ...sSc.map(
+                      (e) => funSauce(su: e),
+                ),
+                /****************************************************************/
+              ],
+            ),
+            /****************************************************************/
+          ],
+        ),
+      ),
+    )
+        : Container();
+  }
+
+/// *****************************************************************************/
+  additionalToppings() {
+    return   sAd.isNotEmpty
+        ? SizedBox(
+      width: DimenApp.widthSc(context),
+      child: Card(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width:
+                  DimenApp.widthSc(context, widthPy: 0.01),
+                ),
+                AStx(
+                  'Additional Toppings',
+                  colr: ColorsApp.forPass1,
+                  size: 20,
+                  isBold: true,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: DimenApp.hightSc(context, hightPy: 0.05),
+            ),
+            Column(
+              children: <Widget>[
+                /****************************************************/
+
+                /****************************************************/
+
+                ...sAd.map((e) =>
+                    ListTile(
+                      title: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: AStx(
+                              e.extraName,
+                              colr: ColorsApp.blakText,
+                              MLin: 2,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: AStx(
+                              '\$' + e.extraPrice.toString(),
+                              colr: ColorsApp.primColr,
+                              MLin: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      leading: Checkbox(
+                        activeColor: ColorsApp.primColr,
+                        value: e.extraStute1,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            e.extraStute1 = value!;
+                            if (e.extraStute1) {
+                              setState(() {
+                                additionalToppingsChose
+                                    .add(e.additions_id);
+                                additionsSelectionPrice +=
+                                    e.extraPrice;
+                              });
+                            } else {
+                              setState(() {
+                                additionalToppingsChose
+                                    .remove(e.additions_id);
+                                additionsSelectionPrice -=
+                                    e.extraPrice;
+                              });
+                            }
+                          });
+                        },
+                      ),
+                    )),
+                /***************************************************/
+                TextButton(
+                    onPressed: () {
+                      print(additionalToppingsChose);
+                      print(additionsSelectionPrice);
+                      print(controllerInstruction!.text);
+                    },
+                    child: Text('Choice of Suace',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)))
+              ],
+            ),
+
+            /****************************************************************/
+          ],
+        ),
+      ),
+    )
+        : Container();
+  }
+/*******************************************************************************/
 /*******************************************************************************/
 /*******************************************************************************/
 

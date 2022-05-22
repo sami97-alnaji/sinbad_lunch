@@ -47,59 +47,59 @@ class _PageHomeState extends State<PageHome> {
   //  List<Function> onPaused = [funcOne,funcTwo,()=>print('func anonym')] ;
   // //run every function in onPaused
 
-  /*List<List<String>> */
-  late List<String> heddfr = [];
-  List headlines = [
-    [
-      ImageApp.imgPlatters,
-      "dishes",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-        print('sami');
-      },
-      ColorsApp.white1,
-    ],
-    [
-      ImageApp.imgPlatters,
-      WordAppENG.platters + "sisisi",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-      },
-      ColorsApp.white1,
-    ],
-    [
-      ImageApp.imgPlatters,
-      WordAppENG.platters + "sijdosijo",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-      },
-      ColorsApp.white1,
-    ],
-    [
-      ImageApp.imgPlatters,
-      WordAppENG.platters + "osdkpsaok",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-      },
-      ColorsApp.white1,
-    ],
-    [
-      ImageApp.imgPlatters,
-      WordAppENG.platters + "sdijsaoid",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-      },
-      ColorsApp.white1,
-    ],
-    [
-      ImageApp.imgPlatters,
-      WordAppENG.platters + "ncimf",
-      () {
-        PageHome().setBackColor = ColorsApp.primColr;
-      },
-      ColorsApp.white1,
-    ],
-  ];
+  // /*List<List<String>> */
+  // late List<String> heddfr = [];
+  // List headlines = [
+  //   [
+  //     ImageApp.imgPlatters,
+  //     "dishes",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //       print('sami');
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  //   [
+  //     ImageApp.imgPlatters,
+  //     WordAppENG.platters + "sisisi",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  //   [
+  //     ImageApp.imgPlatters,
+  //     WordAppENG.platters + "sijdosijo",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  //   [
+  //     ImageApp.imgPlatters,
+  //     WordAppENG.platters + "osdkpsaok",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  //   [
+  //     ImageApp.imgPlatters,
+  //     WordAppENG.platters + "sdijsaoid",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  //   [
+  //     ImageApp.imgPlatters,
+  //     WordAppENG.platters + "ncimf",
+  //     () {
+  //       PageHome().setBackColor = ColorsApp.primColr;
+  //     },
+  //     ColorsApp.white1,
+  //   ],
+  // ];
   var itemsMenu = [];
   var headlines1 = [];
   int stopping_place_Btn = 0;
@@ -108,30 +108,30 @@ class _PageHomeState extends State<PageHome> {
   @override
   void initState() {
     /****************************************************/
-    for (int i = 0; i < headlines.length; i++) {
-      headlines1.add(HeadLines(
-        headlines[i][1].toString(),
-        headlines[i][0].toString(),
-        onTap: () {
-          setState(() {
-            PageHome().setBackColor = ColorsApp.primColr;
-            // stopping_place_Btn = i;
-          });
-          print(stopping_place_Btn);
-          print("heddfr\n " + heddfr[stopping_place_Btn] + "  \n nheddfr");
-        }, //headlines[i][2] as Function()?,
-      ));
-    }
+    // for (int i = 0; i < headlines.length; i++) {
+    //   headlines1.add(HeadLines(
+    //     headlines[i][1].toString(),
+    //     headlines[i][0].toString(),
+    //     onTap: () {
+    //       setState(() {
+    //         PageHome().setBackColor = ColorsApp.primColr;
+    //         // stopping_place_Btn = i;
+    //       });
+    //       print(stopping_place_Btn);
+    //       print("heddfr\n " + heddfr[stopping_place_Btn] + "  \n nheddfr");
+    //     }, //headlines[i][2] as Function()?,
+    //   ));
+    // }
     /****************************************************/
     /****************************************************/
-    for (int i = 0; i < headlines.length; i++) {
-      // int uu = i * 787456;
-
-      setState(() {
-        heddfr.add(headlines[i][1]);
-        // print("heddfr\n "+heddfr[i] +"  \n nheddfr");
-      });
-    }
+    // for (int i = 0; i < headlines.length; i++) {
+    //   // int uu = i * 787456;
+    //
+    //   setState(() {
+    //     heddfr.add(headlines[i][1]);
+    //     // print("heddfr\n "+heddfr[i] +"  \n nheddfr");
+    //   });
+    // }
     /****************************************************/
 
     for (int i = 0; i < 15; i++) {
@@ -155,6 +155,7 @@ class _PageHomeState extends State<PageHome> {
   late List<Color> o = [];
   late List<Widget> b = [];
   TextEditingController? controllerCountItems = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
   var count;
 
   @override
