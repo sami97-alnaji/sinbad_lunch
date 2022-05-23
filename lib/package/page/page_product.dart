@@ -327,6 +327,45 @@ class _PageProductState extends State<PageProduct> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+
+                        SizedBox(
+                          height:55 ,
+                          child: Card(
+                            color:ColorsApp.primColr,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 15,height: 44,),
+                                    CachedNetworkImage(
+                                      imageUrl: 'https://likedomens.000webhostapp.com/coin-money-7-removebg-preview.png',
+                                      fit: BoxFit.fitHeight,
+                                      height:30,//DimenApp.hightSc(context, hightPy: 0.35),
+                                      width: 30,
+                                      placeholder: (context, url) =>
+                                          Center(
+                                              child: CircularProgressIndicator(
+                                                color: ColorsApp.primColr,
+                                              )),
+                                    ),
+                                    const SizedBox(width: 10,),
+                                    //Offer points
+
+                                       AStx('24',
+                                        colr: ColorsApp.blak50.withOpacity(0.7),
+                                        size: 22,
+                                        isBold: true,
+
+                                      ),
+                                    const SizedBox(width: 15,),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(width: 35,),
                         //name item
                         Expanded(
                           child: AStx(

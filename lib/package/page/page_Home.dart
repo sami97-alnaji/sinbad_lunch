@@ -19,7 +19,6 @@ import 'package:sinbad_lunch/model/menu/get_all/get_food.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_menu_type.dart';
 import 'package:sinbad_lunch/package/definitions/items_menu/items_menu.dart';
 import 'package:sinbad_lunch/package/page/page_product.dart';
-import 'package:sinbad_lunch/package/test%20Bottun%20top%20the%20page/headlines.dart';
 
 // ignore: must_be_immutable
 class PageHome extends StatefulWidget {
@@ -155,6 +154,7 @@ class _PageHomeState extends State<PageHome> {
   late List<Color> o = [];
   late List<Widget> b = [];
   TextEditingController? controllerCountItems = TextEditingController();
+
   // ignore: prefer_typing_uninitialized_variables
   var count;
 
@@ -225,105 +225,7 @@ class _PageHomeState extends State<PageHome> {
                   //   child:
 
                   //image
-                  Container(
-                    height: DimenApp.hightSc(context, hightPy: 0.22),
-                    width: DimenApp.widthSc(context),
-                    padding: const EdgeInsets.all(4.5),
-                    decoration: BoxDecoration(
-                      // color: Colors.red,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: SizedBox.fromSize(
-                          size: const Size.fromRadius(48),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              //image set
-                              // Image.network( 'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
-                              //   fit: BoxFit.fitHeight,
-                              //   height:
-                              //   DimenApp.hightSc(context, hightPy: 0.28),
-                              //     loadingBuilder: (  ctx,   child,   loadingProgress) {
-                              //       if (loadingProgress == null) {
-                              //         return child;
-                              //       }else {
-                              //         return const Center(
-                              //           child: CircularProgressIndicator(
-                              //             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                              //           ),
-                              //         );
-                              //       }
-                              //     },
-
-
-
-                              // ),
-                              CachedNetworkImage(
-                                imageUrl:
-                                    'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
-                                // "https://likedomens.000webhostapp.com/home_page_img.png",
-                                fit: BoxFit.fitHeight,
-                                height:
-                                    DimenApp.hightSc(context, hightPy: 0.28),
-                                placeholder: (context, url) => Center(
-                                    child: CircularProgressIndicator(
-                                  color: ColorsApp.primColr,
-                                )),
-                              ),
-                              // text set above the image ;
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 135.0, left: 10, right: 10),
-                                child: AStx(
-                                  'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY',
-                                  colr: ColorsApp.text1home,
-                                  size: 16,
-                                  isBold: true,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 86.0, left: 20, right: 20),
-                                child: AStx(
-                                  'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S',
-                                  colr: ColorsApp.text2home,
-                                  size: 13,
-                                  isBold: true,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 15, left: 30, right: 30),
-                                child: AStx(
-                                  ' WE ONLY ACCEPT '
-                                  ' ORDERS FROM 6:00AM  TILL 10:00 AM\n  ANY'
-                                  ' ORDER AFTER 10:00 WILL NOT BE  FILLED',
-                                  colr: ColorsApp.text3home,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
-                    // child: CircleAvatar(
-                    //    radius: 2,
-                    //    child: ClipOval(
-                    //      child: CachedNetworkImage(
-                    //        imageUrl:  "https://likedomens.000webhostapp.com/home_page_img.png",
-                    //        fit: BoxFit.fitHeight,
-                    //        height: DimenApp.hightSc(context, hightPy: 0.23),
-                    //      ),
-                    //    ),
-                    //  ),
-                    // child: Image.asset(
-                    //   ImageApp.imAd,
-                    //   height: DimenApp.hightSc(context, hightPy: 0.23),
-                    //   fit: BoxFit.fitHeight,
-                    // ),
-                  ),
+                  setImageInHeader(),
                   // ),
                   /************************************************************************************************************/
                   // list of ButtonCollection (Package)
@@ -365,7 +267,7 @@ class _PageHomeState extends State<PageHome> {
                           // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
                           //     style: const TextStyle(fontSize: 18)),
                           SizedBox(
-                            height: 190,
+                            height: 165,
                             //DimenApp.hightSc(context, hightPy: 0.28),
                             width: DimenApp.widthSc(context),
                             /**************************************************/
@@ -538,7 +440,7 @@ class _PageHomeState extends State<PageHome> {
         builder:
             (BuildContext context1, AsyncSnapshot<List<get_food>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            foods = snapshot.data ;
+            foods = snapshot.data;
             return buildFood(foods);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("loading ...");
@@ -611,7 +513,7 @@ class _PageHomeState extends State<PageHome> {
               child: AStx('some think is Warring'),
             );
           } else if (snapshot.connectionState == ConnectionState.done) {
-            menuTypes = snapshot.data  ;
+            menuTypes = snapshot.data;
             return buildMenuType(menuTypes);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("loading ...");
@@ -661,6 +563,207 @@ class _PageHomeState extends State<PageHome> {
       );
     }
   }
-/*******************************************************************************/
 
+///*******************************************************************************/
+  setImageInHeader() {
+    var image = 'https://likedomens.000webhostapp.com/home_page_imgEdit.png';
+    /**********/
+    var text1= 'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY';
+    var text2= 'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S';
+    var text3= ' WE ONLY ACCEPT ORDERS FROM 6:00AM TILL 10:00 AM\n  ANY'
+        ' ORDER AFTER 10:00 WILL NOT BE  FILLED';
+    /************/
+    var color1=ColorsApp.text1home;
+    var color2=ColorsApp.text2home;
+    var color3=ColorsApp.text3home;
+    /************/
+    var size1Text=16.0;
+    var size2Text=13.0;
+    var size3Text=14.0;
+    /************/
+    return Container(
+      height: DimenApp.hightSc(context, hightPy: 0.24),
+      width: DimenApp.widthSc(context),
+      padding: const EdgeInsets.all(4.5),
+      decoration: BoxDecoration(
+        // color: Colors.red,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: SizedBox.fromSize(
+          size: const Size.fromRadius(48),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // //image set
+              // Image.network( 'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
+              //   fit: BoxFit.fitHeight,
+              //   height:
+              //   DimenApp.hightSc(context, hightPy: 0.28),
+              //     loadingBuilder: (  ctx,   child,   loadingProgress) {
+              //       if (loadingProgress == null) {
+              //         return child;
+              //       }else {
+              //         return const Center(
+              //           child: CircularProgressIndicator(
+              //             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              //           ),
+              //         );
+              //       }
+              //     },
+              //
+              // ),
+
+              CachedNetworkImage(
+                imageUrl: image,
+                // "https://likedomens.000webhostapp.com/home_page_img.png",
+                fit: BoxFit.fitHeight,
+                height: DimenApp.hightSc(context, hightPy: 0.28),
+                placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                  color: ColorsApp.primColr,
+                )),
+              ),
+
+              Container(
+                height: DimenApp.hightSc(context, hightPy: 0.3),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: CachedNetworkImageProvider(
+                      image,
+                      // "https://likedomens.000webhostapp.com/home_page_img.png",
+                      // placeholder: (context, url) =>
+                      //     Center(
+                      //         child: CircularProgressIndicator(
+                      //           color: ColorsApp.primColr,
+                      //         )),
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      /***************************************************************************/
+                      // FadeInImage(
+                      //   imageErrorBuilder: (  context,   exception,  stackTrace) {
+                      //     print('Error Handler');
+                      //     return Container(
+                      //       width: 200.0,
+                      //       height: 300.0,
+                      //       child: Image.asset('assets/images/gyro.png'),
+                      //     );
+                      //   },
+                      //   placeholder: const AssetImage('assets/images/site_logo.png'),
+                      //   image: const NetworkImage('https://likedomens.000webhostapp.com/home_page_imgEdit.png'),
+                      //   fit: BoxFit.cover,
+                      //   height: 100.0,
+                      //   width: 100.0,
+                      // ),
+                      /***************************************************************************/
+
+                      // text set above the image ;
+                      //   Padding(
+                      //     padding: const EdgeInsets.only(
+                      //         bottom: 135.0, left: 10, right: 10),
+                      //     child:
+                      Expanded(
+                        child: AStx(
+                          text1,
+                          colr: color1,
+                          size: size1Text,
+                          isBold: true,
+                        ),
+                      ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       bottom: 86.0, left: 20, right: 20),
+                      //   child:
+                      Expanded(
+                        child: AStx(
+                          text2,
+                          colr: color2,
+                          size: size2Text,
+                          // isBold: true,
+                        ),
+                      ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       bottom: 15, left: 30, right: 30),
+                      //   child:
+                      Expanded(
+                        flex: 2,
+                        child: AStx(
+                          text3,
+                          colr: color3,
+                          size: size3Text,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // text set above the image ;
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       bottom: 135.0, left: 10, right: 10),
+              //   child: AStx(
+              //     'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY',
+              //     colr: ColorsApp.text1home,
+              //     size: 16,
+              //     isBold: true,
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       bottom: 86.0, left: 20, right: 20),
+              //   child: AStx(
+              //     'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S',
+              //     colr: ColorsApp.text2home,
+              //     size: 13,
+              //     isBold: true,
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       bottom: 15, left: 30, right: 30),
+              //   child: AStx(
+              //     ' WE ONLY ACCEPT '
+              //     ' ORDERS FROM 6:00AM  TILL 10:00 AM\n  ANY'
+              //     ' ORDER AFTER 10:00 WILL NOT BE  FILLED',
+              //     colr: ColorsApp.text3home,
+              //     size: 14,
+              //     isBold: true,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      ),
+      // child: CircleAvatar(
+      //    radius: 2,
+      //    child: ClipOval(
+      //      child: CachedNetworkImage(
+      //        imageUrl:  "https://likedomens.000webhostapp.com/home_page_img.png",
+      //        fit: BoxFit.fitHeight,
+      //        height: DimenApp.hightSc(context, hightPy: 0.23),
+      //      ),
+      //    ),
+      //  ),
+      // child: Image.asset(
+      //   ImageApp.imAd,
+      //   height: DimenApp.hightSc(context, hightPy: 0.23),
+      //   fit: BoxFit.fitHeight,
+      // ),
+    );
+  }
 }
