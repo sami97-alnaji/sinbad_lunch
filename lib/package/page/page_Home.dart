@@ -226,6 +226,18 @@ class _PageHomeState extends State<PageHome> {
 
                   //image
                   setImageInHeader(),
+
+                  //note   --->!
+                  SizedBox(
+                    height:
+                    DimenApp.hightSc(context, hightPy: 0.011), //128,
+                  ),
+                  count.note(),
+
+                  SizedBox(
+                    height:
+                    DimenApp.hightSc(context, hightPy: 0.011), //128,
+                  ),
                   // ),
                   /************************************************************************************************************/
                   // list of ButtonCollection (Package)

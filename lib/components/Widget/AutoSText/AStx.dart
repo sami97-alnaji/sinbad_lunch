@@ -9,10 +9,11 @@ import 'package:sinbad_lunch/components/Colors/colors.dart';
 class AStx extends StatefulWidget {
   // ignore: non_constant_identifier_names
   AStx(this.label,
-      {this.size = 18, this.isBold = false, this.colr, this.MLin = 2, Key? key})
+      {this.size = 18, this.isBold = false, isTextCenter = false, this.colr, this.MLin = 2, Key? key})
       : super(key: key);
   String label;
-  bool? isBold;
+  bool? isBold ;
+  bool  isTextCenter = false ;
   double? size;
   Color? colr;
   // ignore: non_constant_identifier_names
@@ -41,9 +42,11 @@ class _AStxState extends State<AStx> {
         fontSize: widget.size,
         fontWeight: widget.isBold! ? FontWeight.bold : null,
         color: widget.colr ?? ColorsApp.blak1,
+
       ),
       maxLines: widget.MLin,
       softWrap: false,
+      textAlign: widget.isTextCenter ?TextAlign.center:null,
       // overflow: TextOverflow.fade,
       overflow: TextOverflow.ellipsis,
     );

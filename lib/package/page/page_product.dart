@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/menu/getAllMenu.dart';
@@ -20,7 +21,6 @@ import 'package:sinbad_lunch/model/menu/get_all/get_list_additions.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_list_suace.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_suace.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
-
 
 class Order {
   get_food? plate;
@@ -91,13 +91,13 @@ class _PageProductState extends State<PageProduct> {
 
   splitFreeAdding() async {
     var x = widget.food.is_free1 != -1 ||
-        widget.food.is_free2 != -1 ||
-        widget.food.is_free3 != -1
+            widget.food.is_free2 != -1 ||
+            widget.food.is_free3 != -1
         ? await GetAllMenu().get_food_Data()
         : [];
     var title = widget.food.is_free1 != -1 ||
-        widget.food.is_free2 != -1 ||
-        widget.food.is_free3 != -1
+            widget.food.is_free2 != -1 ||
+            widget.food.is_free3 != -1
         ? await GetAllMenu().get_menu_type_Data()
         : [];
     for (var tt in title) {
@@ -266,31 +266,33 @@ class _PageProductState extends State<PageProduct> {
 
   _showToast(String fMss) {
     fToast.init(context).showToast(
-      child: toast(fMss),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 8),
-    );
+          child: toast(fMss),
+          gravity: ToastGravity.BOTTOM,
+          toastDuration: const Duration(seconds: 8),
+        );
   }
 
   /// *********************************************************************/
 
   TextEditingController? controllerInstruction = TextEditingController();
-
+  // ignore: prefer_typing_uninitialized_variables
+  var count;
   /// *********************************************************************/
   @override
   Widget build(BuildContext context) {
+
     // FutureBuilderGetAdditions();
     // list_suaces = [];
     int num = 0;
     double total = 0;
-    var count = Provider.of<ProductPageVariables>(context);
+      count = Provider.of<ProductPageVariables>(context);
     setState(() {
       num = int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
       print('nummm' + num.toString());
       // BtnSpinnr.controllerCountItems;
       total = (widget.food.food_price! +
-          additionsSelectionPrice +
-          _sauceSelectionPrice) *
+              additionsSelectionPrice +
+              _sauceSelectionPrice) *
           num;
     });
 
@@ -314,11 +316,10 @@ class _PageProductState extends State<PageProduct> {
                   imageUrl: widget.food.food_image!,
                   fit: BoxFit.fitHeight,
                   height: DimenApp.hightSc(context, hightPy: 0.35),
-                  placeholder: (context, url) =>
-                      Center(
-                          child: CircularProgressIndicator(
-                            color: ColorsApp.primColr,
-                          )),
+                  placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                    color: ColorsApp.primColr,
+                  )),
                 ),
               ),
               // title item
@@ -327,45 +328,54 @@ class _PageProductState extends State<PageProduct> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // SizedBox(
+                        //   height: 55,
+                        //   child: Card(
+                        //     color: ColorsApp.primColr,
+                        //     child: Column(
+                        //       children: [
+                        //         Row(
+                        //           children: [
+                        //             const SizedBox(
+                        //               width: 15,
+                        //               height: 44,
+                        //             ),
+                        //             CachedNetworkImage(
+                        //               imageUrl:
+                        //                   'https://likedomens.000webhostapp.com/coin-money-7-removebg-preview.png',
+                        //               fit: BoxFit.fitHeight,
+                        //               height: 30,
+                        //               //DimenApp.hightSc(context, hightPy: 0.35),
+                        //               width: 30,
+                        //               placeholder: (context, url) => Center(
+                        //                   child: CircularProgressIndicator(
+                        //                 color: ColorsApp.primColr,
+                        //               )),
+                        //             ),
+                        //             const SizedBox(
+                        //               width: 10,
+                        //             ),
+                        //             //Offer points
+                        //
+                        //             AStx(
+                        //               '24',
+                        //               colr: ColorsApp.blak50.withOpacity(0.7),
+                        //               size: 22,
+                        //               isBold: true,
+                        //             ),
+                        //             const SizedBox(
+                        //               width: 15,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
 
-                        SizedBox(
-                          height:55 ,
-                          child: Card(
-                            color:ColorsApp.primColr,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 15,height: 44,),
-                                    CachedNetworkImage(
-                                      imageUrl: 'https://likedomens.000webhostapp.com/coin-money-7-removebg-preview.png',
-                                      fit: BoxFit.fitHeight,
-                                      height:30,//DimenApp.hightSc(context, hightPy: 0.35),
-                                      width: 30,
-                                      placeholder: (context, url) =>
-                                          Center(
-                                              child: CircularProgressIndicator(
-                                                color: ColorsApp.primColr,
-                                              )),
-                                    ),
-                                    const SizedBox(width: 10,),
-                                    //Offer points
-
-                                       AStx('24',
-                                        colr: ColorsApp.blak50.withOpacity(0.7),
-                                        size: 22,
-                                        isBold: true,
-
-                                      ),
-                                    const SizedBox(width: 15,),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(width: 35,),
+                        // const SizedBox(
+                        //   width: 35,
+                        // ),
                         //name item
                         Expanded(
                           child: AStx(
@@ -438,13 +448,13 @@ class _PageProductState extends State<PageProduct> {
                             // decorationStyle:TextDecorationStyle.dotted ,
                           ),
                           border: const OutlineInputBorder(
-                            // borderSide: BorderSide(
-                            //   width: 0,
-                            //   style: BorderStyle.none,
-                            //   color: ColorsApp.primColr,
-                            // ),
-                            // borderRadius: BorderRadius.circular(80.0),
-                          ),
+                              // borderSide: BorderSide(
+                              //   width: 0,
+                              //   style: BorderStyle.none,
+                              //   color: ColorsApp.primColr,
+                              // ),
+                              // borderRadius: BorderRadius.circular(80.0),
+                              ),
                           labelText: 'Instruction',
                           hintText: 'instruction manual！\n\n\n\n\n',
                           focusedBorder: OutlineInputBorder(
@@ -490,8 +500,9 @@ class _PageProductState extends State<PageProduct> {
                   width: DimenApp.widthSc(
                     context,
                   ),
+
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -514,7 +525,7 @@ class _PageProductState extends State<PageProduct> {
                           /********************************************************************/
                           SizedBox(
                             height:
-                            DimenApp.hightSc(context, hightPy: 0.13), //128,
+                                DimenApp.hightSc(context, hightPy: 0.09), //128,
                           ),
 
                           BtnSpinnr(),
@@ -528,6 +539,14 @@ class _PageProductState extends State<PageProduct> {
                     ],
                   ),
                 ),
+              ),
+              /************************************************************************/
+              /************************************************************************/
+              //alert box
+              count.note(),
+              SizedBox(
+                height:
+                DimenApp.hightSc(context, hightPy: 0.011), //128,
               ),
               /************************************************************************/
               //Button add to cart
@@ -574,29 +593,29 @@ class _PageProductState extends State<PageProduct> {
                       },
                       child: (isLoading)
                           ? const SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 1.5,
-                          ))
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 1.5,
+                              ))
                           : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          AStx(
-                            'Add to Cart',
-                            size: 22,
-                            colr: Colors.black54,
-                          ),
-                          // price item
-                          AStx(
-                            '\$$total',
-                            size: 20,
-                            isBold: true,
-                            colr: Colors.black54.withOpacity(0.5),
-                          ),
-                        ],
-                      ),
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                AStx(
+                                  'Add to Cart',
+                                  size: 22,
+                                  colr: Colors.black54,
+                                ),
+                                // price item
+                                AStx(
+                                  '\$$total',
+                                  size: 20,
+                                  isBold: true,
+                                  colr: Colors.black54.withOpacity(0.5),
+                                ),
+                              ],
+                            ),
                     ),
                   ),
                 ),
@@ -636,8 +655,7 @@ class _PageProductState extends State<PageProduct> {
   /// *****************************************************************************/
   List<get_suace>? suaces;
 
-  FutureBuilderGetSuace() =>
-      FutureBuilder<List<get_suace>>(
+  FutureBuilderGetSuace() => FutureBuilder<List<get_suace>>(
         future: GetAllMenu().get_suace_Data(),
         // if you mean this method well return image url
         builder:
@@ -674,8 +692,7 @@ class _PageProductState extends State<PageProduct> {
   /// *****************************************************************************/
   List<get_list_suace>? list_suaces;
 
-  FutureBuilderGet_menu_type() =>
-      FutureBuilder<List<get_list_suace>>(
+  FutureBuilderGet_menu_type() => FutureBuilder<List<get_list_suace>>(
         future: GetAllMenu().get_list_suace_Data(),
         // if you mean this method well return image url
         builder: (BuildContext context,
@@ -722,19 +739,19 @@ class _PageProductState extends State<PageProduct> {
         groupValue: freeNum == 0
             ? _sauceSelectionId
             : freeNum == 1
-            ? _freeAdding1SelectionId
-            : freeNum == 2
-            ? _freeAdding2SelectionId
-            : _freeAdding3SelectionId,
+                ? _freeAdding1SelectionId
+                : freeNum == 2
+                    ? _freeAdding2SelectionId
+                    : _freeAdding3SelectionId,
         onChanged: (String? value) {
           setState(() {
             freeNum == 0
                 ? _sauceSelectionId = value!
                 : freeNum == 1
-                ? _freeAdding1SelectionId = value!
-                : freeNum == 2
-                ? _freeAdding2SelectionId = value!
-                : _freeAdding3SelectionId = value!;
+                    ? _freeAdding1SelectionId = value!
+                    : freeNum == 2
+                        ? _freeAdding2SelectionId = value!
+                        : _freeAdding3SelectionId = value!;
             // ignore: unnecessary_null_comparison
             if (su != null) {
               _sauceSelectionPrice = su.price!;
@@ -751,191 +768,186 @@ class _PageProductState extends State<PageProduct> {
   freePluginFormat(List freeAdding, int freeNum, String titleFree) {
     return freeAdding.isNotEmpty
         ? SizedBox(
-      width: DimenApp.widthSc(context),
-      child: Card(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: DimenApp.widthSc(context, widthPy: 0.01),
-                ),
-                AStx(
-                  'Free   $titleFree',
-                  colr: ColorsApp.forPass1,
-                  size: 20,
-                  isBold: true,
-                ),
-                // AutoSizeText('Choice of Suace',
-                //     style: GoogleFonts.oxygen(
-                //         fontSize: 20, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            SizedBox(
-              height: DimenApp.hightSc(context, hightPy: 0.05),
-            ),
-            Column(
-              children: [
-                /****************************************************************/
+            width: DimenApp.widthSc(context),
+            child: Card(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: DimenApp.widthSc(context, widthPy: 0.01),
+                      ),
+                      AStx(
+                        'Free   $titleFree',
+                        colr: ColorsApp.forPass1,
+                        size: 20,
+                        isBold: true,
+                      ),
+                      // AutoSizeText('Choice of Suace',
+                      //     style: GoogleFonts.oxygen(
+                      //         fontSize: 20, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.05),
+                  ),
+                  Column(
+                    children: [
+                      /****************************************************************/
 
-                ...freeAdding.map(
-                      (e) => funSauce(food: e, freeNum: freeNum),
-                ),
-                /****************************************************************/
-              ],
+                      ...freeAdding.map(
+                        (e) => funSauce(food: e, freeNum: freeNum),
+                      ),
+                      /****************************************************************/
+                    ],
+                  ),
+                  /****************************************************************/
+                ],
+              ),
             ),
-            /****************************************************************/
-          ],
-        ),
-      ),
-    )
+          )
         : Container();
   }
 
-/// *****************************************************************************/
+  /// *****************************************************************************/
   choiceOfSuace() {
-  return   sSc.isNotEmpty
+    return sSc.isNotEmpty
         ? SizedBox(
-      width: DimenApp.widthSc(context),
-      child: Card(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: DimenApp.widthSc(context, widthPy: 0.01),
-                ),
-                AStx(
-                  'Choice of Sauce',
-                  colr: ColorsApp.forPass1,
-                  size: 20,
-                  isBold: true,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: DimenApp.hightSc(context, hightPy: 0.05),
-            ),
-            Column(
-              children: [
-                /****************************************************************/
+            width: DimenApp.widthSc(context),
+            child: Card(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: DimenApp.widthSc(context, widthPy: 0.01),
+                      ),
+                      AStx(
+                        'Choice of Sauce',
+                        colr: ColorsApp.forPass1,
+                        size: 20,
+                        isBold: true,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.05),
+                  ),
+                  Column(
+                    children: [
+                      /****************************************************************/
 
-                ...sSc.map(
-                      (e) => funSauce(su: e),
-                ),
-                /****************************************************************/
-              ],
+                      ...sSc.map(
+                        (e) => funSauce(su: e),
+                      ),
+                      /****************************************************************/
+                    ],
+                  ),
+                  /****************************************************************/
+                ],
+              ),
             ),
-            /****************************************************************/
-          ],
-        ),
-      ),
-    )
+          )
         : Container();
   }
 
-/// *****************************************************************************/
+  /// *****************************************************************************/
   additionalToppings() {
-    return   sAd.isNotEmpty
+    return sAd.isNotEmpty
         ? SizedBox(
-      width: DimenApp.widthSc(context),
-      child: Card(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width:
-                  DimenApp.widthSc(context, widthPy: 0.01),
-                ),
-                AStx(
-                  'Additional Toppings',
-                  colr: ColorsApp.forPass1,
-                  size: 20,
-                  isBold: true,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: DimenApp.hightSc(context, hightPy: 0.05),
-            ),
-            Column(
-              children: <Widget>[
-                /****************************************************/
-
-                /****************************************************/
-
-                ...sAd.map((e) =>
-                    ListTile(
-                      title: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 8,
-                            child: AStx(
-                              e.extraName,
-                              colr: ColorsApp.blakText,
-                              MLin: 2,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: AStx(
-                              '\$' + e.extraPrice.toString(),
-                              colr: ColorsApp.primColr,
-                              MLin: 2,
-                            ),
-                          ),
-                        ],
+            width: DimenApp.widthSc(context),
+            child: Card(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: DimenApp.widthSc(context, widthPy: 0.01),
                       ),
-                      leading: Checkbox(
-                        activeColor: ColorsApp.primColr,
-                        value: e.extraStute1,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            e.extraStute1 = value!;
-                            if (e.extraStute1) {
-                              setState(() {
-                                additionalToppingsChose
-                                    .add(e.additions_id);
-                                additionsSelectionPrice +=
-                                    e.extraPrice;
-                              });
-                            } else {
-                              setState(() {
-                                additionalToppingsChose
-                                    .remove(e.additions_id);
-                                additionsSelectionPrice -=
-                                    e.extraPrice;
-                              });
-                            }
-                          });
-                        },
+                      AStx(
+                        'Additional Toppings',
+                        colr: ColorsApp.forPass1,
+                        size: 20,
+                        isBold: true,
                       ),
-                    )),
-                /***************************************************/
-                TextButton(
-                    onPressed: () {
-                      print(additionalToppingsChose);
-                      print(additionsSelectionPrice);
-                      print(controllerInstruction!.text);
-                    },
-                    child: Text('Choice of Suace',
-                        style: GoogleFonts.oxygen(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)))
-              ],
-            ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.05),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      /****************************************************/
 
-            /****************************************************************/
-          ],
-        ),
-      ),
-    )
+                      /****************************************************/
+
+                      ...sAd.map((e) => ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 8,
+                                  child: AStx(
+                                    e.extraName,
+                                    colr: ColorsApp.blakText,
+                                    MLin: 2,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: AStx(
+                                    '\$' + e.extraPrice.toString(),
+                                    colr: ColorsApp.primColr,
+                                    MLin: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            leading: Checkbox(
+                              activeColor: ColorsApp.primColr,
+                              value: e.extraStute1,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  e.extraStute1 = value!;
+                                  if (e.extraStute1) {
+                                    setState(() {
+                                      additionalToppingsChose
+                                          .add(e.additions_id);
+                                      additionsSelectionPrice += e.extraPrice;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      additionalToppingsChose
+                                          .remove(e.additions_id);
+                                      additionsSelectionPrice -= e.extraPrice;
+                                    });
+                                  }
+                                });
+                              },
+                            ),
+                          )),
+                      /***************************************************/
+                      TextButton(
+                          onPressed: () {
+                            print(additionalToppingsChose);
+                            print(additionsSelectionPrice);
+                            print(controllerInstruction!.text);
+                          },
+                          child: Text('Choice of Suace',
+                              style: GoogleFonts.oxygen(
+                                  fontSize: 20, fontWeight: FontWeight.bold)))
+                    ],
+                  ),
+
+                  /****************************************************************/
+                ],
+              ),
+            ),
+          )
         : Container();
   }
 /*******************************************************************************/
+
 /*******************************************************************************/
 /*******************************************************************************/
 
