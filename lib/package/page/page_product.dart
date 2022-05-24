@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/menu/getAllMenu.dart';
@@ -275,17 +274,18 @@ class _PageProductState extends State<PageProduct> {
   /// *********************************************************************/
 
   TextEditingController? controllerInstruction = TextEditingController();
+
   // ignore: prefer_typing_uninitialized_variables
   var count;
+
   /// *********************************************************************/
   @override
   Widget build(BuildContext context) {
-
     // FutureBuilderGetAdditions();
     // list_suaces = [];
     int num = 0;
     double total = 0;
-      count = Provider.of<ProductPageVariables>(context);
+    count = Provider.of<ProductPageVariables>(context);
     setState(() {
       num = int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
       print('nummm' + num.toString());
@@ -500,7 +500,6 @@ class _PageProductState extends State<PageProduct> {
                   width: DimenApp.widthSc(
                     context,
                   ),
-
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -545,8 +544,7 @@ class _PageProductState extends State<PageProduct> {
               //alert box
               count.note(),
               SizedBox(
-                height:
-                DimenApp.hightSc(context, hightPy: 0.011), //128,
+                height: DimenApp.hightSc(context, hightPy: 0.011), //128,
               ),
               /************************************************************************/
               //Button add to cart

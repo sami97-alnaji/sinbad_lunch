@@ -103,74 +103,7 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.06),
                   ),
-                  //sub Login
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                      //google login
-                      Flexible(
-                        flex: 8,
-                        child: SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.065),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ColorsApp.white,
-                              onPrimary: ColorsApp.primColr,
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(11.0),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                const FaIcon(FontAwesomeIcons.google),
-                                SizedBox(
-                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                AStx("Google"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                      //facebook login
-                      Flexible(
-                        flex: 8,
-                        child: SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.065),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ColorsApp.white,
-                              onPrimary: ColorsApp.primColr,
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(11.0),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                const FaIcon(FontAwesomeIcons.facebookF),
-                                SizedBox(
-                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                AStx("Facebook"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                    ],
-                  ),
 
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.02),
-                  ),
 
                   // //header image
                   // Container(
@@ -233,14 +166,14 @@ class _RegisterState extends State<Register> {
                   ),
                   /*******************************************************************/
                   // Text Filed for Phone Number
-                  TFiled(
-                    hint: WordAppENG.phone,
-                    keyboardType: TextInputType.text,
-                    pIcon: Icon(
-                      Icons.phone,
-                      color: ColorsApp.primColr,
-                    ),
-                  ),
+                  // TFiled(
+                  //   hint: WordAppENG.phone,
+                  //   keyboardType: TextInputType.text,
+                  //   pIcon: Icon(
+                  //     Icons.phone,
+                  //     color: ColorsApp.primColr,
+                  //   ),
+                  // ),
                   /*******************************************************************/
                   // Text Filed for Password
                   TFiled(
@@ -277,24 +210,132 @@ class _RegisterState extends State<Register> {
                         });
                       }),
 
-                  /*******************************************************************/
-                  // Button to Submit
 
-                  SizedBox(
-                      height: DimenApp.hightSc(context, hightPy: 0.088),
-                      width: DimenApp.widthSc(context),
-                      child: btnEleSimple(WordAppENG.register, onTab: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => PageHome(),
+
+                  //sub Login
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                      //google login
+                      Flexible(
+                        flex: 8,
+                        child: SizedBox(
+                          height: DimenApp.hightSc(context, hightPy: 0.065),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: ColorsApp.white,
+                              onPrimary: ColorsApp.primColr,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11.0),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.google),
+                                SizedBox(
+                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                AStx("Google"),
+                              ],
+                            ),
                           ),
-                        );
-                      })),
+                        ),
+                      ),
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                      //facebook login
+                      // Flexible(
+                      //   flex: 8,
+                      //   child: SizedBox(
+                      //     height: DimenApp.hightSc(context, hightPy: 0.065),
+                      //     child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         primary: ColorsApp.white,
+                      //         onPrimary: ColorsApp.primColr,
+                      //         elevation: 10,
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(11.0),
+                      //         ),
+                      //       ),
+                      //       onPressed: () {},
+                      //       child: Row(
+                      //         children: [
+                      //           const FaIcon(FontAwesomeIcons.facebookF),
+                      //           SizedBox(
+                      //               width: DimenApp.widthSc(context, widthPy: 0.03)),
+                      //           AStx("Facebook"),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.03),
+                      /*******************************************************************/
+                      // Button to Submit
+
+                      Flexible(
+                        flex: 8,
+                        child: SizedBox(
+                          height: DimenApp.hightSc(context, hightPy: 0.065),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: ColorsApp.white,
+                              onPrimary: ColorsApp.primColr,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11.0),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.solidPlayCircle),
+                                SizedBox(
+                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                AStx(WordAppENG.register),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                      //
+                      //
+                      // SizedBox(
+                      //     // height: DimenApp.hightSc(context, hightPy: 0.088),
+                      //     // width: DimenApp.widthSc(context),
+                      //     child: btnEleSimple(WordAppENG.register, onTab: () {
+                      //       Navigator.pushReplacement(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (BuildContext context) => PageHome(),
+                      //         ),
+                      //       );
+                      //     })),
+                      //
+                      // SizedBox(
+                      //   height: DimenApp.hightSc(context, hightPy: 0.03),
+                      // ),
+
+                      /*******************************************************************/
+
+
+
+                      //space
+                      Flexible(flex:1,child: Container(),),
+                    ],
                   ),
+
+                  // SizedBox(
+                  //   height: DimenApp.hightSc(context, hightPy: 0.02),
+                  // ),
+
+
+
 
                   /*******************************************************************/
                   // Text \ For Return The Login Page
