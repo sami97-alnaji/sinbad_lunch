@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:sinbad_lunch/model/user/company_all.dart';
 
 class GetAllUserInfo{
-  String url = "http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/user";
+  String url = "http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/user/";
  // companyAll.php
+  // ignore: non_constant_identifier_names
   Future<List<CompanyAll>> CompanyAllData( ) async {
     List<CompanyAll>? list;
     String link =url+"companyAll.php";

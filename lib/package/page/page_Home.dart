@@ -228,11 +228,11 @@ class _PageHomeState extends State<PageHome> {
                   setImageInHeader(),
 
                   //note   --->!
-                  SizedBox(
-                    height:
-                    DimenApp.hightSc(context, hightPy: 0.011), //128,
-                  ),
-                  count.note(),
+                  // SizedBox(
+                  //   height:
+                  //   DimenApp.hightSc(context, hightPy: 0.011), //128,
+                  // ),
+                  // count.note(),
 
                   SizedBox(
                     height:

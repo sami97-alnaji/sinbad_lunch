@@ -72,73 +72,77 @@ class _LoginState extends State<Login> {
                   //   ImageApp.imgLogo,
                   //   width: DimenApp.widthSc(context),
                   // ),
+
                   SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.10),
                   ),
-                  //sub Login
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                    //google login
-                      Flexible(
-                        flex: 8,
-                        child: SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.065),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ColorsApp.white,
-                              onPrimary: ColorsApp.primColr,
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(11.0),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                  FaIcon(FontAwesomeIcons.google,color:ColorsApp.primColr,),
-                                SizedBox(
-                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                AStx("Google",colr: ColorsApp.blak50,),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                      //facebook login
-                      Flexible(
-                        flex: 8,
-                        child: SizedBox(
-                          height: DimenApp.hightSc(context, hightPy: 0.065),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ColorsApp.white,
-                              onPrimary: ColorsApp.primColr,
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(11.0),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                  FaIcon(FontAwesomeIcons.facebookF,color:ColorsApp.primColr,),
-                                SizedBox(
-                                    width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                AStx("Facebook",colr: ColorsApp.blak50,),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //space
-                      Flexible(flex:1,child: Container(),),
-                    ],
-                  ),
+
+
+
+                  // //sub Login
+                  // Row(
+                  //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     //space
+                  //     Flexible(flex:1,child: Container(),),
+                  //   //google login
+                  //     Flexible(
+                  //       flex: 8,
+                  //       child: SizedBox(
+                  //         height: DimenApp.hightSc(context, hightPy: 0.065),
+                  //         child: ElevatedButton(
+                  //           style: ElevatedButton.styleFrom(
+                  //             primary: ColorsApp.white,
+                  //             onPrimary: ColorsApp.primColr,
+                  //             elevation: 10,
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(11.0),
+                  //             ),
+                  //           ),
+                  //           onPressed: () {},
+                  //           child: Row(
+                  //             children: [
+                  //                 FaIcon(FontAwesomeIcons.google,color:ColorsApp.primColr,),
+                  //               SizedBox(
+                  //                   width: DimenApp.widthSc(context, widthPy: 0.03)),
+                  //               AStx("Google",colr: ColorsApp.blak50,),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     //space
+                  //     Flexible(flex:1,child: Container(),),
+                  //     //facebook login
+                  //     Flexible(
+                  //       flex: 8,
+                  //       child: SizedBox(
+                  //         height: DimenApp.hightSc(context, hightPy: 0.065),
+                  //         child: ElevatedButton(
+                  //           style: ElevatedButton.styleFrom(
+                  //             primary: ColorsApp.white,
+                  //             onPrimary: ColorsApp.primColr,
+                  //             elevation: 10,
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(11.0),
+                  //             ),
+                  //           ),
+                  //           onPressed: () {},
+                  //           child: Row(
+                  //             children: [
+                  //                 FaIcon(FontAwesomeIcons.facebookF,color:ColorsApp.primColr,),
+                  //               SizedBox(
+                  //                   width: DimenApp.widthSc(context, widthPy: 0.03)),
+                  //               AStx("Facebook",colr: ColorsApp.blak50,),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     //space
+                  //     Flexible(flex:1,child: Container(),),
+                  //   ],
+                  // ),
 
                   Card(
                     // shape: BeveledRectangleBorder(
@@ -185,36 +189,127 @@ class _LoginState extends State<Login> {
                             height: DimenApp.hightSc(context, hightPy: 0.015),
                           ),
                           //button login
-                          SizedBox(
-                            width: DimenApp.widthSc(context, widthPy: 0.88),
-                            child: btnEleSimple(
-                              WordAppENG.login,
-
-                              onTab: () {
-                                print('sami');
-
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) => PageHome(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.015),
-                          ),
-                          /***************************************/
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.015),
-                          ),
+                          // SizedBox(
+                          //   width: DimenApp.widthSc(context, widthPy: 0.88),
+                          //   child: btnEleSimple(
+                          //     WordAppENG.login,
+                          //
+                          //     onTab: () {
+                          //       print('sami');
+                          //
+                          //       Navigator.pushReplacement(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //           builder: (BuildContext context) => PageHome(),
+                          //         ),
+                          //       );
+                          //     },
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: DimenApp.hightSc(context, hightPy: 0.015),
+                          // ),
+                          // /***************************************/
+                          // SizedBox(
+                          //   height: DimenApp.hightSc(context, hightPy: 0.015),
+                          // ),
 
                           /****************************************/
                           SizedBox(
                             height: DimenApp.hightSc(context, hightPy: 0.015),
                           ),
-                          //button registr
+
+                          /*******************************************************************/
+                          //sub Login
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              //space
+                              Flexible(flex:1,child: Container(),),
+                              //google login
+                              Flexible(
+                                flex: 8,
+                                child: SizedBox(
+                                  height: DimenApp.hightSc(context, hightPy: 0.065),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: ColorsApp.white,
+                                      onPrimary: ColorsApp.primColr,
+                                      elevation: 10,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(11.0),
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: Row(
+                                      children: [
+                                        const FaIcon(FontAwesomeIcons.google),
+                                        SizedBox(
+                                            width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                        AStx("Google"),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //space
+                              Flexible(flex:1,child: Container(),),
+
+                              /*******************************************************************/
+                              // Button to login
+
+                              Flexible(
+                                flex: 8,
+                                child: SizedBox(
+                                  height: DimenApp.hightSc(context, hightPy: 0.065),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: ColorsApp.white,
+                                      onPrimary: ColorsApp.primColr,
+                                      elevation: 10,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(11.0),
+                                      ),
+                                    ),
+                                    onPressed: () {
+
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (BuildContext context) => PageHome(),
+                                              ),
+                                            );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        const FaIcon(FontAwesomeIcons.solidPlayCircle),
+                                        SizedBox(
+                                            width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                        AStx(WordAppENG.login),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+
+                              /*******************************************************************/
+
+
+
+                              //space
+                              Flexible(flex:1,child: Container(),),
+                            ],
+                          ),
+
+                          /*******************************************************************/
+
+                          /***************************************/
+                          SizedBox(
+                            height: DimenApp.hightSc(context, hightPy: 0.015),
+                          ),
+
+                          //button register
                           Row(
                             children: [
                               btnTxt(

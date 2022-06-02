@@ -102,12 +102,13 @@ class _MyDrawerState extends State<MyDrawer> {
                       size: 40,
                     ),
                   ),
-                    Flexible(
-                      child: Padding(
+                    // Flexible(
+                    //   child:
+                      Padding(
                       padding: const EdgeInsets.only(left: 31.0, top: 9),
                       child: AStx('958',colr: ColorsApp.white,size: 15),
                   ),
-                    ),
+                    // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: IconButton(

@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sinbad_lunch">
+
    <application
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:label="sinbad_lunch"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +35,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

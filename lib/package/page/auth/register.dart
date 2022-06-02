@@ -1,8 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sinbad_lunch/Controller/user/get_all_user_info.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
@@ -11,6 +14,7 @@ import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
 import 'package:sinbad_lunch/components/image/images.dart';
+import 'package:sinbad_lunch/model/user/company_all.dart';
 import 'package:sinbad_lunch/package/page/auth/login.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
@@ -25,10 +29,42 @@ class _RegisterState extends State<Register> {
   late bool _obscureText = true;
   late FaIcon _iconSuffix = const FaIcon(FontAwesomeIcons.eye);
 
+  // ignore: non_constant_identifier_names
+  var ListNameComp=[];
+
+  String? dropDownValueCompName;
+  var dropDownValueCompId=0;
+
   // setState(() {
   // _obscureText = true;
   // _iconSuffix = const FaIcon(FontAwesomeIcons.eye);
   // });
+
+
+
+
+  getNameComp() async {
+    List<CompanyAll> w = await GetAllUserInfo().CompanyAllData();
+    int oo=0;
+    setState(() {
+      for (var i in w) {
+        ListNameComp.add(i);
+        oo+=1;
+      }
+    });
+
+    print('oo =  '+oo.toString());
+    // dropDownValueCompName = ListNameComp[0].comp_name;
+  }
+
+
+
+  @override
+  void initState() {
+    getNameComp();
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +245,72 @@ class _RegisterState extends State<Register> {
                           }
                         });
                       }),
+              /*******************************************************************/
 
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AStx('your Company',colr: ColorsApp.blak50,),
+                      ),
+                      Container(width:20),
+                      SizedBox(
+                        height: 40,
 
+                        width: DimenApp.widthSc(context,widthPy: 0.6),
+                        child: DropdownButton (
 
+                          // decoration:
+                          // InputDecoration(
+                          //   enabledBorder: OutlineInputBorder(
+                          //     borderSide: BorderSide(color: ColorsApp.blak50, width: 2),
+                          //     borderRadius: BorderRadius.circular(20),
+                          //   ),
+                          //   border: OutlineInputBorder(
+                          //     borderSide: BorderSide(color: ColorsApp.blak50, width: 2),
+                          //     borderRadius: BorderRadius.circular(20),
+                          //   ),
+                          //   // filled: true,
+                          //   // fillColor:ColorsApp.primColr.withOpacity(0.1),
+                          // ),
+                          // validator: (value) => value == null ? "Select a country" : null,
+                          // dropdownColor: ColorsApp.primColr.withOpacity(0.6),
+
+                           // hint: AStx('Select Your Company')  ,
+                          value:  (dropDownValueCompName!=null && dropDownValueCompName!.isNotEmpty)  ? dropDownValueCompName:null,
+
+                          isExpanded: true,
+
+                          isDense: true,
+
+                          // style: inputTextStyle(),
+
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black,
+                          ),
+
+                          iconSize: 24,
+                          items:ListNameComp.map((var items) {
+                            return DropdownMenuItem<String>(
+                                value: items.comp_name.toString(),
+                                child: AStx(items.comp_name.toString(),size: 20),
+                              onTap: ()=>   setState(() {
+                                 dropDownValueCompId=items.company_id;
+                              })  ,
+                            );
+                          }
+                          ).toList(),
+                          onChanged:  (String? newValue) =>setState(() {
+                            dropDownValueCompName = newValue!;
+                            print('dropDownValueCompId  ==  $dropDownValueCompId');
+                          }) ,
+                        ),
+                      ),
+                    ],
+                  ),
+
+              /*******************************************************************/
                   //sub Login
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -289,7 +388,12 @@ class _RegisterState extends State<Register> {
                                 borderRadius: BorderRadius.circular(11.0),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+
+                              // for(var i in ListNameComp){
+                              //   print(i.comp_name);
+                              // }
+                            },
                             child: Row(
                               children: [
                                 const FaIcon(FontAwesomeIcons.solidPlayCircle),
@@ -340,6 +444,7 @@ class _RegisterState extends State<Register> {
                   /*******************************************************************/
                   // Text \ For Return The Login Page
                   btnTxt(WordAppENG.backToLogin, onTab: () {
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

@@ -541,11 +541,17 @@ class _PageProductState extends State<PageProduct> {
               ),
               /************************************************************************/
               /************************************************************************/
-              //alert box
-              count.note(),
-              SizedBox(
-                height: DimenApp.hightSc(context, hightPy: 0.011), //128,
-              ),
+
+              ///alert box
+
+
+
+              // count.note(),
+              // SizedBox(
+              //   height: DimenApp.hightSc(context, hightPy: 0.011), //128,
+              // ),
+
+
               /************************************************************************/
               //Button add to cart
               /************************************************************************/
