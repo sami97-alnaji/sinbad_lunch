@@ -3,37 +3,59 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
+import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/order_details.dart';
+import 'package:sinbad_lunch/package/page/page_Home.dart';
 
-class btnMenuItems extends StatelessWidget {
+class btnMenuItems extends StatefulWidget {
   btnMenuItems(
-      {this.imageItem,
+      {this.ii,
+      this.imageItem,
       this.nameItem,
       this.titelItem,
       this.pricceItem,
       this.height = 0.18,
       this.onTab,
       this.controllerCountItems,
+      this.isAdd = false,
+      this.numm,
+      this.op,
       Key? key})
       : super(key: key);
+  OrderDetails? op;
   TextEditingController? controllerCountItems;
   String? imageItem, nameItem, titelItem;
   Function()? onTab = () {};
   double? pricceItem, height;
+  bool isAdd;
+  int? numm, ii;
+
+  @override
+  State<btnMenuItems> createState() => _btnMenuItemsState();
+}
+
+class _btnMenuItemsState extends State<btnMenuItems> {
+  TextEditingController? controllerCountItemss = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var itemsOrder = Provider.of<ProductPageVariables>(context);
+    if (widget.numm != null) {
+      controllerCountItemss!.text = widget.numm.toString();
+    }
     double imgSiz = 90;
     return SizedBox(
-      height: DimenApp.hightSc(context, hightPy: height ?? 0.38),
+      height: DimenApp.hightSc(context, hightPy: widget.height ?? 0.38),
       child: Container(
         margin: const EdgeInsets.all(5.0),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: TextButton(
-            onPressed: onTab,
+            onPressed: widget.onTab,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -42,7 +64,7 @@ class btnMenuItems extends StatelessWidget {
                   flex: 7,
                   // child: Card(
                   child: CachedNetworkImage(
-                    imageUrl: imageItem!,
+                    imageUrl: widget.imageItem!,
                     fit: BoxFit.fitHeight,
                     height: imgSiz,
                     width: imgSiz,
@@ -82,7 +104,7 @@ class btnMenuItems extends StatelessWidget {
                                     // height: DimenApp.hightSc(context, hightPy: height ?? 0.28),
                                     width:
                                         DimenApp.widthSc(context, widthPy: 0.6),
-                                    child: AStx(nameItem!,
+                                    child: AStx(widget.nameItem!,
                                         size: 18,
                                         isBold: true,
                                         colr: ColorsApp.primColr,
@@ -98,7 +120,7 @@ class btnMenuItems extends StatelessWidget {
                                       width: DimenApp.widthSc(context,
                                           widthPy: 0.5),
                                       child: AStx(
-                                        titelItem!,
+                                        widget.titelItem!,
                                         size: 18,
                                         colr: ColorsApp.blak50,
                                         MLin: 3,
@@ -113,41 +135,98 @@ class btnMenuItems extends StatelessWidget {
                         ),
 
                         Expanded(
-                          flex: 4,
+                          flex: 11,
                           child: Row(
                             children: [
                               Expanded(
                                 flex: 3,
                                 child: AStx(
-                                  "\$" + pricceItem!.toString(),
+                                  "\$" +
+                                      (/*widget.numm==null?*/ widget.pricceItem!
+                                          .toString() /*:(widget.pricceItem! * widget.numm!).toString()*/),
                                   size: 20,
                                   isBold: true,
                                 ),
                               ),
-                              SizedBox(
-                                width: DimenApp.widthSc(context, widthPy: 0.1),
-                                child: ElevatedButton(
-                                  onPressed: onTab,
-                                  child: FaIcon(
-                                    FontAwesomeIcons.plus,
-                                    color: ColorsApp.white1,
+                              widget.isAdd
+                                  ? SizedBox(
+                                      width: DimenApp.widthSc(context,
+                                          widthPy: 0.31),
+                                      child: SizedBox(
+                                        width: 100,
+                                        height: 188,
+                                        child: Container(
+                                          width: DimenApp.widthSc(context,
+                                              widthPy: 0.6),
+                                          //DimenApp.widthSc(context, widthPy: 0.6),
+                                          // 200,
+                                          // ,
+                                          height: 80,
+                                          //80, //DimenApp.hightSc(context, hightPy: 0.11),
+                                          //128,
+                                          // color: Colors.blue,
 
-                                    /// return here
-                                    size: 13,
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: ColorsApp.blak1,
-                                    onPrimary:
-                                        ColorsApp.white1.withOpacity(0.7),
-                                    elevation: 10,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                          // margin: const EdgeInsets.only(top: 0, bottom: 2),
+                                          padding: const EdgeInsets.all(10),
+                                          child: Row(
+                                            children: [
+                                              AStx("X ${widget.numm}"),
+                                              const SizedBox(
+                                                width: 25,
+                                              ),
+                                              IconButton(
+                                                icon: FaIcon(
+                                                  FontAwesomeIcons.trash,
+                                                  size: 28,
+                                                  color: ColorsApp.forPass,
+                                                ),
+                                                onPressed: () {
+
+                                                  setState(() {
+                                                    itemsOrder.BasketListItems!
+                                                        .remove(widget.op);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (BuildContext context) => PageHome()));
+                                                    print('is Deleted');
+                                                    print('is Deleted');
+                                                  });
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // BtnSpinnr(num:numm,),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      width: DimenApp.widthSc(context,
+                                          widthPy: 0.41),
+
+                                      child: ElevatedButton(
+                                        onPressed: widget.onTab,
+                                        child: FaIcon(
+                                          FontAwesomeIcons.plus,
+                                          color: ColorsApp.white1,
+
+                                          /// return here
+                                          size: 13,
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: ColorsApp.blak1,
+                                          onPrimary:
+                                              ColorsApp.white1.withOpacity(0.7),
+                                          elevation: 10,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                        ),
+                                      ),
+
+                                      // BtnSpinnr(controllerCountItems:controllerCountItems,wdt: 50,hit: 42,),
                                     ),
-                                  ),
-                                ),
-
-                                // BtnSpinnr(controllerCountItems:controllerCountItems,wdt: 50,hit: 42,),
-                              ),
                             ],
                           ),
                         ),

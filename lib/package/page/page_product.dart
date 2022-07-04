@@ -19,6 +19,7 @@ import 'package:sinbad_lunch/model/menu/get_all/get_food.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_list_additions.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_list_suace.dart';
 import 'package:sinbad_lunch/model/menu/get_all/get_suace.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/order_details.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
 class Order {
@@ -75,6 +76,11 @@ class _PageProductState extends State<PageProduct> {
   String _freeAdding2SelectionId = '';
   String _freeAdding3SelectionId = '';
   double _sauceSelectionPrice = 0;
+  get_suace? suaceInfo;
+  List<dynamic>? freeAdd1 = [];
+  List<dynamic>? freeAdd2 = [];
+  List<dynamic>? freeAdd3 = [];
+  List<AdditionalToppingg>? addingList = [];
 
   splitSauce() async {
     var x = await GetAllMenu().get_query_suace(widget.food.food_id!);
@@ -240,9 +246,15 @@ class _PageProductState extends State<PageProduct> {
           const SizedBox(
             width: 12.0,
           ),
-          const Text("This is a Custom Toast"),
-          const Text("\n"),
-          Text(fMss),
+
+          // Flexible(child: AStx( fMss   ,size: 17,)),
+          Flexible(
+              child: AStx(
+            "${fMss} has been added successfully",
+            size: 16,
+            MLin: 2,
+          )),
+          // const Text("\n"),
         ],
       ),
     );
@@ -267,7 +279,7 @@ class _PageProductState extends State<PageProduct> {
     fToast.init(context).showToast(
           child: toast(fMss),
           gravity: ToastGravity.BOTTOM,
-          toastDuration: const Duration(seconds: 8),
+          toastDuration: const Duration(seconds: 2),
         );
   }
 
@@ -283,17 +295,22 @@ class _PageProductState extends State<PageProduct> {
   Widget build(BuildContext context) {
     // FutureBuilderGetAdditions();
     // list_suaces = [];
-    int num = 0;
-    double total = 0;
+    int numberOfItems = 0;
+    double totalPrice = 0;
+    double totalPriceWithOutNum = 0;
     count = Provider.of<ProductPageVariables>(context);
     setState(() {
-      num = int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
-      print('nummm' + num.toString());
+      numberOfItems =
+          int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
+      print('nummm' + numberOfItems.toString());
       // BtnSpinnr.controllerCountItems;
-      total = (widget.food.food_price! +
+      totalPrice = (widget.food.food_price! +
               additionsSelectionPrice +
               _sauceSelectionPrice) *
-          num;
+          numberOfItems;
+      totalPriceWithOutNum = (widget.food.food_price! +
+          additionsSelectionPrice +
+          _sauceSelectionPrice);
     });
 
     return Scaffold(
@@ -342,7 +359,7 @@ class _PageProductState extends State<PageProduct> {
                         //             ),
                         //             CachedNetworkImage(
                         //               imageUrl:
-                        //                   'https://likedomens.000webhostapp.com/coin-money-7-removebg-preview.png',
+                        //                   'https://sinbadslunch.com/myBackENd/coin-money-7-removebg-preview.png',
                         //               fit: BoxFit.fitHeight,
                         //               height: 30,
                         //               //DimenApp.hightSc(context, hightPy: 0.35),
@@ -544,13 +561,10 @@ class _PageProductState extends State<PageProduct> {
 
               ///alert box
 
-
-
               // count.note(),
               // SizedBox(
               //   height: DimenApp.hightSc(context, hightPy: 0.011), //128,
               // ),
-
 
               /************************************************************************/
               //Button add to cart
@@ -574,10 +588,10 @@ class _PageProductState extends State<PageProduct> {
                         elevation: 7,
                       ),
                       onPressed: () async {
-                        for (var i in additionalToppingsChose) {
-                          print(
-                              'additionalToppingsChose   ${i.additions_name}');
-                        }
+                        // for (var i in additionalToppingsChose) {
+                        //   print(
+                        //       'additionalToppingsChose   ${i.additions_name}');
+                        // }
                         setState(() {
                           isLoading = true;
                         });
@@ -591,9 +605,51 @@ class _PageProductState extends State<PageProduct> {
                                 builder: (BuildContext context) => PageHome()));
 
                         // _showBuilderToast();
-                        _showToast(count.controllerCountItems!.text.toString());
+                        _showToast(widget.food.food_name.toString());
                         print('listAdditionsIsEmpty $listAdditionsIsEmpty');
                         print(widget.food.food_id);
+                        /********************************************************************/
+                        count.BasketListItems.add(OrderDetails(
+                          itemsId: widget.food.food_id!,
+                          itemsName: widget.food.food_name!,
+                          itemsImage: widget.food.food_image!,
+                          itemsOfNumber: numberOfItems,
+                          itemsTotalPrice: totalPrice,
+                          sauceId:
+                              suaceInfo != null ? suaceInfo!.suace_id : null,
+                          sauceName:
+                              suaceInfo != null ? suaceInfo!.suace_name : null,
+                          saucePrice:
+                              suaceInfo != null ? suaceInfo!.price : null,
+                          instructon: controllerInstruction != null &&
+                                  controllerInstruction!.text
+                                      .toString()
+                                      .isNotEmpty
+                              ? controllerInstruction!.text.toString()
+                              : null,
+                          addingList:
+                              addingList != null && addingList!.isNotEmpty
+                                  ? addingList
+                                  : null,
+                          iSFree1Id: freeAdd1 != null && freeAdd1!.isNotEmpty
+                              ? freeAdd1![0]
+                              : null,
+                          isFree1Name: freeAdd1 != null && freeAdd1!.isNotEmpty
+                              ? freeAdd1![1]
+                              : null,
+                          iSFree2Id: freeAdd2 != null && freeAdd2!.isNotEmpty
+                              ? freeAdd2![0]
+                              : null,
+                          isFree2Name: freeAdd2 != null && freeAdd2!.isNotEmpty
+                              ? freeAdd2![1]
+                              : null,
+                          iSFree3Id: freeAdd3 != null && freeAdd3!.isNotEmpty
+                              ? freeAdd3![0]
+                              : null,
+                          isFree3Name: freeAdd3 != null && freeAdd3!.isNotEmpty
+                              ? freeAdd3![1]
+                              : null,
+                        ));
                       },
                       child: (isLoading)
                           ? const SizedBox(
@@ -613,7 +669,7 @@ class _PageProductState extends State<PageProduct> {
                                 ),
                                 // price item
                                 AStx(
-                                  '\$$total',
+                                  '\$${totalPrice}',
                                   size: 20,
                                   isBold: true,
                                   colr: Colors.black54.withOpacity(0.5),
@@ -759,6 +815,26 @@ class _PageProductState extends State<PageProduct> {
             // ignore: unnecessary_null_comparison
             if (su != null) {
               _sauceSelectionPrice = su.price!;
+              suaceInfo = su;
+            }
+            if (food != null) {
+              switch (freeNum) {
+                case 1:
+                  freeAdd1!.add(food.food_id);
+                  freeAdd1!.add(food.food_name);
+
+                  break;
+                case 2:
+                  freeAdd2!.add(food.food_id);
+                  freeAdd2!.add(food.food_name);
+
+                  break;
+                case 3:
+                  freeAdd3!.add(food.food_id);
+                  freeAdd3!.add(food.food_name);
+
+                  break;
+              }
             }
           });
         },
@@ -903,6 +979,7 @@ class _PageProductState extends State<PageProduct> {
                                     '\$' + e.extraPrice.toString(),
                                     colr: ColorsApp.primColr,
                                     MLin: 2,
+                                    size: 14,
                                   ),
                                 ),
                               ],
@@ -918,12 +995,20 @@ class _PageProductState extends State<PageProduct> {
                                       additionalToppingsChose
                                           .add(e.additions_id);
                                       additionsSelectionPrice += e.extraPrice;
+                                      addingList!.add(AdditionalToppingg(
+                                          isAdditional: e.additions_id,
+                                          nameAdditional: e.extraName,
+                                          priceAdditional: e.extraPrice));
                                     });
                                   } else {
                                     setState(() {
                                       additionalToppingsChose
                                           .remove(e.additions_id);
                                       additionsSelectionPrice -= e.extraPrice;
+                                      addingList!.remove(AdditionalToppingg(
+                                          isAdditional: e.additions_id,
+                                          nameAdditional: e.extraName,
+                                          priceAdditional: e.extraPrice));
                                     });
                                   }
                                 });

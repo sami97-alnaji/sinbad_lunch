@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
+import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
@@ -16,8 +18,10 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+
   @override
   Widget build(BuildContext context) {
+  var  itemsOrder = Provider.of<ProductPageVariables>(context);
     return Drawer(
       backgroundColor: ColorsApp.white1,
       child: Column(
@@ -37,7 +41,6 @@ class _MyDrawerState extends State<MyDrawer> {
           SizedBox(
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
-          btnTxt('About Us'),
           SizedBox(
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
@@ -106,7 +109,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     //   child:
                       Padding(
                       padding: const EdgeInsets.only(left: 31.0, top: 9),
-                      child: AStx('958',colr: ColorsApp.white,size: 15),
+                      child: AStx(itemsOrder.BasketListItems!.length.toString(),colr: ColorsApp.white,size: 15),
                   ),
                     // ),
                   Padding(

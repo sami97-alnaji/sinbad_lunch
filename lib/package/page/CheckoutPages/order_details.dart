@@ -1,56 +1,58 @@
 class OrderDetails {
 
   OrderDetails(
-      {required this.idItems,
-      required this.nameItems,
-      required this.numberOfItems,
-      required this.totalPriceItems,
-      this.isSauce,
-      this.nameSauce,
-      this.priceSauce,
+      {required this.itemsId,
+      required this.itemsName,
+      required this.itemsImage,
+      required this.itemsOfNumber,
+      required this.itemsTotalPrice,
+      this.sauceId,
+      this.sauceName,
+      this.saucePrice,
       this.instructon,
       this.addingList,
-      this.idISFree1,
-      this.nameIsFree1,
-      this.idISFree2,
-      this.nameIsFree2,
-      this.idISFree3,
-      this.nameIsFree3});
+      this.iSFree1Id,
+      this.isFree1Name,
+      this.iSFree2Id,
+      this.isFree2Name,
+      this.iSFree3Id,
+      this.isFree3Name});
 
 
 
   /// *****************************************************************/
 
 
-  int idItems;
-  String nameItems;
-  int numberOfItems;
-  double totalPriceItems;
+  int itemsId;
+  String itemsName;
+  String itemsImage;
+  int itemsOfNumber;
+  double itemsTotalPrice;
 
   /// *****************************************************************/
 
-  int? isSauce;
-  String? nameSauce;
-  double? priceSauce;
+  int? sauceId;
+  String? sauceName;
+  double? saucePrice;
 
 /// **********************************************************************/
   String? instructon;
 
 /// ************************************************************************/
-  List<AdditionalTopping>? addingList;
+  List<AdditionalToppingg>? addingList;
 
 /// ***************************************************************************/
-  int? idISFree1;
-  String? nameIsFree1;
+  int? iSFree1Id;
+  String? isFree1Name;
 
 /// ***************************************************************************/
-  int? idISFree2;
-  String? nameIsFree2;
+  int? iSFree2Id;
+  String? isFree2Name;
 
 
 /// ***************************************************************************/
-  int? idISFree3;
-  String? nameIsFree3;
+  int? iSFree3Id;
+  String? isFree3Name;
 
 
 /*****************************************************************************/
@@ -59,8 +61,11 @@ class OrderDetails {
 
 }
 
-class AdditionalTopping {
+class AdditionalToppingg {
   int? isAdditional;
   String? nameAdditional;
   double? priceAdditional;
+
+  AdditionalToppingg(
+      {this.isAdditional, this.nameAdditional, this.priceAdditional});
 }

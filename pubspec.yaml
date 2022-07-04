@@ -46,8 +46,15 @@ dependencies:
   auto_size_text: ^3.0.0
   http: ^0.13.4
   provider: ^6.0.2
-  flutter_stripe: ^3.0.2
+#  flutter_stripe: ^3.0.2
   get: ^4.6.5
+#  url_launcher:
+  html: ^0.15.0
+  webview_flutter: ^3.0.4
+  email_validator: ^2.0.1
+  encrypt: ^5.0.1
+  crypto: ^3.0.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +88,7 @@ flutter:
   assets:
      - assets/images/
      - assets/icons/
+     - assets/gif/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

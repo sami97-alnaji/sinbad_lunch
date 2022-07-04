@@ -21,7 +21,7 @@ class ColorsApp {
       white1 = const Color(0xfffbfaff),//c9e5e7
       white = const Color(0xfff9f9f9),//Colors.white70
       red1 = const Color(0xffc92424),
-      grey = const Color(0xfff3f2f7),
+      grey = const Color(0xffc2d3b5),
       green = const Color(0xff029834);
 
 // Color convertColors(String col){

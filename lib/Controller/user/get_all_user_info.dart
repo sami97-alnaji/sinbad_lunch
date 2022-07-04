@@ -5,9 +5,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sinbad_lunch/model/user/company_all.dart';
-
+//https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/
+//"http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/user/"
 class GetAllUserInfo{
-  String url = "http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/user/";
+  String url = "https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/user/";
  // companyAll.php
   // ignore: non_constant_identifier_names
   Future<List<CompanyAll>> CompanyAllData( ) async {
@@ -25,5 +26,8 @@ class GetAllUserInfo{
     print("List Size: ${list!.length}");
     return list;
   }
+
+
+  
 
 }

@@ -10,11 +10,16 @@ import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 
 // ignore: must_be_immutable
 class BtnSpinnr extends StatelessWidget {
-  BtnSpinnr({this.wdt,this.hit, Key? key}) : super(key: key);
+  BtnSpinnr({this.wdt,this.hit, Key? key, this.num}) : super(key: key);
   double? wdt,hit;
+  int? num;
+  TextEditingController? controllerCountItemss =TextEditingController();
   @override
   Widget build(BuildContext context) {
     var count=Provider.of<ProductPageVariables>(context);
+    if(num!=null){
+      controllerCountItemss!.text=num.toString();
+    }
     return Container(
       width:  wdt??DimenApp.widthSc(context, widthPy: 0.6),//DimenApp.widthSc(context, widthPy: 0.6),
       // 200,
@@ -28,7 +33,7 @@ class BtnSpinnr extends StatelessWidget {
       child: Card(
         color: ColorsApp.white1,
         child: TextField(
-          controller: count.controllerCountItems,
+          controller:controllerCountItemss!.text.isNotEmpty ?controllerCountItemss: count.controllerCountItems,
           readOnly: true,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
@@ -37,7 +42,7 @@ class BtnSpinnr extends StatelessWidget {
             //     // borderRadius: BorderRadius.circular(10.0),
             //     ),
             icon: IconButton(
-                onPressed: ()=>count.pulss(),
+                onPressed: ()=>count.pulss(controllerCountItems1:num!=null?controllerCountItemss:null),
                 icon: FaIcon(
                   FontAwesomeIcons.plus,
                   color: ColorsApp.green,
@@ -45,7 +50,7 @@ class BtnSpinnr extends StatelessWidget {
                   // size: 13,
                 )),
             suffixIcon: IconButton(
-              onPressed: () =>count.minuss(),
+              onPressed: () =>count.minuss(controllerCountItems1:num!=null?controllerCountItemss:null),
               icon: FaIcon(
                 FontAwesomeIcons.minus,
                 color: ColorsApp.green,

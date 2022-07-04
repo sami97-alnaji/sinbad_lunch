@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sinbad_lunch">
+    package="com.sinbadslunch.sinbad_lunch">
 
    <application
         android:usesCleartextTraffic="true"

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,15 +9,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
-import 'package:sinbad_lunch/Components/Widget/textFF.dart';
 import 'package:sinbad_lunch/Components/image/images.dart';
+import 'package:sinbad_lunch/Controller/user/autho.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
-import 'package:sinbad_lunch/components/Widget/button/btnEleSimple.dart';
+import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
+import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
-
-import '../page_Home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -26,6 +26,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  late bool _obscureText = true;
+  late FaIcon _iconSuffix = const FaIcon(FontAwesomeIcons.eye);
+  final _formKey = GlobalKey<FormState>();
+
+  // ignore: prefer_typing_uninitialized_variables
+  var logn;
+
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
@@ -52,7 +61,7 @@ class _LoginState extends State<Login> {
           color: ColorsApp.white,
           child: SingleChildScrollView(
             child: GestureDetector(
-              onHorizontalDragCancel: (){
+              onHorizontalDragCancel: () {
                 SystemChannels.textInput.invokeMethod('TextInput.hide');
               },
               child: Column(
@@ -62,87 +71,19 @@ class _LoginState extends State<Login> {
                   ),
                   //logo
                   CachedNetworkImage(
-                      imageUrl: ImageApp.imgLogo,
-                      // fit: BoxFit.fitHeight,
-                      // height: DimenApp.hightSc(context, hightPy: 0.28),
-                      width: DimenApp.widthSc(context),
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
+                    imageUrl: ImageApp.imgLogo,
+                    // fit: BoxFit.fitHeight,
+                    // height: DimenApp.hightSc(context, hightPy: 0.28),
+                    width: DimenApp.widthSc(context),
+                    placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(
+                      color: ColorsApp.primColr,
+                    )),
                   ),
-                  // (
-                  //   ImageApp.imgLogo,
-                  //   width: DimenApp.widthSc(context),
-                  // ),
 
                   SizedBox(
                     height: DimenApp.hightSc(context, hightPy: 0.10),
                   ),
-
-
-
-                  // //sub Login
-                  // Row(
-                  //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     //space
-                  //     Flexible(flex:1,child: Container(),),
-                  //   //google login
-                  //     Flexible(
-                  //       flex: 8,
-                  //       child: SizedBox(
-                  //         height: DimenApp.hightSc(context, hightPy: 0.065),
-                  //         child: ElevatedButton(
-                  //           style: ElevatedButton.styleFrom(
-                  //             primary: ColorsApp.white,
-                  //             onPrimary: ColorsApp.primColr,
-                  //             elevation: 10,
-                  //             shape: RoundedRectangleBorder(
-                  //               borderRadius: BorderRadius.circular(11.0),
-                  //             ),
-                  //           ),
-                  //           onPressed: () {},
-                  //           child: Row(
-                  //             children: [
-                  //                 FaIcon(FontAwesomeIcons.google,color:ColorsApp.primColr,),
-                  //               SizedBox(
-                  //                   width: DimenApp.widthSc(context, widthPy: 0.03)),
-                  //               AStx("Google",colr: ColorsApp.blak50,),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     //space
-                  //     Flexible(flex:1,child: Container(),),
-                  //     //facebook login
-                  //     Flexible(
-                  //       flex: 8,
-                  //       child: SizedBox(
-                  //         height: DimenApp.hightSc(context, hightPy: 0.065),
-                  //         child: ElevatedButton(
-                  //           style: ElevatedButton.styleFrom(
-                  //             primary: ColorsApp.white,
-                  //             onPrimary: ColorsApp.primColr,
-                  //             elevation: 10,
-                  //             shape: RoundedRectangleBorder(
-                  //               borderRadius: BorderRadius.circular(11.0),
-                  //             ),
-                  //           ),
-                  //           onPressed: () {},
-                  //           child: Row(
-                  //             children: [
-                  //                 FaIcon(FontAwesomeIcons.facebookF,color:ColorsApp.primColr,),
-                  //               SizedBox(
-                  //                   width: DimenApp.widthSc(context, widthPy: 0.03)),
-                  //               AStx("Facebook",colr: ColorsApp.blak50,),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     //space
-                  //     Flexible(flex:1,child: Container(),),
-                  //   ],
-                  // ),
 
                   Card(
                     // shape: BeveledRectangleBorder(
@@ -161,174 +102,319 @@ class _LoginState extends State<Login> {
                     //   ),
                     // ),
                     child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                        children: [
-                          //email
-                          TextFF(WordAppENG.entrEmail),
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.04),
-                          ),
-                          //password
-                          TextFF(WordAppENG.entrPass),
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.004),
-                          ),
-                          Row(
-                            children: [
-                              btnTxt(
-                                WordAppENG.forgotPass,
-                                fSize: DimenApp.hightSc(context, hightPy: 0.0209),
-                                onTab: () {
-                                  print('login');
+                      padding: const EdgeInsets.all(5.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 12,
+                            ),
+
+                            /*******************************************************************/
+                            // Text Filed for Email
+                            TFiled(
+                              controller: _controllerEmail,
+                              onValidator: (value) {
+                                String pattern =
+                                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                                    r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                                    r"{0,253}[a-zA-Z0-9])?)*$";
+                                RegExp regex = RegExp(pattern);
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !regex.hasMatch(value) ||
+                                    value.contains('@') ||
+                                    value.contains('.')) {
+                                  return EmailValidator.validate(value!)
+                                      ? null
+                                      : 'Enter a valid email address';
+                                }
+                                return null;
+                              },
+                              hint: WordAppENG.email,
+                              keyboardType: TextInputType.emailAddress,
+                              pIcon: Icon(
+                                Icons.email,
+                                color: ColorsApp.primColr,
+                              ),
+                            ),
+                            /*******************************************************************/
+                            const SizedBox(
+                              height: 12,
+                            ),
+
+                            /*******************************************************************/
+                            // Text Filed for Password
+                            TFiled(
+                                controller: _controllerPassword,
+                                textAction: TextInputAction.done,
+                                onValidator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  if (value.length < 6) {
+                                    return 'Please enter a password of at least 6 characters';
+                                  }
+                                  return null;
                                 },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.015),
-                          ),
-                          //button login
-                          // SizedBox(
-                          //   width: DimenApp.widthSc(context, widthPy: 0.88),
-                          //   child: btnEleSimple(
-                          //     WordAppENG.login,
-                          //
-                          //     onTab: () {
-                          //       print('sami');
-                          //
-                          //       Navigator.pushReplacement(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //           builder: (BuildContext context) => PageHome(),
-                          //         ),
-                          //       );
-                          //     },
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   height: DimenApp.hightSc(context, hightPy: 0.015),
-                          // ),
-                          // /***************************************/
-                          // SizedBox(
-                          //   height: DimenApp.hightSc(context, hightPy: 0.015),
-                          // ),
-
-                          /****************************************/
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.015),
-                          ),
-
-                          /*******************************************************************/
-                          //sub Login
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              //space
-                              Flexible(flex:1,child: Container(),),
-                              //google login
-                              Flexible(
-                                flex: 8,
-                                child: SizedBox(
-                                  height: DimenApp.hightSc(context, hightPy: 0.065),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: ColorsApp.white,
-                                      onPrimary: ColorsApp.primColr,
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(11.0),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: Row(
-                                      children: [
-                                        const FaIcon(FontAwesomeIcons.google),
-                                        SizedBox(
-                                            width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                        AStx("Google"),
-                                      ],
-                                    ),
-                                  ),
+                                hint: WordAppENG.password,
+                                keyboardType: TextInputType.text,
+                                pIcon: Icon(
+                                  Icons.lock_rounded,
+                                  color: ColorsApp.primColr,
                                 ),
-                              ),
-                              //space
-                              Flexible(flex:1,child: Container(),),
+                                isObscureText: _obscureText,
+                                // pIcon: Icon(
+                                // Icons.lock,
+                                // color: AppColors.blue,
+                                // ),
+                                sIcon: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: _iconSuffix,
+                                ),
+                                onSIcon: () {
+                                  setState(() {
+                                    if (_obscureText) {
+                                      _iconSuffix = FaIcon(
+                                        FontAwesomeIcons.eye,
+                                        color: ColorsApp.blak1,
+                                      );
+                                      _obscureText = false;
+                                    } else {
+                                      _iconSuffix = FaIcon(
+                                        FontAwesomeIcons.eyeSlash,
+                                        color: ColorsApp.blak1,
+                                      );
+                                      _obscureText = true;
+                                    }
+                                  });
+                                }),
+                            /*******************************************************************/
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Row(
+                              children: [
+                                btnTxt(
+                                  WordAppENG.forgotPass,
+                                  fSize: DimenApp.hightSc(context,
+                                      hightPy: 0.0209),
+                                  onTab: () {
+                                    print('login');
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: DimenApp.hightSc(context, hightPy: 0.015),
+                            ),
+                            //button login
+                            // SizedBox(
+                            //   width: DimenApp.widthSc(context, widthPy: 0.88),
+                            //   child: btnEleSimple(
+                            //     WordAppENG.login,
+                            //
+                            //     onTab: () {
+                            //       print('sami');
+                            //
+                            //       Navigator.pushReplacement(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //           builder: (BuildContext context) => PageHome(),
+                            //         ),
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: DimenApp.hightSc(context, hightPy: 0.015),
+                            // ),
+                            // /***************************************/
+                            // SizedBox(
+                            //   height: DimenApp.hightSc(context, hightPy: 0.015),
+                            // ),
 
-                              /*******************************************************************/
-                              // Button to login
+                            /****************************************/
+                            SizedBox(
+                              height: DimenApp.hightSc(context, hightPy: 0.015),
+                            ),
 
-                              Flexible(
-                                flex: 8,
-                                child: SizedBox(
-                                  height: DimenApp.hightSc(context, hightPy: 0.065),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: ColorsApp.white,
-                                      onPrimary: ColorsApp.primColr,
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(11.0),
+                            /*******************************************************************/
+                            //sub Login
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                //space
+                                Flexible(
+                                  flex: 1,
+                                  child: Container(),
+                                ),
+                                //google login
+                                // Flexible(
+                                //   flex: 8,
+                                //   child: SizedBox(
+                                //     height: DimenApp.hightSc(context, hightPy: 0.065),
+                                //     child: ElevatedButton(
+                                //       style: ElevatedButton.styleFrom(
+                                //         primary: ColorsApp.white,
+                                //         onPrimary: ColorsApp.primColr,
+                                //         elevation: 10,
+                                //         shape: RoundedRectangleBorder(
+                                //           borderRadius: BorderRadius.circular(11.0),
+                                //         ),
+                                //       ),
+                                //       onPressed: () {},
+                                //       child: Row(
+                                //         children: [
+                                //           const FaIcon(FontAwesomeIcons.google),
+                                //           SizedBox(
+                                //               width: DimenApp.widthSc(context, widthPy: 0.03)),
+                                //           AStx("Google"),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                                // //space
+                                // Flexible(flex:1,child: Container(),),
+
+                                /*******************************************************************/
+                                // Button to login
+
+                                Flexible(
+                                  flex: 8,
+                                  child: SizedBox(
+                                    height: DimenApp.hightSc(context,
+                                        hightPy: 0.065),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: ColorsApp.white,
+                                        onPrimary: ColorsApp.primColr,
+                                        elevation: 10,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(11.0),
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          logn = await Autho().logIn(
+                                              email: _controllerEmail.text,
+                                              password:
+                                                  _controllerPassword.text);
+                                          // ignore: unrelated_type_equality_checks
+                                          if (logn ==
+                                                  "Please verify your information !!!" ||
+                                              logn == null ||
+                                              logn == "") {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: AStx(
+                                                        "Please verify your information !!!")));
+                                          } else {
+                                            /****************************************/
+                                            print( logn["user_id"] );
+                                            print( logn["user_id"] );
+                                            await  UserInfoPreferences.inti();
 
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (BuildContext context) => PageHome(),
-                                              ),
+                                            await UserInfoPreferences
+                                                .SetCompanyId( logn["company_id"] );
+                                            // await UserInfoPreferences
+                                            //     .SetCompanyId( logn["company_id"] );
+                                            // await UserInfoPreferences
+                                            //     .SetPhoneNumber( logn["phone_number"] );
+                                            // await UserInfoPreferences.SetEmail(logn["email"] );
+                                            // await UserInfoPreferences
+                                            //     .SetFirstName(logn["first_name"] );
+                                            // await UserInfoPreferences
+                                            //     .SetLastName(logn["last_name"] );
+                                            // await UserInfoPreferences
+                                            //     .SetPassword(logn["password"] );
+                                            // await UserInfoPreferences
+                                            //     .SetStatusEmail( logn["status_email"] );
+                                            // await UserInfoPreferences.SetUserId( logn["user_id"] );
+                                            print( logn["user_id"] );
+                                            // Navigator.pushReplacement(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder:
+                                            //         (BuildContext context) =>
+                                            //             PageHome(),
+                                            //   ),
+                                            // );
+
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                  content: AStx(
+                                                      logn["phone_number"] ??
+                                                          'error')),
                                             );
-                                    },
-                                    child: Row(
-                                      children: [
-                                        const FaIcon(FontAwesomeIcons.solidPlayCircle),
-                                        SizedBox(
-                                            width: DimenApp.widthSc(context, widthPy: 0.03)),
-                                        AStx(WordAppENG.login),
-                                      ],
+
+                                            /******************************************/
+                                          }
+                                        }
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const FaIcon(
+                                              FontAwesomeIcons.solidPlayCircle),
+                                          SizedBox(
+                                              width: DimenApp.widthSc(context,
+                                                  widthPy: 0.03)),
+                                          AStx(WordAppENG.login),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
+                                /*******************************************************************/
 
-                              /*******************************************************************/
+                                //space
+                                Flexible(
+                                  flex: 1,
+                                  child: Container(),
+                                ),
+                              ],
+                            ),
 
+                            /*******************************************************************/
 
+                            /***************************************/
+                            SizedBox(
+                              height: DimenApp.hightSc(context, hightPy: 0.015),
+                            ),
 
-                              //space
-                              Flexible(flex:1,child: Container(),),
-                            ],
-                          ),
+                            //button register
+                            Row(
+                              children: [
+                                btnTxt(
+                                  WordAppENG.dontHaveRegister,
+                                  fSize:
+                                      DimenApp.hightSc(context, hightPy: 0.023),
+                                  onTab: () async {
+                                    await  UserInfoPreferences.inti();
 
-                          /*******************************************************************/
-
-                          /***************************************/
-                          SizedBox(
-                            height: DimenApp.hightSc(context, hightPy: 0.015),
-                          ),
-
-                          //button register
-                          Row(
-                            children: [
-                              btnTxt(
-                                WordAppENG.dontHaveRegister,
-                                fSize: DimenApp.hightSc(context, hightPy: 0.023),
-                                onTab: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          const Register(),
-                                    ),
-                                  );
-                                  print("I don't have an account, register");
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
+                                  print(    UserInfoPreferences
+                                        .GetCompanyId(  ));
+                                    // Navigator.pushReplacement(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (BuildContext context) =>
+                                    //         const Register(),
+                                    //   ),
+                                    // );
+                                    print("I don't have an account, register");
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

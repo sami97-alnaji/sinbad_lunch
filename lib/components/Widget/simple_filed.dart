@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
@@ -21,19 +22,23 @@ class TFiled extends StatelessWidget {
       Widget? pIcon,
       Widget? sIcon,
       bool? readOnly=false,
-      void Function()? onSIcon})
+      void Function()? onSIcon,
+        TextInputAction? textAction,
+        List<TextInputFormatter>? inputFormatter})
       : _initValue = initValue,
         _keyboardType = keyboardType,
         _isObscureText = isObscureText,
         _onChanged = onChanged,
         _onValidator = onValidator,
         _onSaved = onSaved,
+  _textAction = textAction,
         _hint = hint,
         _pIcon = pIcon,
         _sIcon = sIcon,
         _onSIcon = onSIcon,
         _controler = controller,
         _readOnly= readOnly,
+        _inputFormatter = inputFormatter,
         super(key: key);
 
   final String? _initValue;
@@ -41,6 +46,8 @@ class TFiled extends StatelessWidget {
   final bool? _isObscureText;
   final void Function(String)? _onChanged;
   final String? Function(String?)? _onValidator;
+  final List<TextInputFormatter>? _inputFormatter;
+  final  TextInputAction? _textAction;
   // decoration
   final String? _hint;
   final Widget? _pIcon;
@@ -57,6 +64,7 @@ class TFiled extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            textInputAction: _textAction??TextInputAction.next,
             controller: _controler,
             initialValue: _initValue,
             cursorColor: ColorsApp.primColr,
@@ -106,9 +114,10 @@ class TFiled extends StatelessWidget {
             style: GoogleFonts.openSans(
               // fontSize: 25,
             ),
+            inputFormatters:_inputFormatter,
           ),
         ),
-        SizedBox(height:  DimenApp.hightSc(context, hightPy: 0.03),),
+        SizedBox(height:  22,),
       ],
     );
   }

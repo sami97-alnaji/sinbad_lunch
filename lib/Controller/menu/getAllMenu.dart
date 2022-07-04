@@ -10,10 +10,10 @@ import 'package:sinbad_lunch/model/menu/get_all/get_menu_type.dart';
 import 'dart:convert';
 
 import 'package:sinbad_lunch/model/menu/get_all/get_suace.dart';
-
-
+//https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/
+//"http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/"
 class GetAllMenu{
-  String url = "http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/";
+  String url = "https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/";
   static http.Response? res;
 
   Future<List<get_suace>> get_suace_Data( ) async {

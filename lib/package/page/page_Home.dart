@@ -235,8 +235,7 @@ class _PageHomeState extends State<PageHome> {
                   // count.note(),
 
                   SizedBox(
-                    height:
-                    DimenApp.hightSc(context, hightPy: 0.011), //128,
+                    height: DimenApp.hightSc(context, hightPy: 0.011), //128,
                   ),
                   // ),
                   /************************************************************************************************************/
@@ -576,22 +575,23 @@ class _PageHomeState extends State<PageHome> {
     }
   }
 
-///*******************************************************************************/
+  ///*******************************************************************************/
   setImageInHeader() {
-    var image = 'https://likedomens.000webhostapp.com/home_page_imgEdit.png';
+    var image = 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png';
     /**********/
-    var text1= 'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY';
-    var text2= 'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S';
-    var text3= ' WE ONLY ACCEPT ORDERS FROM 6:00AM TILL 10:00 AM\n  ANY'
+    var text1 = 'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY';
+    var text2 =
+        'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S';
+    var text3 = ' WE ONLY ACCEPT ORDERS FROM 6:00AM TILL 10:00 AM\n  ANY'
         ' ORDER AFTER 10:00 WILL NOT BE  FILLED';
     /************/
-    var color1=ColorsApp.text1home;
-    var color2=ColorsApp.text2home;
-    var color3=ColorsApp.text3home;
+    var color1 = ColorsApp.text1home;
+    var color2 = ColorsApp.text2home;
+    var color3 = ColorsApp.text3home;
     /************/
-    var size1Text=16.0;
-    var size2Text=13.0;
-    var size3Text=14.0;
+    var size1Text = 16.0;
+    var size2Text = 13.0;
+    var size3Text = 14.0;
     /************/
     return Container(
       height: DimenApp.hightSc(context, hightPy: 0.24),
@@ -609,7 +609,7 @@ class _PageHomeState extends State<PageHome> {
             alignment: Alignment.center,
             children: [
               // //image set
-              // Image.network( 'https://likedomens.000webhostapp.com/home_page_imgEdit.png',
+              // Image.network( 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png',
               //   fit: BoxFit.fitHeight,
               //   height:
               //   DimenApp.hightSc(context, hightPy: 0.28),
@@ -629,7 +629,7 @@ class _PageHomeState extends State<PageHome> {
 
               CachedNetworkImage(
                 imageUrl: image,
-                // "https://likedomens.000webhostapp.com/home_page_img.png",
+                // "https://sinbadslunch.com/myBackENd/home_page_img.png",
                 fit: BoxFit.fitHeight,
                 height: DimenApp.hightSc(context, hightPy: 0.28),
                 placeholder: (context, url) => Center(
@@ -645,7 +645,7 @@ class _PageHomeState extends State<PageHome> {
                     fit: BoxFit.fitHeight,
                     image: CachedNetworkImageProvider(
                       image,
-                      // "https://likedomens.000webhostapp.com/home_page_img.png",
+                      // "https://sinbadslunch.com/myBackENd/home_page_img.png",
                       // placeholder: (context, url) =>
                       //     Center(
                       //         child: CircularProgressIndicator(
@@ -669,7 +669,7 @@ class _PageHomeState extends State<PageHome> {
                       //     );
                       //   },
                       //   placeholder: const AssetImage('assets/images/site_logo.png'),
-                      //   image: const NetworkImage('https://likedomens.000webhostapp.com/home_page_imgEdit.png'),
+                      //   image: const NetworkImage('https://sinbadslunch.com/myBackENd/home_page_imgEdit.png'),
                       //   fit: BoxFit.cover,
                       //   height: 100.0,
                       //   width: 100.0,
@@ -765,7 +765,7 @@ class _PageHomeState extends State<PageHome> {
       //    radius: 2,
       //    child: ClipOval(
       //      child: CachedNetworkImage(
-      //        imageUrl:  "https://likedomens.000webhostapp.com/home_page_img.png",
+      //        imageUrl:  "https://sinbadslunch.com/myBackENd/home_page_img.png",
       //        fit: BoxFit.fitHeight,
       //        height: DimenApp.hightSc(context, hightPy: 0.23),
       //      ),

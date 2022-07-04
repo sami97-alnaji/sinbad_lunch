@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
+import 'package:sinbad_lunch/model/user/user_info.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/order_details.dart';
 
 class ProductPageVariables with ChangeNotifier {
   TextEditingController? controllerCountItems = TextEditingController();
 
   int _CountItems = 1;
+  double totalFood = 0;
+  List<OrderDetails>? BasketListItems =[];
+
+  UserInfo? userInfo;
 
   set CountItems(int value) {
     _CountItems = value;
@@ -25,22 +31,42 @@ class ProductPageVariables with ChangeNotifier {
     notifyListeners();
   }
 
-  minuss() {
+  minuss({TextEditingController? controllerCountItems1}) {
+    if(controllerCountItems1==null   ) {
     if (_CountItems > 1) {
       _CountItems--;
       controllerCountItems!.text = _CountItems.toString();
       print(controllerCountItems!.text);
     }
+    }else{
+      int x=int.parse(controllerCountItems1.text.toString());
+      if(x>=0){
+        controllerCountItems1.text=(x-1).toString();
+      }
+    }
     notifyListeners();
   }
 
-  pulss() {
-    if (_CountItems < 60) {
-      _CountItems++;
-      controllerCountItems!.text = _CountItems.toString();
-      print(controllerCountItems!.text);
+  pulss( {TextEditingController? controllerCountItems1} ) {
+    if(controllerCountItems1==null) {
+
+      if (_CountItems < 60) {
+        _CountItems++;
+        controllerCountItems!.text = _CountItems.toString();
+        print(controllerCountItems!.text);
+      }
+    print('is the add');
+    }else{
+      print('is not the add');
+
+      int x=int.parse(controllerCountItems1.text.toString());
+      if(x<60){
+       controllerCountItems1.text=(x+1).toString();
+      }
     }
+
     notifyListeners();
+
   }
 
     note(){
