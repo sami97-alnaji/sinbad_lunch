@@ -1,6 +1,8 @@
 // ignore: file_names
 // ignore_for_file: camel_case_types, avoid_print
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/Order/order_save.dart';
@@ -19,6 +21,35 @@ class Page_Checkout extends StatefulWidget {
 class _Page_CheckoutState extends State<Page_Checkout> {
   // ignore: prefer_typing_uninitialized_variables
   var itemsOrder;
+  /********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
+
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+  @override
+  void initState() {
+    super.initState();
+    /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
+  }
+  /***************************************************************************/
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +62,8 @@ class _Page_CheckoutState extends State<Page_Checkout> {
         totalFood += x.itemsTotalPrice;
       }
     }
+    if(_isConnectionSuccessful!) {
+      try {
     return Scaffold(
       body: Container(
         height: DimenApp.hightSc(context),
@@ -185,5 +218,17 @@ class _Page_CheckoutState extends State<Page_Checkout> {
         ),
       ),
     );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 }

@@ -9,7 +9,7 @@ import 'package:sinbad_lunch/components/Colors/colors.dart';
 class AStx extends StatefulWidget {
   // ignore: non_constant_identifier_names
   AStx(this.label,
-      {this.size = 18, this.isBold = false, isTextCenter = false, this.colr, this.MLin = 2, Key? key})
+      {this.size = 14, this.isBold = false, isTextCenter = false, this.colr, this.MLin = 2, Key? key})
       : super(key: key);
   String label;
   bool? isBold ;
@@ -45,6 +45,7 @@ class _AStxState extends State<AStx> {
 
       ),
       maxLines: widget.MLin,
+      minFontSize: widget.size??11 ,
       softWrap: false,
       textAlign: widget.isTextCenter ?TextAlign.center:null,
       // overflow: TextOverflow.fade,

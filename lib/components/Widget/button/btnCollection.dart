@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 // import 'package:sizer/sizer.dart';
 
 class btnCollection extends StatefulWidget {
@@ -45,46 +46,44 @@ class btnCollectionState extends State<btnCollection> {
       child: Container(
         // color: ColorsApp.primColr,
         child: SizedBox(
-          height: 199,//DimenApp.hightSc(context, hightPy: 0.4),
+          height: 199, //DimenApp.hightSc(context, hightPy: 0.4),
           width: 123, //DimenApp.widthSc(context, widthPy: 0.23),
           child: TextButton(
             onPressed: widget.onTap,
             // child: Card(
             //   color: ColorsApp.primColr,
             child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: DimenApp.hightSc(context, hightPy: 0.0029),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 7,
                   child: CachedNetworkImage(
                     imageUrl: widget.imagePath,
                     fit: BoxFit.fitHeight,
                     // height: DimenApp.hightSc(context, hightPy: 0.28),
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator(color:ColorsApp.primColr ,)),
-
+                    placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(
+                      color: ColorsApp.primColr,
+                    )),
                   ),
-
 
                   // Image.asset(widget.imagePath),
                 ),
                 Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: DimenApp.hightSc(context, hightPy: 0.014),
                           right: 4,
                           bottom: 4),
-                      child: AutoSizeText(
+                      child: AStx(
                         widget.label,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: ColorsApp.blak50,
-                          // ResponsiveFlutter.of(context).fontSize(3) ,
-                        ),
-                        maxLines: 2,
+                        colr: ColorsApp.blak50,
+                        size: 14,
+
                       ),
                     )),
               ],
@@ -100,19 +99,18 @@ crossAxisAlignment: CrossAxisAlignment.start,
             //           )
             //       )
             //   ),
-            style:
-            ElevatedButton.styleFrom(
+            style: ElevatedButton.styleFrom(
               primary: setBackColor,
               onPrimary: ColorsApp.primColr,
-                elevation:10,
+              elevation: 10,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
-            // ),
-            // ButtonStyle(
-            //   overlayColor: MaterialStateColor.resolveWith(
-            //     (states) => ColorsApp.primColr,
-            //   ),
+              // ),
+              // ButtonStyle(
+              //   overlayColor: MaterialStateColor.resolveWith(
+              //     (states) => ColorsApp.primColr,
+              //   ),
 
               // side: MaterialStateProperty.resolveWith<BorderSide>(
               //         (Set<MaterialState> states) {

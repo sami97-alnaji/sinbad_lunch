@@ -14,9 +14,9 @@ class UserInfoPreferences{
   static const _keyCompanyId = 'company_id';
   static const _keyStatusEmail = 'status_email';
 
-  static Future<void> inti() async {
+  static Future init() async =>
       _prefs = await SharedPreferences.getInstance();
-  }
+
 
   static Future SetEmail(String email) async => await _prefs.setString(_keyEmail, email);
   static Future SetPassword(String password) async => await _prefs.setString(_keyPassword, password);

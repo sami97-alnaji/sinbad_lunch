@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,9 @@ import 'package:sinbad_lunch/components/Widget/button/btnTextSm.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/Words/Words.dart';
 import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
+import 'package:sinbad_lunch/package/page/auth/forgot_passowrd.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
+import 'package:sinbad_lunch/package/page/page_Home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -34,11 +38,42 @@ class _LoginState extends State<Login> {
 
   // ignore: prefer_typing_uninitialized_variables
   var logn;
+/********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
 
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+
+  /***************************************************************************/
+
+  @override
+  void initState() {
+    super.initState();
+    /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
+  }
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
-
+    if(_isConnectionSuccessful!) {
+      try {
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
@@ -201,7 +236,14 @@ class _LoginState extends State<Login> {
                                   fSize: DimenApp.hightSc(context,
                                       hightPy: 0.0209),
                                   onTab: () {
-                                    print('login');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (BuildContext context) =>
+                                            PageForgotPassword(),
+                                      ),
+                                    );
                                   },
                                 ),
                               ],
@@ -314,44 +356,42 @@ class _LoginState extends State<Login> {
                                                         "Please verify your information !!!")));
                                           } else {
                                             /****************************************/
-                                            print( logn["user_id"] );
-                                            print( logn["user_id"] );
-                                            await  UserInfoPreferences.inti();
 
                                             await UserInfoPreferences
-                                                .SetCompanyId( logn["company_id"] );
-                                            // await UserInfoPreferences
-                                            //     .SetCompanyId( logn["company_id"] );
-                                            // await UserInfoPreferences
-                                            //     .SetPhoneNumber( logn["phone_number"] );
-                                            // await UserInfoPreferences.SetEmail(logn["email"] );
-                                            // await UserInfoPreferences
-                                            //     .SetFirstName(logn["first_name"] );
-                                            // await UserInfoPreferences
-                                            //     .SetLastName(logn["last_name"] );
-                                            // await UserInfoPreferences
-                                            //     .SetPassword(logn["password"] );
-                                            // await UserInfoPreferences
-                                            //     .SetStatusEmail( logn["status_email"] );
-                                            // await UserInfoPreferences.SetUserId( logn["user_id"] );
-                                            print( logn["user_id"] );
-                                            // Navigator.pushReplacement(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder:
-                                            //         (BuildContext context) =>
-                                            //             PageHome(),
-                                            //   ),
-                                            // );
+                                                .SetCompanyId(
+                                                    logn["company_id"]);
+                                            await UserInfoPreferences
+                                                .SetPhoneNumber(
+                                                    logn["phone_number"]);
+                                            await UserInfoPreferences.SetEmail(
+                                                logn["email"]);
+                                            await UserInfoPreferences
+                                                .SetFirstName(
+                                                    logn["first_name"]);
+                                            await UserInfoPreferences
+                                                .SetLastName(logn["last_name"]);
+                                            await UserInfoPreferences
+                                                .SetPassword(logn["password"]);
+                                            await UserInfoPreferences
+                                                .SetStatusEmail(
+                                                    logn["status_email"]);
+                                            await UserInfoPreferences.SetUserId(
+                                                logn["user_id"]);
+                                            print(logn["user_id"]);
 
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                  content: AStx(
-                                                      logn["phone_number"] ??
-                                                          'error')),
+                                                .showSnackBar(SnackBar(
+                                              content: AStx(
+                                                  "You are logged in successfully"),
+                                            ));
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        PageHome(),
+                                              ),
                                             );
-
                                             /******************************************/
                                           }
                                         }
@@ -397,17 +437,15 @@ class _LoginState extends State<Login> {
                                   fSize:
                                       DimenApp.hightSc(context, hightPy: 0.023),
                                   onTab: () async {
-                                    await  UserInfoPreferences.inti();
-
-                                  print(    UserInfoPreferences
-                                        .GetCompanyId(  ));
-                                    // Navigator.pushReplacement(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (BuildContext context) =>
-                                    //         const Register(),
-                                    //   ),
-                                    // );
+                                    // print(    UserInfoPreferences
+                                    //       .GetCompanyId(  ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const Register(),
+                                      ),
+                                    );
                                     print("I don't have an account, register");
                                   },
                                 ),
@@ -425,6 +463,18 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 
   Future signIn() async {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,12 +10,15 @@ import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/image/images.dart';
+import 'package:sinbad_lunch/package/page/auth/set_new_password.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 
 // ignore: must_be_immutable
 class PageEmailConfirmation extends StatefulWidget {
-  PageEmailConfirmation({required this.email, Key? key}) : super(key: key);
+  PageEmailConfirmation({required this.email, Key? key, this.isForgot = false})
+      : super(key: key);
   String email;
+  bool isForgot;
 
   @override
   State<PageEmailConfirmation> createState() => _PageEmailConfirmationState();
@@ -23,11 +28,40 @@ class _PageEmailConfirmationState extends State<PageEmailConfirmation> {
   final TextEditingController _controllerCode = TextEditingController();
   DateTime timeBackPressed = DateTime.now();
   final _formKey = GlobalKey<FormState>();
+  //********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
 
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
 
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
 
+    await _tryConnection();
+  }
+
+  //***************************************************************************/
+  @override
+  void initState() {
+    super.initState();
+    /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
+  }
   @override
   Widget build(BuildContext context) {
+    if(_isConnectionSuccessful!) {
+      try {
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
@@ -140,11 +174,11 @@ class _PageEmailConfirmationState extends State<PageEmailConfirmation> {
                                       // If the form is valid, display a snackbar. In the real world,
                                       // you'd often call a server or save the information in a database.
 
+                                      var accp = await Autho().acceptance(
+                                          widget.email, _controllerCode.text);
 
-
-                                       var accp = await Autho().acceptance(widget.email,_controllerCode.text);
-
-                                        if(accp=="Account Verified"){
+                                      if (accp == "Account Verified") {
+                                        if (!widget.isForgot) {
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
@@ -154,9 +188,27 @@ class _PageEmailConfirmationState extends State<PageEmailConfirmation> {
                                           );
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            SnackBar(content: AStx('Account Verified')),
+                                            SnackBar(
+                                                content:
+                                                    AStx('Account Verified')),
                                           );
-                                        }else {
+                                        } else {
+                                          // go to set new password
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  PageSetNewPassword(widget.email),
+                                            ),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content:
+                                                AStx('set new password')),
+                                          );
+                                        }
+                                      } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(content: AStx('Error')),
@@ -197,5 +249,17 @@ class _PageEmailConfirmationState extends State<PageEmailConfirmation> {
         ),
       ),
     );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 }

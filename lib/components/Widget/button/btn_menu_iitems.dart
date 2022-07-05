@@ -18,7 +18,7 @@ class btnMenuItems extends StatefulWidget {
       this.nameItem,
       this.titelItem,
       this.pricceItem,
-      this.height = 0.18,
+      this.height = 0.15,
       this.onTab,
       this.controllerCountItems,
       this.isAdd = false,
@@ -83,7 +83,7 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                   // ),
                 ),
                 SizedBox(
-                  width: DimenApp.widthSc(context, widthPy: 0.03),
+                  width: DimenApp.widthSc(context, widthPy: 0.028),
                 ),
                 // Name of product in menu
                 Expanded(
@@ -105,8 +105,8 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                     width:
                                         DimenApp.widthSc(context, widthPy: 0.6),
                                     child: AStx(widget.nameItem!,
-                                        size: 18,
                                         isBold: true,
+                                        size: 17,
                                         colr: ColorsApp.primColr,
                                         MLin: 2),
                                   ),
@@ -116,12 +116,12 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                   //   child:
                                   Flexible(
                                     child: SizedBox(
-                                      height: 30,
+                                      height: 42,
                                       width: DimenApp.widthSc(context,
-                                          widthPy: 0.5),
+                                          widthPy: 0.55),
                                       child: AStx(
                                         widget.titelItem!,
-                                        size: 18,
+                                        size: 12,
                                         colr: ColorsApp.blak50,
                                         MLin: 3,
                                       ),
@@ -170,7 +170,7 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                           padding: const EdgeInsets.all(10),
                                           child: Row(
                                             children: [
-                                              AStx("X ${widget.numm}"),
+                                              AStx("X ${widget.numm}",size: 18,),
                                               const SizedBox(
                                                 width: 25,
                                               ),

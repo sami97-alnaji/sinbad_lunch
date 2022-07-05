@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +58,11 @@ class _RegisterState extends State<Register> {
 
   @override
   void initState() {
-    getNameComp();
     super.initState();
+    getNameComp();
+    /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
   }
   final TextEditingController _controllerFName = TextEditingController();
   final TextEditingController _controllerLName = TextEditingController();
@@ -66,12 +71,36 @@ class _RegisterState extends State<Register> {
   final TextEditingController _controllerPassword = TextEditingController();
   var dropDownValueCompId = 0;
   final _formKey = GlobalKey<FormState>();
+  /********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
+
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+
+  /***************************************************************************/
 
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
 
-
+    if(_isConnectionSuccessful!) {
+      try {
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
@@ -87,6 +116,7 @@ class _RegisterState extends State<Register> {
           return true;
         }
       },
+
       child: Scaffold(
         body: SingleChildScrollView(
           child: GestureDetector(
@@ -600,6 +630,18 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 }
 //

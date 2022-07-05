@@ -1,7 +1,11 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 //flutter run -d chrome --web-renderer html
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
@@ -103,7 +107,30 @@ class _PageHomeState extends State<PageHome> {
   var headlines1 = [];
   int stopping_place_Btn = 0;
   String stopping_place_Btn1 = 'dishes';
+  Timer? _timer;
+  /********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
 
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+
+  /***************************************************************************/
   @override
   void initState() {
     /****************************************************/
@@ -132,6 +159,8 @@ class _PageHomeState extends State<PageHome> {
     //   });
     // }
     /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
 
     for (int i = 0; i < 15; i++) {
       itemsMenu.add(ItemsMenu(
@@ -142,6 +171,32 @@ class _PageHomeState extends State<PageHome> {
       ));
     }
     setFirstLocation();
+
+
+    EasyLoading.addStatusCallback((status) {
+      print('EasyLoading Status $status');
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    EasyLoading.show(status: 'loading...',
+      // maskType: EasyLoadingMaskType.black
+    );
+    int duration = 1;
+    Timer(  Duration(seconds: duration), () async {
+      if(itemsMenu != []) {
+        EasyLoading.dismiss();
+        setState(() {
+          duration=0;
+        });
+
+      }else{
+        setState(() {
+          duration+=1;
+        });
+      }
+      await EasyLoading.dismiss();
+    });
     super.initState();
   }
 
@@ -194,252 +249,270 @@ class _PageHomeState extends State<PageHome> {
     setState(() {
       PageHome().setBackColor;
     });
-    return WillPopScope(
-      onWillPop: () async {
-        final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= const Duration(seconds: 1);
+    if(_isConnectionSuccessful!) {
+      try {
+        return WillPopScope(
+          onWillPop: () async {
+            final difference = DateTime.now().difference(timeBackPressed);
+            final isExitWarning = difference >= const Duration(seconds: 1);
 
-        timeBackPressed = DateTime.now();
-        if (isExitWarning) {
-          const message = 'Press back again to exit';
-          Fluttertoast.showToast(msg: message, fontSize: 18);
-          return false;
-        } else {
-          Fluttertoast.cancel();
-          return true;
-        }
-      },
-      child: Scaffold(
-        drawer: const MyDrawer(),
-        appBar: MyAppBar(titel: 'Home'),
-        body: Scaffold(
-          body: Container(
-            height: DimenApp.hightSc(context),
-            width: DimenApp.widthSc(context),
-            color: ColorsApp.white1,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // image up screen on home page as a Advertising
-                  // Card(
-                  //   child:
+            timeBackPressed = DateTime.now();
+            if (isExitWarning) {
+              const message = 'Press back again to exit';
+              Fluttertoast.showToast(msg: message, fontSize: 18);
+              return false;
+            } else {
+              Fluttertoast.cancel();
+              return true;
+            }
+          },
+          child: Scaffold(
+            drawer: const MyDrawer(),
+            appBar: MyAppBar(titel: 'Home'),
+            body: Scaffold(
+              body: Container(
+                height: DimenApp.hightSc(context),
+                width: DimenApp.widthSc(context),
+                color: ColorsApp.white1,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // image up screen on home page as a Advertising
+                      // Card(
+                      //   child:
 
-                  //image
-                  setImageInHeader(),
+                      //image
+                      setImageInHeader(),
 
-                  //note   --->!
-                  // SizedBox(
-                  //   height:
-                  //   DimenApp.hightSc(context, hightPy: 0.011), //128,
-                  // ),
-                  // count.note(),
+                      //note   --->!
+                      // SizedBox(
+                      //   height:
+                      //   DimenApp.hightSc(context, hightPy: 0.011), //128,
+                      // ),
+                      // count.note(),
 
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.011), //128,
-                  ),
-                  // ),
-                  /************************************************************************************************************/
-                  // list of ButtonCollection (Package)
-                  // The names of the categories in the menu
-                  // When you click on it, a menu appears
-                  /************************************************************************************************************/
-                  SizedBox(
-                    // height: DimenApp.hightSc(context, hightPy: 0.35),
-                    width: DimenApp.widthSc(context),
-                    child:
-                        // Card(child:
-                        Padding(
-                      padding: const EdgeInsets.only(top: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AStx(
-                            WordAppENG.specialFodItm,
-                            size: 28,
-                            isBold: true,
-                            colr: ColorsApp.primColr,
-                          ),
-
-                          // AutoSizeText(WordAppENG.specialFodItm,
-                          //     style: TextStyle(
-                          //       fontWeight: FontWeight.bold,
-                          //       fontSize: 28,
-                          //       color: ColorsApp.primColr,
-                          //     )),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 12.0,
-                              right: 12.0,
-                            ),
-                            child: AStx(
-                              WordAppENG.gloryBeginingRestrant1,
-                            ),
-                          ),
-                          // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
-                          //     style: const TextStyle(fontSize: 18)),
-                          SizedBox(
-                            height: 165,
-                            //DimenApp.hightSc(context, hightPy: 0.28),
-                            width: DimenApp.widthSc(context),
-                            /**************************************************/
-                            child: FutureBuilderGet_menu_type(),
-                            /**************************************************/
-                            // ListView(orizontal,
-                            //                                 //   children: [
-                            //                                 //
-                            //                                 //     SizedBox(width: 20,),
-                            //                                 //     TextButton(onPressed: (){ setState(() {
-                            //                                 //       o[1]=Colors.redAccen
-                            //   scrollDirection:  Axis.ht;
-                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[1]),)),
-                            //
-                            //      SizedBox(width: 20,),
-                            //     TextButton(onPressed: (){ setState(() {
-                            //       o[2]=Colors.redAccent;
-                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[2]),)),
-                            //
-                            //      SizedBox(width: 20,),
-                            //     TextButton(onPressed: (){ setState(() {
-                            //       o[3]=Colors.redAccent;
-                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[3]),)),
-                            //
-                            //      SizedBox(width: 20,),
-                            //     TextButton(onPressed: (){ setState(() {
-                            //       o[4]=Colors.redAccent;
-                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[4]),)),
-                            //
-                            //      SizedBox(width: 20,),
-                            //     TextButton(onPressed: (){ setState(() {
-                            //       o[5]=Colors.redAccent;
-                            //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[5]),)),
-                            //
-                            //
-                            //   ],
-                            // )
-/*********************************************************/
-                            // ListView(
-                            //     scrollDirection: Axis.horizontal,
-                            //     children: [
-                            //   // const SizedBox(
-                            //   //   width: 20,
-                            //   // ),
-                            //   ...headlines1.map(
-                            //     (e) => btnCollection(
-                            //       e.label,
-                            //       e.imagePath,
-                            //       onTap: () {
-                            //         funcOne();
-                            //         setState(() {
-                            //           // ButtonCollectionState().setBackColor = ColorsApp.primColr;
-                            //           // Col.f = ColorsApp.primColr;
-                            //           stopping_place_Btn1 = e.label;
-                            //         });
-                            //         print(stopping_place_Btn1);
-                            //         // print("heddfr\n "+heddfr[stopping_place_Btn] +"  \n nheddfr");
-                            //       }, //e.onTap,
-                            //     ),
-                            //   ),
-                            // ]
-                            //
-                            //     // List.generate(
-                            //     //   headlines.length,
-                            //     //   (index) => ButtonCollection(
-                            //     //     headlines[index][1].toString(),
-                            //     //     headlines[index][0].toString(),
-                            //     //     onTab: headlines[index][2] as Function()?,
-                            //     //   ),
-                            //     // ),
-                            //
-                            //     /************************************************************************************/
-                            //
-                            //     // Here, according to the button you choose
-                            //     // Show me my list
-                            //     // Each menu is based on what he chose the button
-                            //     /**********************************************************************************/
-                            //     ),
-                            /**************************************************/
-
-                            // FutureBuilder<List<get_food>>(
-                            //     future: GetAllMenu().get_food_Data(),
-                            //     // if you mean this method well return image url
-                            //     builder: (BuildContext context1,
-                            //         AsyncSnapshot<List<get_food>> snapshot) {
-                            //       if (snapshot.connectionState == ConnectionState.done) {
-                            //         // additions = snapshot.data;
-                            //         // return buildAddition(additions) ;
-                            //         foods = snapshot.data;
-                            //         return buildFood(foods) ;
-                            //         // print("\n\t" +
-                            //         //     w.additions_id.toString() +
-                            //         //     "\t" +
-                            //         //     w.additions_name.toString() +
-                            //         //     "\t" +
-                            //         //     w.additions_description.toString()
-                            //         //     +"\t" +
-                            //         //     w.additions_price.toString()
-                            //         // );
-                            //         // setState(() {
-                            //         //   GetAllMenu.res;
-                            //         // });
-                            //
-                            //
-                            //       } else if (snapshot.connectionState == ConnectionState.waiting) {
-                            //         return Text("loading ...");
-                            //       } else {
-                            //         return Container();
-                            //       }
-                            //     },
-                            //   ),
-                          ),
-                        ],
+                      SizedBox(
+                        height:
+                            DimenApp.hightSc(context, hightPy: 0.011), //128,
                       ),
-                    ),
-                    // ),
-                  ),
-                  /************************************************************************************************************/
-                  Center(
-                    child: AStx(
-                      stopping_place_Btn1,
-                      size: 28,
-                    ),
-                    // AutoSizeText(stopping_place_Btn1,style: TextStyle(fontSize: 28,)),
-                  ),
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.028),
-                    // width: DimenApp.widthSc(context),
-                  ),
-                  /************************************************************************************************************/
-                  //Display the menu according to the selected button
-                  /************************************************************************************************************/
-                  //       ...itemsMenu.map(
-                  //         (e) => btnMenuItems(
-                  //             imageItem: e.imageItem,
-                  //             nameItem: e.nameItem,
-                  //             titelItem: e.titelItem,
-                  //             pricceItem: e.pricceItem,
-                  // controllerCountItems:controllerCountItems,
-                  //             onTab: () {
-                  //               Navigator.push(
-                  //                   context,
-                  //                   MaterialPageRoute(
-                  //                       builder: (BuildContext context) =>
-                  //                           PageProduct(title: e.nameItem)));
-                  //             }),
-                  //       ),
+                      // ),
+                      /************************************************************************************************************/
+                      // list of ButtonCollection (Package)
+                      // The names of the categories in the menu
+                      // When you click on it, a menu appears
+                      /************************************************************************************************************/
+                      SizedBox(
+                        // height: DimenApp.hightSc(context, hightPy: 0.35),
+                        width: DimenApp.widthSc(context),
+                        child:
+                            // Card(child:
+                            Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AStx(
+                                WordAppENG.specialFodItm,
+                                size: 24,
+                                isBold: true,
+                                colr: ColorsApp.primColr,
+                              ),
 
-                  FutureBuilderGetFoodMenu(),
-                  /************************************************************************************************************/
-                  SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.028),
-                    // width: DimenApp.widthSc(context),
+                              // AutoSizeText(WordAppENG.specialFodItm,
+                              //     style: TextStyle(
+                              //       fontWeight: FontWeight.bold,
+                              //       fontSize: 28,
+                              //       color: ColorsApp.primColr,
+                              //     )),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 12.0,
+                                  right: 12.0,
+                                ),
+                                child: AStx(
+                                  WordAppENG.gloryBeginingRestrant1,
+                                ),
+                              ),
+                              // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
+                              //     style: const TextStyle(fontSize: 18)),
+                              SizedBox(
+                                height: 165,
+                                //DimenApp.hightSc(context, hightPy: 0.28),
+                                width: DimenApp.widthSc(context),
+                                /**************************************************/
+                                child: FutureBuilderGet_menu_type(),
+                                /**************************************************/
+                                // ListView(orizontal,
+                                //                                 //   children: [
+                                //                                 //
+                                //                                 //     SizedBox(width: 20,),
+                                //                                 //     TextButton(onPressed: (){ setState(() {
+                                //                                 //       o[1]=Colors.redAccen
+                                //   scrollDirection:  Axis.ht;
+                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[1]),)),
+                                //
+                                //      SizedBox(width: 20,),
+                                //     TextButton(onPressed: (){ setState(() {
+                                //       o[2]=Colors.redAccent;
+                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[2]),)),
+                                //
+                                //      SizedBox(width: 20,),
+                                //     TextButton(onPressed: (){ setState(() {
+                                //       o[3]=Colors.redAccent;
+                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[3]),)),
+                                //
+                                //      SizedBox(width: 20,),
+                                //     TextButton(onPressed: (){ setState(() {
+                                //       o[4]=Colors.redAccent;
+                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[4]),)),
+                                //
+                                //      SizedBox(width: 20,),
+                                //     TextButton(onPressed: (){ setState(() {
+                                //       o[5]=Colors.redAccent;
+                                //     });}, child: Text('sami1',style: TextStyle(fontSize: 22,color: o[5]),)),
+                                //
+                                //
+                                //   ],
+                                // )
+/*********************************************************/
+                                // ListView(
+                                //     scrollDirection: Axis.horizontal,
+                                //     children: [
+                                //   // const SizedBox(
+                                //   //   width: 20,
+                                //   // ),
+                                //   ...headlines1.map(
+                                //     (e) => btnCollection(
+                                //       e.label,
+                                //       e.imagePath,
+                                //       onTap: () {
+                                //         funcOne();
+                                //         setState(() {
+                                //           // ButtonCollectionState().setBackColor = ColorsApp.primColr;
+                                //           // Col.f = ColorsApp.primColr;
+                                //           stopping_place_Btn1 = e.label;
+                                //         });
+                                //         print(stopping_place_Btn1);
+                                //         // print("heddfr\n "+heddfr[stopping_place_Btn] +"  \n nheddfr");
+                                //       }, //e.onTap,
+                                //     ),
+                                //   ),
+                                // ]
+                                //
+                                //     // List.generate(
+                                //     //   headlines.length,
+                                //     //   (index) => ButtonCollection(
+                                //     //     headlines[index][1].toString(),
+                                //     //     headlines[index][0].toString(),
+                                //     //     onTab: headlines[index][2] as Function()?,
+                                //     //   ),
+                                //     // ),
+                                //
+                                //     /************************************************************************************/
+                                //
+                                //     // Here, according to the button you choose
+                                //     // Show me my list
+                                //     // Each menu is based on what he chose the button
+                                //     /**********************************************************************************/
+                                //     ),
+                                /**************************************************/
+
+                                // FutureBuilder<List<get_food>>(
+                                //     future: GetAllMenu().get_food_Data(),
+                                //     // if you mean this method well return image url
+                                //     builder: (BuildContext context1,
+                                //         AsyncSnapshot<List<get_food>> snapshot) {
+                                //       if (snapshot.connectionState == ConnectionState.done) {
+                                //         // additions = snapshot.data;
+                                //         // return buildAddition(additions) ;
+                                //         foods = snapshot.data;
+                                //         return buildFood(foods) ;
+                                //         // print("\n\t" +
+                                //         //     w.additions_id.toString() +
+                                //         //     "\t" +
+                                //         //     w.additions_name.toString() +
+                                //         //     "\t" +
+                                //         //     w.additions_description.toString()
+                                //         //     +"\t" +
+                                //         //     w.additions_price.toString()
+                                //         // );
+                                //         // setState(() {
+                                //         //   GetAllMenu.res;
+                                //         // });
+                                //
+                                //
+                                //       } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                //         return Text("loading ...");
+                                //       } else {
+                                //         return Container();
+                                //       }
+                                //     },
+                                //   ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // ),
+                      ),
+                      /************************************************************************************************************/
+                      // Display Menu NAme
+                      /************************************************************************************************************/
+                      Center(
+                        child: AStx(
+                          stopping_place_Btn1,
+                          size: 24,
+                          isBold: true,
+                        ),
+                        // AutoSizeText(stopping_place_Btn1,style: TextStyle(fontSize: 28,)),
+                      ),
+                      SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.028),
+                        // width: DimenApp.widthSc(context),
+                      ),
+                      /************************************************************************************************************/
+                      //Display the menu according to the selected button
+                      /************************************************************************************************************/
+                      //       ...itemsMenu.map(
+                      //         (e) => btnMenuItems(
+                      //             imageItem: e.imageItem,
+                      //             nameItem: e.nameItem,
+                      //             titelItem: e.titelItem,
+                      //             pricceItem: e.pricceItem,
+                      // controllerCountItems:controllerCountItems,
+                      //             onTab: () {
+                      //               Navigator.push(
+                      //                   context,
+                      //                   MaterialPageRoute(
+                      //                       builder: (BuildContext context) =>
+                      //                           PageProduct(title: e.nameItem)));
+                      //             }),
+                      //       ),
+
+                      FutureBuilderGetFoodMenu(),
+                      /************************************************************************************************************/
+                      SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.028),
+                        // width: DimenApp.widthSc(context),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 
   /// *****************************************************************************/

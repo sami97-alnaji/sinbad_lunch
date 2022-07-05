@@ -16,5 +16,5 @@ void main() {
   print('\n sami \n');
   print(encrypted.base64); // CR+IAWBEx3sA/dLkkFM/orYr9KftrGa7lIFSAAmVPbKIOLDOzGwEi9ohstDBqDLIaXMEeulwXQ==
 //jsonDecode
-  print(jsonDecode(Encryption.instance.decrypt("iB0HrPwVhy0+n2bB1pG2ZfoIn4R9qDWcxFunOXN7K4tyOkcNKzW080CHKUN+/f9sY5+29zFJzo9JzdMeSreDHDEOCxkTb83o8cLvhAd2AHCN3Ma4L1hsKdg/tL785AVIe8lDyp58D84diLlGQadm0HFglvopNcOa0r9LYy0UrLBiC0jYayZuH8qHp1TFFvXhgIHBxbnaelz1qAz/3sKg0A==")));
+  print(jsonDecode(Encryption.instance.decrypt( "0LKrPAhMZ0VfPc7q/DR08vEbIZDxnd/tfklF/P4/9t+rKYUK4w+bfcLVUN0B1DRzK9FyDLPP17iV4ioVBr/3WNbkvgh6XtvWWZ5NtE9baxZgmpIdOaHCHmORM2/awIkotbaOA5+CAwcHohrEKQUnbpxCBaD9QTQx3U6acea3SK9XmHxyxodM+ObyHoSIctgGfNIH0A+OY1cr89kZcV21+LmFP3kDhGBtZsdvSVU0fxsQnRJqejIL+E3nZ1b4BjJtD4/6bOFVzKinwIPVEZGKmoM55IoPGKmf14158c/8gm88Xy6iE7u/xxMn1lwJNvNMKy5UFE9hljh561t1x9CerJ4/9vYaigBUqfhJ35vsVwUSCaCQKXBDAdD1MuOMGGPm9Tna+smfC1tZLBZVXJ2zFclPLH9gFB8kAk+rEIFdgSzqmRCzym9H3mnji6zdxKQs" )));
 }

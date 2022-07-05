@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
+import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_app_bar.dart';
 import 'package:sinbad_lunch/components/Widget/start_page/my_drawer.dart';
@@ -15,8 +18,40 @@ class AboutUs extends StatefulWidget {
 }
 
 class _AboutUsState extends State<AboutUs> {
+  /********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
+
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+
+  /***************************************************************************/
+  @override
+  void initState() {
+    super.initState();
+    /****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
+  }
   @override
   Widget build(BuildContext context) {
+    if(_isConnectionSuccessful!) {
+      try {
     return Scaffold(
       appBar: MyAppBar(
         titel: WordAppENG.aboutUs,
@@ -275,5 +310,17 @@ class _AboutUsState extends State<AboutUs> {
         ),
       ),
     );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    }else{
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 }

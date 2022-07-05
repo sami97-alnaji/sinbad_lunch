@@ -1,8 +1,12 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, constant_identifier_names, unused_local_variable
 
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -204,16 +208,67 @@ class _PageProductState extends State<PageProduct> {
       }
     }
   }
-
+  Timer? _timer;
   ///**********************************************************************/
+  //********************************************************/
+  // check conncetion to server
+  bool? _isConnectionSuccessful=true;
+
+  Future<void> _tryConnection() async {
+    try {
+      final response = await InternetAddress.lookup('www.woolha2.com');
+
+      setState(() {
+        _isConnectionSuccessful = response.isNotEmpty;
+      });
+    } on SocketException catch (e) {
+      setState(() {
+        _isConnectionSuccessful = false;
+      });
+    }
+  }
+  _tryConnectionWAit() async {
+
+    await _tryConnection();
+  }
+
+  /***************************************************************************/
   @override
   void initState() {
+    super.initState();
     fToast = FToast();
     setExtraStute();
     splitAdditions();
     splitSauce();
     splitFreeAdding();
-    super.initState();
+/****************************************************/
+    _tryConnectionWAit();
+    /****************************************************/
+    EasyLoading.addStatusCallback((status) {
+      print('EasyLoading Status $status');
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    EasyLoading.show(status: 'loading...',
+      // maskType: EasyLoadingMaskType.black
+    );
+    int duration = 1;
+    Timer(  Duration(seconds: duration), () async {
+      if(sAd != []) {
+        EasyLoading.dismiss();
+        setState(() {
+          duration=0;
+        });
+
+      }else{
+        setState(() {
+          duration+=1;
+        });
+      }
+      await EasyLoading.dismiss();
+    });
+
   }
 
   setExtraStute() async {
@@ -312,7 +367,8 @@ class _PageProductState extends State<PageProduct> {
           additionsSelectionPrice +
           _sauceSelectionPrice);
     });
-
+    if(_isConnectionSuccessful!) {
+      try {
     return Scaffold(
       drawer: const MyDrawer(),
       appBar: MyAppBar(titel: widget.food.food_name!),
@@ -332,7 +388,7 @@ class _PageProductState extends State<PageProduct> {
                 child: CachedNetworkImage(
                   imageUrl: widget.food.food_image!,
                   fit: BoxFit.fitHeight,
-                  height: DimenApp.hightSc(context, hightPy: 0.35),
+                  height: DimenApp.hightSc(context, hightPy: 0.28),
                   placeholder: (context, url) => Center(
                       child: CircularProgressIndicator(
                     color: ColorsApp.primColr,
@@ -345,54 +401,7 @@ class _PageProductState extends State<PageProduct> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // SizedBox(
-                        //   height: 55,
-                        //   child: Card(
-                        //     color: ColorsApp.primColr,
-                        //     child: Column(
-                        //       children: [
-                        //         Row(
-                        //           children: [
-                        //             const SizedBox(
-                        //               width: 15,
-                        //               height: 44,
-                        //             ),
-                        //             CachedNetworkImage(
-                        //               imageUrl:
-                        //                   'https://sinbadslunch.com/myBackENd/coin-money-7-removebg-preview.png',
-                        //               fit: BoxFit.fitHeight,
-                        //               height: 30,
-                        //               //DimenApp.hightSc(context, hightPy: 0.35),
-                        //               width: 30,
-                        //               placeholder: (context, url) => Center(
-                        //                   child: CircularProgressIndicator(
-                        //                 color: ColorsApp.primColr,
-                        //               )),
-                        //             ),
-                        //             const SizedBox(
-                        //               width: 10,
-                        //             ),
-                        //             //Offer points
-                        //
-                        //             AStx(
-                        //               '24',
-                        //               colr: ColorsApp.blak50.withOpacity(0.7),
-                        //               size: 22,
-                        //               isBold: true,
-                        //             ),
-                        //             const SizedBox(
-                        //               width: 15,
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
 
-                        // const SizedBox(
-                        //   width: 35,
-                        // ),
                         //name item
                         Expanded(
                           child: AStx(
@@ -410,7 +419,7 @@ class _PageProductState extends State<PageProduct> {
                               left: 11.0, top: 4.2, right: 11.0),
                           child: AStx(
                             '\$${widget.food.food_price!}',
-                            size: 22,
+                            size: 21,
                             colr: ColorsApp.primColr,
                             isBold: true,
                           ),
@@ -418,7 +427,7 @@ class _PageProductState extends State<PageProduct> {
                       ])),
               //##################################################################
               SizedBox(
-                height: DimenApp.hightSc(context, hightPy: 0.028),
+                height: DimenApp.hightSc(context, hightPy: 0.022),
               ),
               //##################################################################
               Padding(
@@ -686,6 +695,18 @@ class _PageProductState extends State<PageProduct> {
         ),
       ),
     );
+  } on Exception catch (_) {
+  print("throwing new error");
+
+  throw Center(
+  child: AStx('Wait a moment please'),
+  );
+  }
+}else{
+return Center(
+child: AStx('Not connected to any network'),
+);
+}
   }
 
 /*******************************************************************************/
@@ -775,7 +796,7 @@ class _PageProductState extends State<PageProduct> {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         final listSuace = listSuaces[index];
-        return Text(listSuace.suace_id!.toString());
+        return AStx(listSuace.suace_id!.toString());
       },
     );
   }
@@ -791,8 +812,9 @@ class _PageProductState extends State<PageProduct> {
       title: AStx(
         food == null ? su!.suace_name! : food.food_name!,
         colr: ColorsApp.blakText,
+         size: 16,
       ),
-      trailing: food == null ? AStx(prc, colr: ColorsApp.primColr) : null,
+      trailing: food == null ? AStx(prc, colr: ColorsApp.primColr,size: 16,) : null,
       leading: Radio(
         activeColor: ColorsApp.primColr,
         value: su != null ? su.suace_id.toString() : food!.food_id.toString(),
@@ -860,7 +882,7 @@ class _PageProductState extends State<PageProduct> {
                       AStx(
                         'Free   $titleFree',
                         colr: ColorsApp.forPass1,
-                        size: 20,
+                        size: 19,
                         isBold: true,
                       ),
                       // AutoSizeText('Choice of Suace',
@@ -905,7 +927,7 @@ class _PageProductState extends State<PageProduct> {
                       AStx(
                         'Choice of Sauce',
                         colr: ColorsApp.forPass1,
-                        size: 20,
+                        size: 18,
                         isBold: true,
                       ),
                     ],
@@ -947,7 +969,7 @@ class _PageProductState extends State<PageProduct> {
                       AStx(
                         'Additional Toppings',
                         colr: ColorsApp.forPass1,
-                        size: 20,
+                        size: 18,
                         isBold: true,
                       ),
                     ],
@@ -971,6 +993,7 @@ class _PageProductState extends State<PageProduct> {
                                     e.extraName,
                                     colr: ColorsApp.blakText,
                                     MLin: 2,
+                                    size: 16,
                                   ),
                                 ),
                                 Expanded(
@@ -979,7 +1002,7 @@ class _PageProductState extends State<PageProduct> {
                                     '\$' + e.extraPrice.toString(),
                                     colr: ColorsApp.primColr,
                                     MLin: 2,
-                                    size: 14,
+                                    size: 16,
                                   ),
                                 ),
                               ],
@@ -1016,15 +1039,15 @@ class _PageProductState extends State<PageProduct> {
                             ),
                           )),
                       /***************************************************/
-                      TextButton(
-                          onPressed: () {
-                            print(additionalToppingsChose);
-                            print(additionsSelectionPrice);
-                            print(controllerInstruction!.text);
-                          },
-                          child: Text('Choice of Suace',
-                              style: GoogleFonts.oxygen(
-                                  fontSize: 20, fontWeight: FontWeight.bold)))
+                      // TextButton(
+                      //     onPressed: () {
+                      //       print(additionalToppingsChose);
+                      //       print(additionsSelectionPrice);
+                      //       print(controllerInstruction!.text);
+                      //     },
+                      //     child: Text('Choice of Suace',
+                      //         style: GoogleFonts.oxygen(
+                      //             fontSize: 20, fontWeight: FontWeight.bold)))
                     ],
                   ),
 
