@@ -66,62 +66,65 @@ class TFiled extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textInputAction: _textAction??TextInputAction.next,
-            controller: _controler,
-            initialValue: _initValue,
-            cursorColor: _colorPorder!,
-            keyboardType: _keyboardType,
-            obscureText: _isObscureText ?? false,
-            onChanged: _onChanged,
-            validator: _onValidator,
-            onSaved: _onSaved,
-            readOnly:_readOnly!,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: _hint??"1",
-              prefixIcon: _pIcon,
-              suffixIcon: _sIcon != null
-                  ? InkWell(
-                      borderRadius: BorderRadius.circular(40),
-                      onTap: _onSIcon,
-                      child: _sIcon,
-                    )
-                  : null,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
-              //*Border normal
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(100),
-                borderSide: BorderSide(color: _colorPorder!, width: 2),
-              ),
-              //* focuse border normal
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: _colorPorder!, width: 3),
-              ),
-              //*border error
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(100),
-                borderSide: BorderSide(
-                  color: _colorPorder!,
-                  width: 2,
+          padding: const EdgeInsets.all(3.0),
+          child: SizedBox(
+            height: 35,
+            child: TextFormField(
+              textInputAction: _textAction??TextInputAction.next,
+              controller: _controler,
+              initialValue: _initValue,
+              cursorColor: _colorPorder!,
+              keyboardType: _keyboardType,
+              obscureText: _isObscureText ?? false,
+              onChanged: _onChanged,
+              validator: _onValidator,
+              onSaved: _onSaved,
+              readOnly:_readOnly!,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: _hint??"1",
+                prefixIcon: _pIcon,
+                suffixIcon: _sIcon != null
+                    ? InkWell(
+                        borderRadius: BorderRadius.circular(40),
+                        onTap: _onSIcon,
+                        child: _sIcon,
+                      )
+                    : null,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
+                //*Border normal
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(100),
+                  borderSide: BorderSide(color: _colorPorder!, width: 2),
+                ),
+                //* focuse border normal
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide(color: _colorPorder!, width: 2),
+                ),
+                //*border error
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(100),
+                  borderSide: BorderSide(
+                    color: _colorPorder!,
+                    width: 2,
+                  ),
+                ),
+                //*focuse border error
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide(color: _colorPorder!, width: 2),
                 ),
               ),
-              //*focuse border error
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: _colorPorder!, width: 3),
+              style: GoogleFonts.openSans(
+                fontSize: 10,
               ),
+              inputFormatters:_inputFormatter,
             ),
-            style: GoogleFonts.openSans(
-              // fontSize: 25,
-            ),
-            inputFormatters:_inputFormatter,
           ),
         ),
-        const SizedBox(height:  22,),
+        const SizedBox(height:  7,),
       ],
     );
   }

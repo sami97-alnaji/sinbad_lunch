@@ -26,7 +26,8 @@ class PageBasket extends StatefulWidget {
 
 class _PageBasketState extends State<PageBasket> {
   /// *************************************/
-   bool falgScreen = false;
+  bool falgScreen = false;
+
   /// *************************************/
   // ignore: prefer_typing_uninitialized_variables
   var itemsOrder;
@@ -72,7 +73,12 @@ class _PageBasketState extends State<PageBasket> {
   // }
   /// *************************************/
   Timer? _timer;
-  double? _tax, _deliveryFee, _discount, _discountPrice, _totalPriceFood, _totalPriceWithTax;
+  double? _tax,
+      _deliveryFee,
+      _discount,
+      _discountPrice,
+      _totalPriceFood,
+      _totalPriceWithTax;
 
   @override
   void initState() {
@@ -85,12 +91,10 @@ class _PageBasketState extends State<PageBasket> {
         _timer?.cancel();
       }
     });
-    EasyLoading.show(status: 'loading...',
-      maskType: EasyLoadingMaskType.black
-    );
+    EasyLoading.show(status: 'loading...', maskType: EasyLoadingMaskType.black);
     int duration = 1;
     Timer(Duration(seconds: duration), () async {
-      await  EasyLoading.dismiss();
+      await EasyLoading.dismiss();
 
       await EasyLoading.dismiss();
     });
@@ -103,7 +107,6 @@ class _PageBasketState extends State<PageBasket> {
     _totalPriceWithTax = 0;
     /*****************************************/
     // EasyLoading.showProgress(0.3, status: 'downloading...');
-
   }
 
   /// *************************************/
@@ -133,16 +136,14 @@ class _PageBasketState extends State<PageBasket> {
   _tryConnectionWAit() async {
     await _tryConnection();
   }
-  
-  double toPrecision(double n) =>  double.parse(n.toStringAsFixed(2));
+
+  double toPrecision(double n) => double.parse(n.toStringAsFixed(2));
   /***************************************************************************/
   @override
   Widget build(BuildContext context) {
-
-      try {
-
-        if (_isConnectionSuccessful!) {
-          if(falgScreen){
+    try {
+      if (_isConnectionSuccessful!) {
+        if (falgScreen) {
           itemsOrder = Provider.of<ProductPageVariables>(context);
           double totalFood = 0;
           if (itemsOrder.BasketListItems != null &&
@@ -157,25 +158,25 @@ class _PageBasketState extends State<PageBasket> {
             try {
               itemsOrder.BasketListItems;
               /*****************************************/
-              _tax =
-              totalFood == 0 ? 0.0 : double.tryParse(compInfoDelt["tax"]) ??
-                  0.0;
-              _deliveryFee =
-              totalFood == 0 ? 0.0 : double.tryParse(
-                  compInfoDelt["delivery_fee"]) ??
-                  0.0;
-              _discount =
-              totalFood == 0 ? 0.0 : double.tryParse(
-                  compInfoDelt["discount"]) ?? 0.0;
+              _tax = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["tax"]) ?? 0.0;
+              _deliveryFee = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["delivery_fee"]) ?? 0.0;
+              _discount = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
               _totalPriceFood = totalFood;
               totalFood = toPrecision(totalFood);
               _totalPriceFood = toPrecision(_totalPriceFood!);
               _discountPrice =
-              totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
-              _totalPriceWithTax =
-              totalFood == 0 ? 0.0 : (((_totalPriceFood! - _discountPrice!) +
-                  ((_totalPriceFood! - _discountPrice!) * _tax!))) +
-                  _deliveryFee!;
+                  totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
+              _totalPriceWithTax = totalFood == 0
+                  ? 0.0
+                  : (((_totalPriceFood! - _discountPrice!) +
+                          ((_totalPriceFood! - _discountPrice!) * _tax!))) +
+                      _deliveryFee!;
               _totalPriceWithTax = toPrecision(_totalPriceWithTax!);
             } on FormatException catch (e) {
               print('data is not valid');
@@ -183,7 +184,6 @@ class _PageBasketState extends State<PageBasket> {
             }
             /*****************************************/
           });
-
 
           return Scaffold(
             // appBar: MyAppBar(titel: 'Basket'),
@@ -198,12 +198,11 @@ class _PageBasketState extends State<PageBasket> {
                   children: [
                     //header in page "My Cart"
                     SizedBox(
-                      height: DimenApp.hightSc(context, hightPy: 0.10),
+                      height:65,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 55),
+                        padding: const EdgeInsets.only(top: 40),
                         child: AStx(
                           'My Cart',
-                          size: 20,
                           isBold: true,
                           colr: ColorsApp.white1,
                         ),
@@ -220,38 +219,37 @@ class _PageBasketState extends State<PageBasket> {
 
                           SizedBox(
                             width: DimenApp.widthSc(context),
-                            height: DimenApp.hightSc(context, hightPy: 0.53),
+                            height: DimenApp.hightSc(context, hightPy: 0.44),
                             // color: ColorsApp.red1,
                             child: SingleChildScrollView(
                               // color: ColorsApp.white1,
                               child: Container(
                                 // color: ColorsApp.blak1,
                                 child: itemsOrder.BasketListItems != null &&
-                                    itemsOrder.BasketListItems != []
+                                        itemsOrder.BasketListItems != []
                                     ? Column(
-                                  children: [
-                                    ...itemsOrder.BasketListItems.map(
-                                          (e) =>
-                                          btnMenuItems(
-                                              op: e,
-                                              imageItem: e.itemsImage,
-                                              nameItem: e.itemsName,
-                                              titelItem: e.food_description,
-                                              pricceItem: e.itemsTotalPrice,
-                                              numm: e.itemsOfNumber,
-                                              isAdd: true,
-                                              // height:0.15,
-                                              onTab: () {
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (BuildContext context) =>
-                                                //             PageProduct(
-                                                //                 title: e.nameItem)));
-                                              }),
-                                    ),
-                                  ],
-                                )
+                                        children: [
+                                          ...itemsOrder.BasketListItems.map(
+                                            (e) => btnMenuItems(
+                                                op: e,
+                                                imageItem: e.itemsImage,
+                                                nameItem: e.itemsName,
+                                                titelItem: e.food_description,
+                                                pricceItem: e.itemsTotalPrice,
+                                                numm: e.itemsOfNumber,
+                                                isAdd: true,
+                                                // height:0.15,
+                                                onTab: () {
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (BuildContext context) =>
+                                                  //             PageProduct(
+                                                  //                 title: e.nameItem)));
+                                                }),
+                                          ),
+                                        ],
+                                      )
                                     : Container(),
                                 decoration: BoxDecoration(
                                   color: ColorsApp.white1,
@@ -275,10 +273,9 @@ class _PageBasketState extends State<PageBasket> {
                           //Total
                           SizedBox(
                             width: DimenApp.widthSc(context),
-                            height: 60,
+                            height: 50,
                             // DimenApp.hightSc(context, hightPy: 0.17),
                             child: Card(
-
                               color: ColorsApp.white1,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -301,19 +298,16 @@ class _PageBasketState extends State<PageBasket> {
                                       children: [
                                         AStx('Total Food ',
                                             colr: ColorsApp.blak1,
-                                            size: 17,
+                                            size: 14,
                                             isBold: true),
-
                                       ],
                                     ),
                                     Column(
                                       children: [
-                                        AStx(
-                                            '\$${_totalPriceFood!}',
+                                        AStx('\$${_totalPriceFood!}',
                                             colr: ColorsApp.blak1,
-                                            size: 16,
+                                            size: 13,
                                             isBold: true),
-
                                       ],
                                     ),
                                   ],
@@ -350,21 +344,21 @@ class _PageBasketState extends State<PageBasket> {
                               child: Padding(
                                 padding: const EdgeInsets.all(2.5),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Flexible(
                                       flex: 7,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                               child: AStx(
-                                                'Company : ' +
-                                                    compInfoDelt["comp_name"]
-                                                        .toString(),
-                                              )),
+                                            'Company : ' +
+                                                compInfoDelt["comp_name"]
+                                                    .toString(),
+                                          )),
                                           Flexible(
                                             child: AStx(
                                               'Location : ' +
@@ -379,24 +373,25 @@ class _PageBasketState extends State<PageBasket> {
                                     Flexible(
                                       flex: 5,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                               child: AStx(
-                                                'Delivery Time ',
-
-                                              )),
-                                          Flexible(child: AStx(
-                                              compInfoDelt["time_date"] ?? "")),
-
+                                            'Delivery Time ',
+                                          )),
                                           Flexible(
                                               child: AStx(
-                                                'delivery Date ',
-
-                                              )),
-                                          Flexible(child: AStx(
-                                              compInfoDelt["date_time"] ?? "")),
+                                                  compInfoDelt["time_date"] ??
+                                                      "")),
+                                          Flexible(
+                                              child: AStx(
+                                            'delivery Date ',
+                                          )),
+                                          Flexible(
+                                              child: AStx(
+                                                  compInfoDelt["date_time"] ??
+                                                      "")),
                                         ],
                                       ),
                                     ),
@@ -422,16 +417,16 @@ class _PageBasketState extends State<PageBasket> {
                               Flexible(
                                 child: Center(
                                   child: Container(
-                                    height: DimenApp.hightSc(
-                                        context, hightPy: 0.07),
-                                    width: DimenApp.widthSc(context),
-                                    padding: const EdgeInsets.only(bottom: 15),
+                                    height: DimenApp.hightSc(context,
+                                        hightPy: 0.1),
+                                    width: DimenApp.widthSc(context,widthPy: 0.36),
+                                    padding: const EdgeInsets.only(bottom: 0),
                                     alignment: Alignment.center,
                                     child: SizedBox(
-                                      height:
-                                      DimenApp.hightSc(context, hightPy: 0.076),
-                                      width: DimenApp.widthSc(
-                                          context, widthPy: 0.82),
+                                      height: DimenApp.hightSc(context,
+                                          hightPy: 0.066),
+                                      width: DimenApp.widthSc(context,
+                                          widthPy: 0.82),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
@@ -451,75 +446,78 @@ class _PageBasketState extends State<PageBasket> {
 
                                           // ignore: unnecessary_null_comparison
                                           print("comp_name" +
-                                              compInfoDelt!["delivery_status"] ==
-                                              null
+                                                      compInfoDelt![
+                                                          "delivery_status"] ==
+                                                  null
                                               ? ""
-                                              : compInfoDelt["delivery_status"]);
+                                              : compInfoDelt[
+                                                  "delivery_status"]);
                                           if (itemsOrder.BasketListItems !=
-                                              null &&
+                                                  null &&
                                               compInfoDelt['delivery_status'] ==
                                                   'Open' &&
-                                              itemsOrder.BasketListItems
-                                                  .length >
+                                              itemsOrder
+                                                      .BasketListItems.length >
                                                   0) {
                                             setMessage(context);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (
-                                                        BuildContext context) =>
-                                                    const Page_Checkout()));
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        const Page_Checkout()));
                                           } else {
                                             setMessage(context);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder:
-                                                        (
-                                                        BuildContext context) =>
+                                                    builder: (BuildContext
+                                                            context) =>
                                                         PageHome()));
                                           }
                                         },
                                         child: (isLoading)
                                             ? const SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                              strokeWidth: 1.5,
-                                            ))
+                                                width: 10,
+                                                height: 10,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                  strokeWidth: 1.5,
+                                                ))
                                             : Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            AStx(
-                                              'Go to Checkout',
-                                              size: 22,
-                                              colr: ColorsApp.white1,
-                                            ),
-                                            // price item
-                                            // AStx(
-                                            //   '\$5.00',
-                                            //   size: 17,
-                                            //   isBold: true,
-                                            //   colr: Colors.black54.withOpacity(0.5),
-                                            // ),
-                                            // AutoSizeText(
-                                            //   'Add to Cart',
-                                            //   style: GoogleFonts.oxygen(
-                                            //     fontSize: 22,
-                                            //     color: Colors.black54,
-                                            //   ),
-                                            // ),
-                                            // price item
-                                            // AutoSizeText('\$5.00',
-                                            //     style: GoogleFonts.oxygen(
-                                            //       fontSize: 17,
-                                            //       fontWeight: FontWeight.bold,
-                                            //       color: Colors.black54.withOpacity(0.5),
-                                            //     )),
-                                          ],
-                                        ),
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  AStx(
+                                                    'Go to Checkout',
+                                                    size: 10,
+                                                    colr: ColorsApp.white1,
+                                                  ),
+                                                  // price item
+                                                  // AStx(
+                                                  //   '\$5.00',
+                                                  //   size: 17,
+                                                  //   isBold: true,
+                                                  //   colr: Colors.black54.withOpacity(0.5),
+                                                  // ),
+                                                  // AutoSizeText(
+                                                  //   'Add to Cart',
+                                                  //   style: GoogleFonts.oxygen(
+                                                  //     fontSize: 22,
+                                                  //     color: Colors.black54,
+                                                  //   ),
+                                                  // ),
+                                                  // price item
+                                                  // AutoSizeText('\$5.00',
+                                                  //     style: GoogleFonts.oxygen(
+                                                  //       fontSize: 17,
+                                                  //       fontWeight: FontWeight.bold,
+                                                  //       color: Colors.black54.withOpacity(0.5),
+                                                  //     )),
+                                                ],
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -535,16 +533,16 @@ class _PageBasketState extends State<PageBasket> {
                               Flexible(
                                 child: Center(
                                   child: Container(
-                                    height: DimenApp.hightSc(
-                                        context, hightPy: 0.07),
+                                    height: DimenApp.hightSc(context,
+                                        hightPy: 0.07),
                                     width: DimenApp.widthSc(context),
-                                    padding: const EdgeInsets.only(bottom: 15),
+                                    padding: const EdgeInsets.only(bottom: 0),
                                     alignment: Alignment.center,
                                     child: SizedBox(
-                                      height:
-                                      DimenApp.hightSc(context, hightPy: 0.076),
-                                      width: DimenApp.widthSc(
-                                          context, widthPy: 0.82),
+                                      height: DimenApp.hightSc(context,
+                                          hightPy: 0.061),
+                                      width: DimenApp.widthSc(context,
+                                          widthPy: 0.7),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
@@ -565,50 +563,52 @@ class _PageBasketState extends State<PageBasket> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (
-                                                      BuildContext context) =>
-                                                      PageHome()));
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          PageHome()));
                                         },
                                         child: (isLoadingg)
                                             ? const SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                              strokeWidth: 1.5,
-                                            ))
+                                                width: 10,
+                                                height: 10,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                  strokeWidth: 1.5,
+                                                ))
                                             : Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            AStx(
-                                              'Add More...',
-                                              size: 22,
-                                              colr: ColorsApp.white1,
-                                            ),
-                                            // price item
-                                            // AStx(
-                                            //   '\$5.00',
-                                            //   size: 17,
-                                            //   isBold: true,
-                                            //   colr: Colors.black54.withOpacity(0.5),
-                                            // ),
-                                            // AutoSizeText(
-                                            //   'Add to Cart',
-                                            //   style: GoogleFonts.oxygen(
-                                            //     fontSize: 22,
-                                            //     color: Colors.black54,
-                                            //   ),
-                                            // ),
-                                            // price item
-                                            // AutoSizeText('\$5.00',
-                                            //     style: GoogleFonts.oxygen(
-                                            //       fontSize: 17,
-                                            //       fontWeight: FontWeight.bold,
-                                            //       color: Colors.black54.withOpacity(0.5),
-                                            //     )),
-                                          ],
-                                        ),
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  AStx(
+                                                    'Add More...',
+                                                    size: 11,
+                                                    colr: ColorsApp.white1,
+                                                  ),
+                                                  // price item
+                                                  // AStx(
+                                                  //   '\$5.00',
+                                                  //   size: 17,
+                                                  //   isBold: true,
+                                                  //   colr: Colors.black54.withOpacity(0.5),
+                                                  // ),
+                                                  // AutoSizeText(
+                                                  //   'Add to Cart',
+                                                  //   style: GoogleFonts.oxygen(
+                                                  //     fontSize: 22,
+                                                  //     color: Colors.black54,
+                                                  //   ),
+                                                  // ),
+                                                  // price item
+                                                  // AutoSizeText('\$5.00',
+                                                  //     style: GoogleFonts.oxygen(
+                                                  //       fontSize: 17,
+                                                  //       fontWeight: FontWeight.bold,
+                                                  //       color: Colors.black54.withOpacity(0.5),
+                                                  //     )),
+                                                ],
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -643,15 +643,13 @@ class _PageBasketState extends State<PageBasket> {
 
             // Container(child: Text('Basket'),),
           );
-        }else {
+        } else {
           Future.delayed(const Duration(milliseconds: 1300), () {
-
 // Here you can write your code
 
             setState(() {
-              falgScreen= true;
+              falgScreen = true;
             });
-
           });
           //output-94702-loader-place-holder-animation.gif
           return Scaffold(
@@ -659,29 +657,30 @@ class _PageBasketState extends State<PageBasket> {
               color: ColorsApp.primColr,
               child: CachedNetworkImage(
                 height: double.infinity,
-                  imageUrl:
-                  "https://sinbadslunch.com/myBackENd/gif/output-94702-loader-place-holder-animation.gif",
-                  fit: BoxFit.cover),
+                imageUrl:
+                    "https://sinbadslunch.com/myBackENd/gif/output-94702-loader-place-holder-animation.gif",
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                  color: ColorsApp.primColr,
+                )),
+              ),
             ),
           );
         }
-        }
-        else {
-          return Center(
-            child: AStx('Not connected to any network'),
-          );
-        }
-
-      } on Exception catch (_) {
-        print("throwing new error");
-
-        throw Center(
-          child: AStx('Wait a moment please'),
+      } else {
+        return Center(
+          child: AStx('Not connected to any network'),
         );
+      }
+    } on Exception catch (_) {
+      print("throwing new error");
 
+      throw Center(
+        child: AStx('Wait a moment please'),
+      );
     }
   }
-
 
   setMessage(BuildContext context) {
     // setCompData();

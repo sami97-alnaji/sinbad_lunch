@@ -316,7 +316,7 @@ class _PageHomeState extends State<PageHome> {
                             children: [
                               AStx(
                                 WordAppENG.specialFodItm,
-                                size: 24,
+                                size: 20,
                                 isBold: true,
                                 colr: ColorsApp.primColr,
                               ),
@@ -463,7 +463,7 @@ class _PageHomeState extends State<PageHome> {
                       Center(
                         child: AStx(
                           stopping_place_Btn1,
-                          size: 24,
+                          size: 18,
                           isBold: true,
                         ),
                         // AutoSizeText(stopping_place_Btn1,style: TextStyle(fontSize: 28,)),
@@ -665,9 +665,9 @@ class _PageHomeState extends State<PageHome> {
     var color2 = ColorsApp.text2home;
     var color3 = ColorsApp.text3home;
     /************/
-    var size1Text = 16.0;
-    var size2Text = 13.0;
-    var size3Text = 14.0;
+    var size1Text = 9.0;
+    var size2Text = 7.0;
+    var size3Text = 8.0;
     /************/
     return Container(
       height: DimenApp.hightSc(context, hightPy: 0.24),

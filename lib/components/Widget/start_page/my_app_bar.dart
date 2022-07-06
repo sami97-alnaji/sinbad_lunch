@@ -44,7 +44,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                         child: AStx(
                             itemsOrder.BasketListItems!.length.toString(),
                             colr: ColorsApp.white,
-                            size: 15),
+                            size: 11),
                       ),
                       // ),
                       Padding(

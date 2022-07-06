@@ -44,7 +44,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
 
   bool isLoading = false;
 
-  bool falgScreen=false;
+  bool falgScreen = false;
 
   getCompInfo() async {
     var compInfo = await GetAllUserInfo().compInfo(
@@ -108,10 +108,9 @@ class _Page_CheckoutState extends State<Page_Checkout> {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-
-      try {
-        if (_isConnectionSuccessful!) {
-        if(falgScreen) {
+    try {
+      if (_isConnectionSuccessful!) {
+        if (falgScreen) {
           // final paymentController = Get.put(PaymentController());
           itemsOrder = Provider.of<ProductPageVariables>(context);
           double totalFood = 0;
@@ -136,12 +135,12 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                 : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
             _totalPriceFood = totalFood;
             _discountPrice =
-            totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
+                totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
             _totalPriceWithTax = totalFood == 0
                 ? 0.0
                 : (((_totalPriceFood! - _discountPrice!) +
-                ((_totalPriceFood! - _discountPrice!) * _tax!))) +
-                _deliveryFee!;
+                        ((_totalPriceFood! - _discountPrice!) * _tax!))) +
+                    _deliveryFee!;
             _totalPriceWithTax = toPrecision(_totalPriceWithTax!);
             /*****************************************/
           });
@@ -155,13 +154,11 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                   children: [
                     //header in page "Checkout"
                     SizedBox(
-                      height: DimenApp.hightSc(context, hightPy: 0.10),
+                      height: 65,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 55),
+                        padding: const EdgeInsets.only(top: 35),
                         child: AStx(
                           'Checkout',
-                          size: 20,
-                          isBold: true,
                           colr: ColorsApp.white1,
                         ),
                       ),
@@ -174,26 +171,34 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                         children: [
                           /*******************************************************************/
                           const SizedBox(
-                            height: 12,
+                            height: 2,
                           ),
 
                           SizedBox(
-                            height: 280,
+                            height: 110,
                             child: CachedNetworkImage(
-                                imageUrl:
-                                "https://sinbadslunch.com/myBackENd/gif/output-108096-illustration-thank-you.gif",
-                                fit: BoxFit.cover),
+                              imageUrl:
+                                  "https://sinbadslunch.com/myBackENd/gif/output-108096-illustration-thank-you.gif",
+                              // fit: BoxFit.cover,
+                              placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator(
+                                color: ColorsApp.primColr,
+                              )),
+                            ),
                           ),
 
                           // Text Filed for Email
-                          TFiled(
-                            controller: _controllerTip,
-                            colorPorder: ColorsApp.blak1,
-                            hint: "Do you want to leave some tips?",
-                            keyboardType: TextInputType.number,
-                            pIcon: Icon(
-                              Icons.monetization_on_outlined,
-                              color: ColorsApp.blak1,
+                          SizedBox(
+
+                            child: TFiled(
+                              controller: _controllerTip,
+                              colorPorder: ColorsApp.blak1,
+                              hint: "Do you want to leave some tips?",
+                              keyboardType: TextInputType.number,
+                              pIcon: Icon(
+                                Icons.monetization_on_outlined,
+                                color: ColorsApp.blak1,
+                              ),
                             ),
                           ),
 
@@ -201,10 +206,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             height: 12,
                           ),
                           /*******************************************************************/
-                          const SizedBox(
-                            height: 25,
-                          ),
-/************************************************************************************/
+
                           //info message
 
                           Card(
@@ -220,60 +222,69 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             ),
                             child: SizedBox(
                               width: DimenApp.widthSc(context),
-                              height: 88,
+                              height: 65,
                               // DimenApp.hightSc(context, hightPy: 0.155),
                               // color: ColorsApp.white1,
                               child: Padding(
                                 padding: const EdgeInsets.all(2.5),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Flexible(
                                       flex: 2,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                             child: SizedBox(
+
                                               child: CachedNetworkImage(
-                                                  imageUrl:
-                                                  "https://sinbadslunch.com/myBackENd/gif/output50537-dott.gif",
-                                                  fit: BoxFit.cover),
+                                                height: 60,
+                                                imageUrl:
+                                                    "https://sinbadslunch.com/myBackENd/gif/output50537-dott.gif",
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                  color: ColorsApp.primColr,
+                                                )),
+                                              ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                     Flexible(
-                                      flex: 5,
+                                      flex: 13,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            height: 10,
+                                        const   SizedBox(
+                                            height: 3,
                                           ),
                                           Flexible(
                                               child: AStx(
-                                                'Contactless delivery',
-                                                size: 19,
-                                                isBold: true,
-                                                colr:
-                                                ColorsApp.blak50.withOpacity(
-                                                    0.8),
-                                              )),
-                                          Flexible(child: Container()),
+                                            'Contactless delivery',
+                                            size: 13,
+                                            isBold: true,
+                                            colr: ColorsApp.blak50
+                                                .withOpacity(0.8),
+                                          )),
+                                       const   SizedBox(
+                                            height: 7,
+                                          ),
                                           Flexible(
                                               child: AStx(
-                                                'We place the order in the designated place',
-                                                size: 16,
-                                                isBold: true,
-                                                colr:
-                                                ColorsApp.blak50.withOpacity(
-                                                    0.8),
-                                              )),
+                                            'We place the order in the designated place',
+                                            size: 11,
+                                            isBold: true,
+                                            colr: ColorsApp.blak50
+                                                .withOpacity(0.8),
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -290,7 +301,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           //Total
                           SizedBox(
                             width: DimenApp.widthSc(context),
-                            height: 120,
+                            height: 88,
                             // DimenApp.hightSc(context, hightPy: 0.17),
                             child: Card(
                               color: ColorsApp.white1,
@@ -304,37 +315,53 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                 // ),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Column(
                                     children: [
                                       AStx('Total Food :',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                      size: 9,
+                                      ),
                                       AStx('Delivery fee : ',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx('Discount : ',
-                                          colr: ColorsApp.blak50),
-                                      AStx('Tax : ', colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
+                                      AStx('Tax : ', colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx('Total amount: ', isBold: true),
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       AStx('\$${_totalPriceFood!}',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx(
                                           _deliveryFee! == 0
                                               ? 'free'
                                               : '\$${_deliveryFee!}',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx(
                                           _discountPrice! == 0
                                               ? '\$0.0'
                                               : '\$${_discountPrice!}',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx(_tax! == 0 ? '%0.0' : '\$${_tax!}',
-                                          colr: ColorsApp.blak50),
+                                          colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
                                       AStx('\$${_totalPriceWithTax!}',
                                           isBold: true),
                                     ],
@@ -347,7 +374,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           //Speas Color
                           Container(
                             color: ColorsApp.grey,
-                            height: DimenApp.hightSc(context, hightPy: 0.01),
+                            height: 6,
                           ),
                           // Location and time
                           /************************************************************************/
@@ -365,33 +392,35 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             ),
                             child: SizedBox(
                               width: DimenApp.widthSc(context),
-                              height: 88,
+                              height: 68,
                               // DimenApp.hightSc(context, hightPy: 0.155),
                               // color: ColorsApp.white1,
                               child: Padding(
                                 padding: const EdgeInsets.all(2.5),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Flexible(
                                       flex: 7,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                               child: AStx(
-                                                'Company : ' +
-                                                    compInfoDelt["comp_name"]
-                                                        .toString(),
-                                              )),
+                                            'Company : ' +
+                                                compInfoDelt["comp_name"]
+                                                    .toString(),
+                                                size: 9,
+                                          )),
                                           Flexible(
                                             child: AStx(
                                               'Location : ' +
                                                   compInfoDelt["comp_adderss"]
                                                       .toString(),
                                               MLin: 2,
+                                              size: 9,
                                             ),
                                           ),
                                         ],
@@ -401,21 +430,28 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       flex: 5,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                               child: AStx(
-                                                'delivery time :',
-                                                size: 17,
-                                              )),
+                                            'delivery time :',
+                                            size: 9,
+                                          )),
                                           Flexible(
                                               child: AStx(
                                                   compInfoDelt["time_date"] ??
-                                                      "")),
+                                                      "",
+                                                size: 9,)),
+                                          Flexible(
+                                              child: AStx(
+                                                'delivery Date :',
+                                                size: 9,
+                                              )),
                                           Flexible(
                                               child: AStx(
                                                   compInfoDelt["date_time"] ??
-                                                      "")),
+                                                      "",
+                                                size: 9,)),
                                         ],
                                       ),
                                     ),
@@ -428,16 +464,16 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           Flexible(
                             child: Center(
                               child: Container(
-                                height: DimenApp.hightSc(
-                                    context, hightPy: 0.07),
-                                width: DimenApp.widthSc(context),
+                                height:55,
+                                width: 180,
                                 padding: const EdgeInsets.only(bottom: 15),
                                 alignment: Alignment.center,
                                 child: SizedBox(
                                   height:
-                                  DimenApp.hightSc(context, hightPy: 0.076),
-                                  width: DimenApp.widthSc(
-                                      context, widthPy: 0.82),
+                                      55,
+                                  width:
+                                      180,
+
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       shape: const StadiumBorder(),
@@ -445,40 +481,55 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       shadowColor: ColorsApp.blak50,
                                       elevation: 7,
                                     ),
+                                    child: (isLoading)
+                                        ? const SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 1.5,
+                                        ))
+                                        : Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        AStx(
+                                          'make payment \$${_totalPriceWithTax!}',
+                                          size: 12,
+                                          colr: ColorsApp.white1,
+                                        ),
+                                      ],
+                                    ),
                                     onPressed: () async {
                                       if (_controllerTip.text.isEmpty) {
                                         _controllerTip.text = '0';
                                         setState(() {
                                           _tip = double.tryParse(
-                                              _controllerTip.text) ??
+                                                  _controllerTip.text) ??
                                               0;
                                         });
                                       }
                                       if (double.parse(_controllerTip.text) <
                                           0) {
-                                        _controllerTip.text =
-                                        '$_totalPriceWithTax';
+
                                         setState(() {
                                           _tip = double.tryParse(
-                                              _controllerTip.text) ??
+                                                  _controllerTip.text) ??
                                               0;
-
                                         });
                                       }
                                       if (double.parse(_controllerTip.text) >
                                           _totalPriceWithTax!) {
-                                        _controllerTip.text =
-                                        '${_totalPriceWithTax!}';
+
                                         setState(() {
                                           _tip = double.tryParse(
-                                              _controllerTip.text) ??
+                                                  _controllerTip.text) ??
                                               0;
-
                                         });
                                       }
                                       /*******************************************************************************/
                                       _tip = double.tryParse(
-                                          _controllerTip.text) ??
+                                              _controllerTip.text) ??
                                           0;
                                       /*******************************************************************************/
                                       EasyLoading.show(
@@ -500,15 +551,17 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       //save order Information to server
 
                                       var saveOrder =
-                                      await OrderSave().orderSaveDataInfo(
-                                        user_id: UserInfoPreferences
-                                            .GetUserId()!,
+                                          await OrderSave().orderSaveDataInfo(
+                                        user_id:
+                                            UserInfoPreferences.GetUserId()!,
                                         company_id:
-                                        UserInfoPreferences.GetCompanyId()!,
+                                            UserInfoPreferences.GetCompanyId()!,
                                         amount: '$_totalPriceFood!',
                                         delivery_fee: '$_deliveryFee!',
-                                        tip: _tip!.toString() ,
-                                        total_amount:  (_totalPriceWithTax!+_tip!).toString(),
+                                        tip: _tip!.toString(),
+                                        total_amount:
+                                            (_totalPriceWithTax! + _tip!)
+                                                .toString(),
                                       );
                                       stas1 = saveOrder["status"].toString();
 /*******************************************************************************************************************************************/
@@ -523,7 +576,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         orderId =
                                             saveOrder["invoice"].toString();
                                         for (var item
-                                        in itemsOrder.BasketListItems) {
+                                            in itemsOrder.BasketListItems) {
                                           var orderItems = await OrderSave()
                                               .orderSaveDataDetails(
                                             order_info_id: orderId,
@@ -544,34 +597,29 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                 ? item.instructon.toString()
                                                 : 'null',
                                             total_food_Item:
-                                            item.itemsTotalPrice.toString(),
+                                                item.itemsTotalPrice.toString(),
                                             number_items:
-                                            item.itemsOfNumber.toString(),
+                                                item.itemsOfNumber.toString(),
                                           );
                                           stas2 =
                                               orderItems["status"].toString();
                                           print(stas2);
                                           if (stas2 == "success") {
                                             print("order items saved");
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                  content: AStx(
-                                                      "orderItems[status]" +
-                                                          orderItems["status"])),
-                                            );
+
                                             var saveOrderItem =
-                                            orderItems["order_food_id"]
-                                                .toString();
+                                                orderItems["order_food_id"]
+                                                    .toString();
 
                                             if (item.addingList != null) {
                                               if (item.addingList.length > 0) {
-                                                for (var add in item
-                                                    .addingList) {
+                                                for (var add
+                                                    in item.addingList) {
                                                   orderAdd = await OrderSave()
                                                       .orderAdditionsSaveData(
                                                     order_info_id: orderId,
-                                                    order_food_id: saveOrderItem,
+                                                    order_food_id:
+                                                        saveOrderItem,
                                                     addition_id: add
                                                         .idAdditional
                                                         .toString(),
@@ -583,15 +631,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                     print(
                                                         "order additions saved");
                                                     print("item is saved");
-                                                    ScaffoldMessenger.of(
-                                                        context)
-                                                        .showSnackBar(
-                                                      SnackBar(
-                                                          content: AStx(
-                                                              "orderAdd[\"status\"]" +
-                                                                  orderAdd[
-                                                                  "status"])),
-                                                    );
+
                                                   } else {
                                                     print(
                                                         "add item is not saved");
@@ -624,46 +664,35 @@ class _Page_CheckoutState extends State<Page_Checkout> {
 /*******************************************************************************************************************************************/
                                           EasyLoading.dismiss();
                                           if ((stas1 == "success" &&
-                                              stas2 == "success") &&
+                                                  stas2 == "success") &&
                                               (stas3 == null ||
                                                   stas3 == "success")) {
                                             EasyLoading.dismiss();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                  content: AStx("Order is saved")),
+                                            );
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (BuildContext
-                                                    context) =>
+                                                            context) =>
                                                         WebShowPayMent(
                                                             email:
-                                                            UserInfoPreferences
-                                                                .GetEmail()!,
+                                                                UserInfoPreferences
+                                                                    .GetEmail()!,
                                                             order_info_id:
-                                                            orderId!,
+                                                                orderId!,
                                                             total_amount:
-                                                            (_totalPriceWithTax!+_tip!).toString())));
+                                                                (_totalPriceWithTax! +
+                                                                        _tip!)
+                                                                    .toString())));
                                           }
                                         }
                                       }
                                     },
-                                    child: (isLoading)
-                                        ? const SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 1.5,
-                                        ))
-                                        : Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        AStx(
-                                          'make payment \$${_totalPriceWithTax!}',
-                                          size: 22,
-                                          colr: ColorsApp.white1,
-                                        ),
-                                      ],
-                                    ),
+
                                   ),
                                 ),
                               ),
@@ -677,40 +706,42 @@ class _Page_CheckoutState extends State<Page_Checkout> {
               ),
             ),
           );
-        }else {
+        } else {
           Future.delayed(const Duration(milliseconds: 1300), () {
-
 // Here you can write your code
 
             setState(() {
-              falgScreen= true;
+              falgScreen = true;
             });
-
           });
           //output-94702-loader-place-holder-animation.gif
           return Scaffold(
             body: Container(
               color: ColorsApp.primColr,
               child: CachedNetworkImage(
-                  height: double.infinity,
-                  imageUrl:
-                  "https://sinbadslunch.com/myBackENd/gif/output-94702-loader-place-holder-animation.gif",
-                  fit: BoxFit.cover),
+                height: double.infinity,
+                imageUrl:
+                    "https://sinbadslunch.com/myBackENd/gif/output-94702-loader-place-holder-animation.gif",
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                  color: ColorsApp.primColr,
+                )),
+              ),
             ),
           );
         }
       } else {
-      return Center(
-        child: AStx('Not connected to any network'),
-      );
-    }
-      } on Exception catch (_) {
-        print("throwing new error");
-
-        throw Center(
-          child: AStx('Wait a moment please'),
+        return Center(
+          child: AStx('Not connected to any network'),
         );
       }
+    } on Exception catch (_) {
+      print("throwing new error");
 
+      throw Center(
+        child: AStx('Wait a moment please'),
+      );
+    }
   }
 }

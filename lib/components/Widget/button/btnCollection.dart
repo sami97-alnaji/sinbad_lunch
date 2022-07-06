@@ -82,7 +82,7 @@ class btnCollectionState extends State<btnCollection> {
                       child: AStx(
                         widget.label,
                         colr: ColorsApp.blak50,
-                        size: 14,
+                        size: 11,
 
                       ),
                     )),
