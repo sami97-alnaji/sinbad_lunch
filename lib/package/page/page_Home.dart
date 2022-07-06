@@ -129,7 +129,9 @@ class _PageHomeState extends State<PageHome> {
 
     await _tryConnection();
   }
-
+  ex() async {
+    await EasyLoading.dismiss();
+  }
   /***************************************************************************/
   @override
   void initState() {
@@ -172,7 +174,7 @@ class _PageHomeState extends State<PageHome> {
     }
     setFirstLocation();
 
-
+    ex();
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -215,6 +217,8 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   Widget build(BuildContext context) {
+    if(_isConnectionSuccessful!) {
+      try {
     /****************************************************/
     count = Provider.of<ProductPageVariables>(context);
 
@@ -249,8 +253,7 @@ class _PageHomeState extends State<PageHome> {
     setState(() {
       PageHome().setBackColor;
     });
-    if(_isConnectionSuccessful!) {
-      try {
+
         return WillPopScope(
           onWillPop: () async {
             final difference = DateTime.now().difference(timeBackPressed);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
@@ -116,11 +117,23 @@ class _MyDrawerState extends State<MyDrawer> {
                     padding: const EdgeInsets.only(top: 20),
                     child: IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const PageBasket()));
+                        EasyLoading.show(status: 'loading...',
+                            maskType: EasyLoadingMaskType.black
+                        );
+                        Future.delayed(const Duration(milliseconds: 500), () async {
+
+                          // Here you can write your code
+                        await  Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                  const PageBasket()));
+                          setState(() {
+                            // Here you can write your code for open new view
+                          });
+
+                        });
+
                       },
                       icon: Icon(
                         Icons.shopping_cart,

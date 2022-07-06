@@ -9,7 +9,7 @@ import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 class TFiled extends StatelessWidget {
 
 
-  const TFiled(
+    TFiled(
       {Key? key,
       TextEditingController? controller,
       String? initValue,
@@ -24,6 +24,7 @@ class TFiled extends StatelessWidget {
       bool? readOnly=false,
       void Function()? onSIcon,
         TextInputAction? textAction,
+        Color? colorPorder,
         List<TextInputFormatter>? inputFormatter})
       : _initValue = initValue,
         _keyboardType = keyboardType,
@@ -39,6 +40,7 @@ class TFiled extends StatelessWidget {
         _controler = controller,
         _readOnly= readOnly,
         _inputFormatter = inputFormatter,
+        _colorPorder = colorPorder,
         super(key: key);
 
   final String? _initValue;
@@ -56,9 +58,11 @@ class TFiled extends StatelessWidget {
   final void Function(String?)? _onSaved;
   final TextEditingController? _controler;
   final bool? _readOnly;
+   Color? _colorPorder;
 
   @override
   Widget build(BuildContext context) {
+   _colorPorder= _colorPorder ?? ColorsApp.primColr;
     return Column(
       children: [
         Padding(
@@ -67,7 +71,7 @@ class TFiled extends StatelessWidget {
             textInputAction: _textAction??TextInputAction.next,
             controller: _controler,
             initialValue: _initValue,
-            cursorColor: ColorsApp.primColr,
+            cursorColor: _colorPorder!,
             keyboardType: _keyboardType,
             obscureText: _isObscureText ?? false,
             onChanged: _onChanged,
@@ -90,25 +94,25 @@ class TFiled extends StatelessWidget {
               //*Border normal
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(100),
-                borderSide: BorderSide(color: ColorsApp.primColr, width: 2),
+                borderSide: BorderSide(color: _colorPorder!, width: 2),
               ),
               //* focuse border normal
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: ColorsApp.primColr, width: 3),
+                borderSide: BorderSide(color: _colorPorder!, width: 3),
               ),
               //*border error
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(100),
                 borderSide: BorderSide(
-                  color: ColorsApp.primColr,
+                  color: _colorPorder!,
                   width: 2,
                 ),
               ),
               //*focuse border error
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(color: ColorsApp.primColr, width: 3),
+                borderSide: BorderSide(color: _colorPorder!, width: 3),
               ),
             ),
             style: GoogleFonts.openSans(
@@ -117,7 +121,7 @@ class TFiled extends StatelessWidget {
             inputFormatters:_inputFormatter,
           ),
         ),
-        SizedBox(height:  22,),
+        const SizedBox(height:  22,),
       ],
     );
   }

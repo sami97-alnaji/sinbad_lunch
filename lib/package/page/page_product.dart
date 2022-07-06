@@ -163,7 +163,7 @@ class _PageProductState extends State<PageProduct> {
       }
     }
   }
-
+  double toPrecision(double n) =>  double.parse(n.toStringAsFixed(2));
   ///**********************************************************************/
 
   bool value = false;
@@ -208,11 +208,13 @@ class _PageProductState extends State<PageProduct> {
       }
     }
   }
+
   Timer? _timer;
+
   ///**********************************************************************/
   //********************************************************/
   // check conncetion to server
-  bool? _isConnectionSuccessful=true;
+  bool? _isConnectionSuccessful = true;
 
   Future<void> _tryConnection() async {
     try {
@@ -227,8 +229,8 @@ class _PageProductState extends State<PageProduct> {
       });
     }
   }
-  _tryConnectionWAit() async {
 
+  _tryConnectionWAit() async {
     await _tryConnection();
   }
 
@@ -250,25 +252,25 @@ class _PageProductState extends State<PageProduct> {
         _timer?.cancel();
       }
     });
-    EasyLoading.show(status: 'loading...',
+    EasyLoading.show(
+      status: 'loading...',
       // maskType: EasyLoadingMaskType.black
     );
     int duration = 1;
-    Timer(  Duration(seconds: duration), () async {
-      if(sAd != []) {
+    Timer(Duration(seconds: duration), () async {
+      if (sAd != []) {
         EasyLoading.dismiss();
         setState(() {
-          duration=0;
-        });
-
-      }else{
-        setState(() {
-          duration+=1;
+          duration = 0;
         });
       }
+      // else {
+      //   setState(() {
+      //     duration += 1;
+      //   });
+      // }
       await EasyLoading.dismiss();
     });
-
   }
 
   setExtraStute() async {
@@ -348,6 +350,8 @@ class _PageProductState extends State<PageProduct> {
   /// *********************************************************************/
   @override
   Widget build(BuildContext context) {
+    if (_isConnectionSuccessful!) {
+      try {
     // FutureBuilderGetAdditions();
     // list_suaces = [];
     int numberOfItems = 0;
@@ -363,350 +367,399 @@ class _PageProductState extends State<PageProduct> {
               additionsSelectionPrice +
               _sauceSelectionPrice) *
           numberOfItems;
+      totalPrice = toPrecision(totalPrice );
       totalPriceWithOutNum = (widget.food.food_price! +
           additionsSelectionPrice +
           _sauceSelectionPrice);
     });
-    if(_isConnectionSuccessful!) {
-      try {
-    return Scaffold(
-      drawer: const MyDrawer(),
-      appBar: MyAppBar(titel: widget.food.food_name!),
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onHorizontalDragCancel: () {
-            SystemChannels.textInput.invokeMethod('TextInput.hide');
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: DimenApp.hightSc(context, hightPy: 0.025),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CachedNetworkImage(
-                  imageUrl: widget.food.food_image!,
-                  fit: BoxFit.fitHeight,
-                  height: DimenApp.hightSc(context, hightPy: 0.28),
-                  placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(
-                    color: ColorsApp.primColr,
-                  )),
-                ),
-              ),
-              // title item
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
 
-                        //name item
-                        Expanded(
-                          child: AStx(
-                            widget.food.food_name!,
-                            colr: ColorsApp.forPass1,
-                            size: 24,
-                            isBold: true,
-                          ),
-                        ),
-
-                        // هاي بدنا نزبها تحت جنب الكبسة
-                        //price item
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 11.0, top: 4.2, right: 11.0),
-                          child: AStx(
-                            '\$${widget.food.food_price!}',
-                            size: 21,
-                            colr: ColorsApp.primColr,
-                            isBold: true,
-                          ),
-                        ),
-                      ])),
-              //##################################################################
-              SizedBox(
-                height: DimenApp.hightSc(context, hightPy: 0.022),
-              ),
-              //##################################################################
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AStx(
-                  widget.food.food_description!,
-                  size: 15,
-                  colr: ColorsApp.blak50,
-                  MLin: 3,
-                ),
-              ),
-              //##################################################################
-              SizedBox(
-                height: DimenApp.hightSc(context, hightPy: 0.028),
-              ),
-              //##################################################################
-              /************************************************************************/
-              //this menu for  /" Platters "\
-              /************************************************************************/
-
-              /************************************************************************/
-              // Choice of Suace (radio button)
-              /************************************************************************/
-              choiceOfSuace(),
-              /************************************************************************/
-              // Instruction  (text area)
-              /************************************************************************/
-              SizedBox(
-                width: DimenApp.widthSc(context),
-                child: Card(
-                  color: ColorsApp.white1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      color: ColorsApp.white,
-                      child: TextField(
-                        // expands: true,
-                        decoration: InputDecoration(
-                          // filled: true,
-                          // fillColor: ColorsApp.primColr,
-                          focusColor: ColorsApp.primColr,
-                          labelStyle: GoogleFonts.oxygen(
-                            color: ColorsApp.primColr,
-                            // decorationStyle:TextDecorationStyle.dotted ,
-                          ),
-                          border: const OutlineInputBorder(
-                              // borderSide: BorderSide(
-                              //   width: 0,
-                              //   style: BorderStyle.none,
-                              //   color: ColorsApp.primColr,
-                              // ),
-                              // borderRadius: BorderRadius.circular(80.0),
+        return Scaffold(
+          drawer: const MyDrawer(),
+          appBar: MyAppBar(titel: widget.food.food_name!),
+          body: SingleChildScrollView(
+            child: GestureDetector(
+              onHorizontalDragCancel: () {
+                SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.025),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.food.food_image!,
+                      fit: BoxFit.fitHeight,
+                      height: DimenApp.hightSc(context, hightPy: 0.28),
+                      placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(
+                        color: ColorsApp.primColr,
+                      )),
+                    ),
+                  ),
+                  // title item
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //name item
+                            Expanded(
+                              child: AStx(
+                                widget.food.food_name!,
+                                colr: ColorsApp.forPass1,
+                                size: 24,
+                                isBold: true,
                               ),
-                          labelText: 'Instruction',
-                          hintText: 'instruction manual！\n\n\n\n\n',
-                          focusedBorder: OutlineInputBorder(
-                            // borderRadius: BorderRadius.circular(25.0),
-                            borderSide: BorderSide(
-                              color: ColorsApp.primColr,
                             ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // borderRadius: BorderRadius.circular(25.0),
-                            borderSide: BorderSide(
-                              color: ColorsApp.primColr,
-                              width: 2.0,
+
+                            // هاي بدنا نزبها تحت جنب الكبسة
+                            //price item
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 11.0, top: 4.2, right: 11.0),
+                              child: AStx(
+                                '\$${widget.food.food_price!}',
+                                size: 21,
+                                colr: ColorsApp.primColr,
+                                isBold: true,
+                              ),
                             ),
+                          ])),
+                  //##################################################################
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.022),
+                  ),
+                  //##################################################################
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AStx(
+                      widget.food.food_description!,
+                      size: 15,
+                      colr: ColorsApp.blak50,
+                      MLin: 3,
+                    ),
+                  ),
+                  //##################################################################
+                  SizedBox(
+                    height: DimenApp.hightSc(context, hightPy: 0.028),
+                  ),
+                  //##################################################################
+                  /************************************************************************/
+                  //this menu for  /" Platters "\
+                  /************************************************************************/
+
+                  /************************************************************************/
+                  // Choice of Suace (radio button)
+                  /************************************************************************/
+                  choiceOfSuace(),
+                  /************************************************************************/
+                  // Instruction  (text area)
+                  /************************************************************************/
+                  SizedBox(
+                    width: DimenApp.widthSc(context),
+                    child: Card(
+                      color: ColorsApp.white1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          color: ColorsApp.white,
+                          child: TextField(
+                            // expands: true,
+                            decoration: InputDecoration(
+                              // filled: true,
+                              // fillColor: ColorsApp.primColr,
+                              focusColor: ColorsApp.primColr,
+                              labelStyle: GoogleFonts.oxygen(
+                                color: ColorsApp.primColr,
+                                // decorationStyle:TextDecorationStyle.dotted ,
+                              ),
+                              border: const OutlineInputBorder(
+                                  // borderSide: BorderSide(
+                                  //   width: 0,
+                                  //   style: BorderStyle.none,
+                                  //   color: ColorsApp.primColr,
+                                  // ),
+                                  // borderRadius: BorderRadius.circular(80.0),
+                                  ),
+                              labelText: 'Instruction',
+                              hintText: 'instruction manual！\n\n\n\n\n',
+                              focusedBorder: OutlineInputBorder(
+                                // borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: ColorsApp.primColr,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                // borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: ColorsApp.primColr,
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                            cursorColor: ColorsApp.primColr,
+                            controller: controllerInstruction,
+                            minLines: null,
+                            // any number you need (It works as the rows for the textarea)
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 4,
                           ),
                         ),
-                        cursorColor: ColorsApp.primColr,
-                        controller: controllerInstruction,
-                        minLines: null,
-                        // any number you need (It works as the rows for the textarea)
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 4,
                       ),
                     ),
                   ),
-                ),
-              ),
-              /************************************************************************/
-              //Additional Toppings (checkbox)
-              /************************************************************************/
-              additionalToppings(),
-              /************************************************************************/
-              //for free like drink (radio button)
-              /************************************************************************/
-              freePluginFormat(free1Adding, 1, titleFree1),
-              freePluginFormat(free2Adding, 2, titleFree2),
-              freePluginFormat(free3Adding, 3, titleFree3),
-              /************************************************************************/
-              //count items  (spinner button)
-              /************************************************************************/
-              Center(
-                child: SizedBox(
-                  width: DimenApp.widthSc(
-                    context,
-                  ),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  /************************************************************************/
+                  //Additional Toppings (checkbox)
+                  /************************************************************************/
+                  additionalToppings(),
+                  /************************************************************************/
+                  //for free like drink (radio button)
+                  /************************************************************************/
+                  freePluginFormat(free1Adding, 1, titleFree1),
+                  freePluginFormat(free2Adding, 2, titleFree2),
+                  freePluginFormat(free3Adding, 3, titleFree3),
+                  /************************************************************************/
+                  //count items  (spinner button)
+                  /************************************************************************/
+                  Center(
+                    child: SizedBox(
+                      width: DimenApp.widthSc(
+                        context,
+                      ),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //         decoration: BoxDecoration(
-                          //           color: ColorsApp.primColr,
-                          //           borderRadius: const BorderRadius.only(
-                          //             topLeft: Radius.circular(40),
-                          //             bottomLeft: Radius.circular(40),
-                          //           ),
-                          //           border: Border.all(
-                          //             width: 3,
-                          //             color: ColorsApp.primColr,
-                          //             style: BorderStyle.solid,
-                          //           ),
-                          //         ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //         decoration: BoxDecoration(
+                              //           color: ColorsApp.primColr,
+                              //           borderRadius: const BorderRadius.only(
+                              //             topLeft: Radius.circular(40),
+                              //             bottomLeft: Radius.circular(40),
+                              //           ),
+                              //           border: Border.all(
+                              //             width: 3,
+                              //             color: ColorsApp.primColr,
+                              //             style: BorderStyle.solid,
+                              //           ),
+                              //         ),
 
-                          /********************************************************************/
-                          // text filed spinner
-                          /********************************************************************/
-                          SizedBox(
-                            height:
-                                DimenApp.hightSc(context, hightPy: 0.09), //128,
+                              /********************************************************************/
+                              // text filed spinner
+                              /********************************************************************/
+                              SizedBox(
+                                height: DimenApp.hightSc(context,
+                                    hightPy: 0.09), //128,
+                              ),
+
+                              BtnSpinnr(),
+
+                              /****************************************************************/
+                              //  // ------
+                            ],
                           ),
-
-                          BtnSpinnr(),
 
                           /****************************************************************/
-                          //  // ------
                         ],
                       ),
-
-                      /****************************************************************/
-                    ],
-                  ),
-                ),
-              ),
-              /************************************************************************/
-              /************************************************************************/
-
-              ///alert box
-
-              // count.note(),
-              // SizedBox(
-              //   height: DimenApp.hightSc(context, hightPy: 0.011), //128,
-              // ),
-
-              /************************************************************************/
-              //Button add to cart
-              /************************************************************************/
-              //button 1 Submit
-              /************************************************************************/
-              Center(
-                child: Container(
-                  height: DimenApp.hightSc(context, hightPy: 0.1),
-                  width: DimenApp.widthSc(context),
-                  padding: const EdgeInsets.only(bottom: 15),
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    height: DimenApp.hightSc(context, hightPy: 0.08),
-                    width: DimenApp.widthSc(context, widthPy: 0.82),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const StadiumBorder(),
-                        primary: ColorsApp.primColr,
-                        shadowColor: ColorsApp.blak50,
-                        elevation: 7,
-                      ),
-                      onPressed: () async {
-                        // for (var i in additionalToppingsChose) {
-                        //   print(
-                        //       'additionalToppingsChose   ${i.additions_name}');
-                        // }
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await Future.delayed(const Duration(seconds: 1));
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => PageHome()));
-
-                        // _showBuilderToast();
-                        _showToast(widget.food.food_name.toString());
-                        print('listAdditionsIsEmpty $listAdditionsIsEmpty');
-                        print(widget.food.food_id);
-                        /********************************************************************/
-                        count.BasketListItems.add(OrderDetails(
-                          itemsId: widget.food.food_id!,
-                          itemsName: widget.food.food_name!,
-                          itemsImage: widget.food.food_image!,
-                          itemsOfNumber: numberOfItems,
-                          itemsTotalPrice: totalPrice,
-                          sauceId:
-                              suaceInfo != null ? suaceInfo!.suace_id : null,
-                          sauceName:
-                              suaceInfo != null ? suaceInfo!.suace_name : null,
-                          saucePrice:
-                              suaceInfo != null ? suaceInfo!.price : null,
-                          instructon: controllerInstruction != null &&
-                                  controllerInstruction!.text
-                                      .toString()
-                                      .isNotEmpty
-                              ? controllerInstruction!.text.toString()
-                              : null,
-                          addingList:
-                              addingList != null && addingList!.isNotEmpty
-                                  ? addingList
-                                  : null,
-                          iSFree1Id: freeAdd1 != null && freeAdd1!.isNotEmpty
-                              ? freeAdd1![0]
-                              : null,
-                          isFree1Name: freeAdd1 != null && freeAdd1!.isNotEmpty
-                              ? freeAdd1![1]
-                              : null,
-                          iSFree2Id: freeAdd2 != null && freeAdd2!.isNotEmpty
-                              ? freeAdd2![0]
-                              : null,
-                          isFree2Name: freeAdd2 != null && freeAdd2!.isNotEmpty
-                              ? freeAdd2![1]
-                              : null,
-                          iSFree3Id: freeAdd3 != null && freeAdd3!.isNotEmpty
-                              ? freeAdd3![0]
-                              : null,
-                          isFree3Name: freeAdd3 != null && freeAdd3!.isNotEmpty
-                              ? freeAdd3![1]
-                              : null,
-                        ));
-                      },
-                      child: (isLoading)
-                          ? const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 1.5,
-                              ))
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                AStx(
-                                  'Add to Cart',
-                                  size: 22,
-                                  colr: Colors.black54,
-                                ),
-                                // price item
-                                AStx(
-                                  '\$${totalPrice}',
-                                  size: 20,
-                                  isBold: true,
-                                  colr: Colors.black54.withOpacity(0.5),
-                                ),
-                              ],
-                            ),
                     ),
                   ),
-                ),
-              ),
-              /************************************************************************/
-            ],
-          ),
-        ),
-      ),
-    );
-  } on Exception catch (_) {
-  print("throwing new error");
+                  /************************************************************************/
+                  /************************************************************************/
 
-  throw Center(
-  child: AStx('Wait a moment please'),
-  );
-  }
-}else{
-return Center(
-child: AStx('Not connected to any network'),
-);
-}
+                  ///alert box
+
+                  // count.note(),
+                  // SizedBox(
+                  //   height: DimenApp.hightSc(context, hightPy: 0.011), //128,
+                  // ),
+
+                  /************************************************************************/
+                  //Button add to cart
+                  /************************************************************************/
+                  //button 1 Submit
+                  /************************************************************************/
+                  Center(
+                    child: Container(
+                      height: DimenApp.hightSc(context, hightPy: 0.1),
+                      width: DimenApp.widthSc(context),
+                      padding: const EdgeInsets.only(bottom: 15),
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        height: DimenApp.hightSc(context, hightPy: 0.08),
+                        width: DimenApp.widthSc(context, widthPy: 0.82),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder(),
+                            primary: ColorsApp.primColr,
+                            shadowColor: ColorsApp.blak50,
+                            elevation: 7,
+                          ),
+                          onPressed: () async {
+                            // for (var i in additionalToppingsChose) {
+                            //   print(
+                            //       'additionalToppingsChose   ${i.additions_name}');
+                            // }
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await Future.delayed(const Duration(seconds: 1));
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        PageHome()));
+
+                            // _showBuilderToast();
+                            _showToast(widget.food.food_name.toString());
+                            print('listAdditionsIsEmpty $listAdditionsIsEmpty');
+                            print(widget.food.food_description);
+                            /********************************************************************/
+
+                            var itemCard = OrderDetails(
+                              itemsId: widget.food.food_id!,
+                              itemsName: widget.food.food_name!,
+                              itemsImage: widget.food.food_image!,
+                              food_description: widget.food.food_description!,
+                              itemsOfNumber: numberOfItems,
+                              itemsTotalPrice: totalPrice,
+                              sauceId: suaceInfo != null
+                                  ? suaceInfo!.suace_id
+                                  : null,
+                              sauceName: suaceInfo != null
+                                  ? suaceInfo!.suace_name
+                                  : null,
+                              saucePrice:
+                                  suaceInfo != null ? suaceInfo!.price : null,
+                              instructon: controllerInstruction != null &&
+                                      controllerInstruction!.text
+                                          .toString()
+                                          .isNotEmpty
+                                  ? controllerInstruction!.text.toString()
+                                  : null,
+                              addingList:
+                                  addingList != null && addingList!.isNotEmpty
+                                      ? addingList
+                                      : null,
+                              iSFree1Id:
+                                  freeAdd1 != null && freeAdd1!.isNotEmpty
+                                      ? freeAdd1![0]
+                                      : null,
+                              isFree1Name:
+                                  freeAdd1 != null && freeAdd1!.isNotEmpty
+                                      ? freeAdd1![1]
+                                      : null,
+                              iSFree2Id:
+                                  freeAdd2 != null && freeAdd2!.isNotEmpty
+                                      ? freeAdd2![0]
+                                      : null,
+                              isFree2Name:
+                                  freeAdd2 != null && freeAdd2!.isNotEmpty
+                                      ? freeAdd2![1]
+                                      : null,
+                              iSFree3Id:
+                                  freeAdd3 != null && freeAdd3!.isNotEmpty
+                                      ? freeAdd3![0]
+                                      : null,
+                              isFree3Name:
+                                  freeAdd3 != null && freeAdd3!.isNotEmpty
+                                      ? freeAdd3![1]
+                                      : null,
+                            );
+                            bool flagItemCard = false;
+                            // count.BasketListItems.add(itemCard);
+                               if(count.BasketListItems.isNotEmpty || count.BasketListItems.length > 0){
+
+                              for (var i in count.BasketListItems) {
+                                if (i.itemsId == itemCard.itemsId &&
+                                    i.sauceId == itemCard.sauceId &&
+                                    i.iSFree1Id == itemCard.iSFree1Id &&
+                                    i.iSFree2Id == itemCard.iSFree2Id &&
+                                    i.iSFree3Id == itemCard.iSFree3Id) {
+                                  flagItemCard = true;
+                                  if (itemCard.addingList != null &&
+                                      itemCard.addingList!.isNotEmpty &&
+                                      i.addingList!.isNotEmpty &&
+                                      itemCard.addingList!.length ==
+                                          i.addingList!.length) {
+                                    for (int j = 0;
+                                        j < itemCard.addingList!.length;
+                                        j++) {
+                                      if (i[j].idAdditional !=
+                                          itemCard
+                                              .addingList![j].idAdditional) {
+                                        flagItemCard = false;
+                                      }
+                                    }
+                                  }
+                                  if (flagItemCard) {
+                                    i.itemsTotalPrice += totalPrice;
+                                    i.itemsOfNumber += numberOfItems;
+                                    print('numberOfItems $numberOfItems');
+                                    flagItemCard = true;
+                                  }
+                                }
+                              }
+                            }
+                            if (!flagItemCard) {
+                              count.BasketListItems.add(itemCard);
+                            }
+                          },
+                          child: (isLoading)
+                              ? const SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 1.5,
+                                  ))
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    AStx(
+                                      'Add to Cart',
+                                      size: 22,
+                                      colr: Colors.black54,
+                                    ),
+                                    // price item
+                                    AStx(
+                                      '\$${totalPrice}',
+                                      size: 20,
+                                      isBold: true,
+                                      colr: Colors.black54.withOpacity(0.5),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  /************************************************************************/
+                ],
+              ),
+            ),
+          ),
+        );
+      } on Exception catch (_) {
+        print("throwing new error");
+
+        throw Center(
+          child: AStx('Wait a moment please'),
+        );
+      }
+    } else {
+      return Center(
+        child: AStx('Not connected to any network'),
+      );
+    }
   }
 
 /*******************************************************************************/
@@ -812,9 +865,15 @@ child: AStx('Not connected to any network'),
       title: AStx(
         food == null ? su!.suace_name! : food.food_name!,
         colr: ColorsApp.blakText,
-         size: 16,
+        size: 16,
       ),
-      trailing: food == null ? AStx(prc, colr: ColorsApp.primColr,size: 16,) : null,
+      trailing: food == null
+          ? AStx(
+              prc,
+              colr: ColorsApp.primColr,
+              size: 16,
+            )
+          : null,
       leading: Radio(
         activeColor: ColorsApp.primColr,
         value: su != null ? su.suace_id.toString() : food!.food_id.toString(),
@@ -1019,7 +1078,7 @@ child: AStx('Not connected to any network'),
                                           .add(e.additions_id);
                                       additionsSelectionPrice += e.extraPrice;
                                       addingList!.add(AdditionalToppingg(
-                                          isAdditional: e.additions_id,
+                                          idAdditional: e.additions_id,
                                           nameAdditional: e.extraName,
                                           priceAdditional: e.extraPrice));
                                     });
@@ -1029,7 +1088,7 @@ child: AStx('Not connected to any network'),
                                           .remove(e.additions_id);
                                       additionsSelectionPrice -= e.extraPrice;
                                       addingList!.remove(AdditionalToppingg(
-                                          isAdditional: e.additions_id,
+                                          idAdditional: e.additions_id,
                                           nameAdditional: e.extraName,
                                           priceAdditional: e.extraPrice));
                                     });

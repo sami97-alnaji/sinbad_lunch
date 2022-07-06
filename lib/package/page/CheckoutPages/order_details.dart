@@ -1,9 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 class OrderDetails {
 
   OrderDetails(
       {required this.itemsId,
       required this.itemsName,
       required this.itemsImage,
+      required this.food_description,
       required this.itemsOfNumber,
       required this.itemsTotalPrice,
       this.sauceId,
@@ -24,8 +27,7 @@ class OrderDetails {
 
 
   int itemsId;
-  String itemsName;
-  String itemsImage;
+  String itemsName,food_description, itemsImage;
   int itemsOfNumber;
   double itemsTotalPrice;
 
@@ -62,10 +64,10 @@ class OrderDetails {
 }
 
 class AdditionalToppingg {
-  int? isAdditional;
+  int? idAdditional;
   String? nameAdditional;
   double? priceAdditional;
 
   AdditionalToppingg(
-      {this.isAdditional, this.nameAdditional, this.priceAdditional});
+      {this.idAdditional, this.nameAdditional, this.priceAdditional});
 }

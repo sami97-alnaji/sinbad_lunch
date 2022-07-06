@@ -30,7 +30,12 @@ class Autho {
       "Accept": "application/json"
     });
 
-    return json.decode(res.body);
+
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return json.decode(res.body );
+    }
+
+    return "no Connection";
   }
 
   Future sendEmail(String email) async {
@@ -59,7 +64,11 @@ class Autho {
       "code": Encryption.instance.encrypt(code).toString(),
     });
 
-    return Encryption.instance.decrypt(res.body).toString();
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return Encryption.instance.decrypt(json.decode(res.body));
+    }
+
+    return "no Connection";
   }
 
   // Future logIn({required String email, required String password}) async {
@@ -98,7 +107,11 @@ class Autho {
       "email": Encryption.instance.encrypt(email).toString(),
     });
     print(json.decode(Encryption.instance.decrypt(res.body).toString()));
-    return json.decode(Encryption.instance.decrypt(res.body).toString());
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return Encryption.instance.decrypt(json.decode(res.body));
+    }
+
+    return "no Connection";
   }
 
   Future setNewPass({required String email, required String password}) async {
@@ -108,6 +121,10 @@ class Autho {
       "password": Encryption.instance.encrypt(password).toString(),
     });
 
-    return json.decode(Encryption.instance.decrypt(res.body).toString());
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return Encryption.instance.decrypt(json.decode(res.body));
+    }
+
+    return "no Connection";
   }
 }

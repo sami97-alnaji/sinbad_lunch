@@ -1,4 +1,6 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sinbad_lunch/components/Encryptions/encryptionss.dart';
@@ -6,86 +8,101 @@ import 'package:sinbad_lunch/components/Encryptions/encryptionss.dart';
 //https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/
 //"http://192.168.80.1/Back-End%20Sinbad-Lunch%20API/user/"
 class OrderSave {
-  String url = 'http://192.168.80.1//Back-End Sinbad-Lunch API/menu/order/';
+  String url =
+      'https://sinbadslunch.com/myBackENd/Back-End%20Sinbad-Lunch%20API/menu/order/';
+
+  // 'http://192.168.80.1//Back-End Sinbad-Lunch API/menu/order/';
 
   //     "http://192.168.80.1//Back-End Sinbad-Lunch API/test/get_data_save_order.php";
 
-  // ignore: non_constant_identifier_names
-  Future orderSaveDataInfo() async {
-    String link =
-        url + "get_data_save_order_info.php";
+  Future orderSaveDataInfo({
+    required String user_id,
+    required String company_id,
+    required String amount,
+    required String delivery_fee,
+    required String tip,
+    required String total_amount,
+  }) async {
+    String link = url + "get_data_save_order_info.php";
     // String sss = 'http://192.168.80.1//Back-End Sinbad-Lunch API/shortCall.php';
     //`order_info_id` = X , `user_id`, `company_id`, `order_time`,
     // `amount`, `delivery_fee`, `municipality_tax`, `tip`,
     // `total_amount`, `payment_status`
     var res = await http.post(Uri.parse(link), body: {
       // "ec": Encryption.instance.encrypt('samisad123@gmail.com').toString(),
-      "user_id": "1",
-      "company_id": "1",
-      "order_time": "123456789",
-      "amount": "1234",
-      "delivery_fee": "1234",
-      "municipality_tax": "1234",
-      "tip": "1234",
-      "total_amount": "1234",
-      "payment_status": "1234",
-      // "ordr": json.encode(ordr)
-    },
-        headers: {
-      "Accept": "application/json"
-    }
-    );
-    // print(res.body);
-    if (res.statusCode == 200) {
-      // var data = json.decode(res.body);
-      // var rest = data as List;
-      // print(rest);
-      // list = rest.map<CompanyAll>((json) => CompanyAll.fromJson(json)).toList();
-    }
-
-    // print("List Size: ${res.body}");
-    return res.body;
-  }
-  Future orderSaveDataDetails(String numberItems, String itemsTotalPrice, String orderFoodId) async {
-    /*
-            echo "order_food_id   = ".$_POST["order_food_id"]."\n";
-            echo "order_info_id   = ".$_POST["order_info_id"]."\n";
-            echo "food_id   = ".$_POST["food_id"]."\n";
-            echo "suace_id   = ".$_POST["suace_id"]."\n";
-            echo "is_free_1Id   = ".$_POST["is_free_1Id"]."\n";
-            echo "is_free_2Id   = ".$_POST["is_free_2Id"]."\n";
-            echo "is_free_3Id   = ".$_POST["is_free_3Id"]."\n";
-            echo "Instruction   = ".$_POST["Instruction"]."\n";
-            echo "number_items   = ".$_POST["number_items"]."\n";
-     */
-    String link =
-        url + "get_data_save_order_details.php";
-    //`order_info_id` = X , `user_id`, `company_id`, `order_time`,
-    // `amount`, `delivery_fee`, `municipality_tax`, `tip`,
-    // `total_amount`, `payment_status`
-    var res = await http.post(Uri.parse(link), body: {
-      "order_food_id": orderFoodId,
-      "total_food_Item": itemsTotalPrice,
-      "numberItems": numberItems,
-      // "amount": "1234",
-      // "delivery_fee": "1234",
-      // "municipality_tax": "1234",
-      // "tip": "1234",
-      // "total_amount": "1234",
-      // "payment_status": "1234",
+      "user_id": Encryption.instance.encrypt(user_id).toString(),
+      "company_id": Encryption.instance.encrypt(company_id).toString(),
+      "amount": Encryption.instance.encrypt(amount).toString(),
+      "delivery_fee": Encryption.instance.encrypt(delivery_fee).toString(),
+      "tip": Encryption.instance.encrypt(tip).toString(),
+      "total_amount": Encryption.instance.encrypt(total_amount).toString(),
       // "ordr": json.encode(ordr)
     }, headers: {
       "Accept": "application/json"
     });
-    // print(res.body);
-    if (res.statusCode == 200) {
-      // var data = json.decode(res.body);
-      // var rest = data as List;
-      // print(rest);
-      // list = rest.map<CompanyAll>((json) => CompanyAll.fromJson(json)).toList();
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return json.decode(Encryption.instance.decrypt(res.body));
     }
 
-    print(" ${res.body}");
-    // return res.body;
+    return "no Connection";
   }
+
+  Future orderSaveDataDetails(
+      {required String order_info_id,
+      required String food_id,
+      required String suace_id,
+      required String is_free_1Id,
+      required String is_free_2Id,
+      required String is_free_3Id,
+      required String Instruction,
+      required String total_food_Item,
+      required String number_items}) async {
+    String link = url + "get_data_save_order_details.php";
+    //`order_info_id` = X , `user_id`, `company_id`, `order_time`,
+    // `amount`, `delivery_fee`, `municipality_tax`, `tip`,
+    // `total_amount`, `payment_status`
+    var res = await http.post(Uri.parse(link), body: {
+      "order_info_id": Encryption.instance.encrypt(order_info_id),
+      "food_id": Encryption.instance.encrypt(food_id),
+      "suace_id": Encryption.instance.encrypt(suace_id),
+      "is_free_1Id": Encryption.instance.encrypt(is_free_1Id),
+      "is_free_2Id": Encryption.instance.encrypt(is_free_2Id),
+      "is_free_3Id": Encryption.instance.encrypt(is_free_3Id),
+      "Instruction": Encryption.instance.encrypt(Instruction),
+      "total_food_Item":
+          Encryption.instance.encrypt(total_food_Item),
+      "number_items": Encryption.instance.encrypt(number_items),
+    }, headers: {
+      "Accept": "application/json"
+    });
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      print(json.decode(Encryption.instance.decrypt(res.body)));
+      return json.decode(Encryption.instance.decrypt(res.body));
+    }
+
+    return "no Connection";
+  }
+
+  Future orderAdditionsSaveData (
+      {required String order_info_id,
+        required String order_food_id,
+        required String addition_id, }) async {
+    String link = url + "get_data_save_order_additions_details.php";
+    //`order_info_id` = X , `user_id`, `company_id`, `order_time`,
+    // `amount`, `delivery_fee`, `municipality_tax`, `tip`,
+    // `total_amount`, `payment_status`
+    var res = await http.post(Uri.parse(link), body: {
+      "order_info_id": Encryption.instance.encrypt(order_info_id).toString(),
+      "order_food_id": Encryption.instance.encrypt(order_food_id).toString(),
+      "addition_id": Encryption.instance.encrypt(addition_id).toString(),
+    }, headers: {
+      "Accept": "application/json"
+    });
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return json.decode(Encryption.instance.decrypt(res.body));
+    }
+
+    return "no Connection";
+  }
+
 }

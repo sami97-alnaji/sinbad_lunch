@@ -16,5 +16,7 @@ void main() {
   print('\n sami \n');
   print(encrypted.base64); // CR+IAWBEx3sA/dLkkFM/orYr9KftrGa7lIFSAAmVPbKIOLDOzGwEi9ohstDBqDLIaXMEeulwXQ==
 //jsonDecode
-  print(jsonDecode(Encryption.instance.decrypt( "0LKrPAhMZ0VfPc7q/DR08vEbIZDxnd/tfklF/P4/9t+rKYUK4w+bfcLVUN0B1DRzK9FyDLPP17iV4ioVBr/3WNbkvgh6XtvWWZ5NtE9baxZgmpIdOaHCHmORM2/awIkotbaOA5+CAwcHohrEKQUnbpxCBaD9QTQx3U6acea3SK9XmHxyxodM+ObyHoSIctgGfNIH0A+OY1cr89kZcV21+LmFP3kDhGBtZsdvSVU0fxsQnRJqejIL+E3nZ1b4BjJtD4/6bOFVzKinwIPVEZGKmoM55IoPGKmf14158c/8gm88Xy6iE7u/xxMn1lwJNvNMKy5UFE9hljh561t1x9CerJ4/9vYaigBUqfhJ35vsVwUSCaCQKXBDAdD1MuOMGGPm9Tna+smfC1tZLBZVXJ2zFclPLH9gFB8kAk+rEIFdgSzqmRCzym9H3mnji6zdxKQs" )));
+  print(jsonDecode(Encryption.instance.decrypt( "bpCKSf2oWElpvnmaMXuooUvItQdIrvoYJNEiohWPDeV7lGh0QqRC+N9IURmuW4KR0CmlMeFHCaBKdQY6L9JZVg==" )));
+  print(toPrecision(55));
 }
+double toPrecision(double n) => double.parse(n.toStringAsFixed(2));
