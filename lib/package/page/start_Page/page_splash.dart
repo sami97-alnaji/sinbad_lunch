@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
 import 'package:sinbad_lunch/Components/image/images.dart';
 import 'package:sinbad_lunch/Controller/user/autho.dart';
@@ -23,51 +24,56 @@ class PageSplash extends StatefulWidget {
 class _PageSplashState extends State<PageSplash> {
   Xo() async {
     if ((UserInfoPreferences.GetEmail() != null &&
-        UserInfoPreferences.GetEmail() != '') &&
+            UserInfoPreferences.GetEmail() != '') &&
         (UserInfoPreferences.GetPassword() != null &&
             UserInfoPreferences.GetPassword() != '')) {
       // print(UserInfoPreferences.GetEmail());
       // print(UserInfoPreferences.GetPassword());
-      var  logn = await Autho().logIn(
-          email:UserInfoPreferences.GetEmail()??"",
-          password:UserInfoPreferences.GetPassword()??"");
+      var logn = await Autho().logIn(
+          email: UserInfoPreferences.GetEmail() ?? "",
+          password: UserInfoPreferences.GetPassword() ?? "");
       // ignore: unrelated_type_equality_checks
-      if (logn == "Please verify your information !!!" || logn == null || logn == "") {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (BuildContext context) => const Login()));
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(
-            content: AStx(
-                "Please verify your information !!!")));
+      if (logn == "Please verify your information !!!" ||
+          logn == null ||
+          logn == "") {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const Login()));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: AStx("Please verify your information !!!")));
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => PageHome()));
       }
-
-    }else{
+    } else {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => const Login()));
     }
   }
+
   //********************************************************/
   // check conncetion to server
-  bool? _isConnectionSuccessful=true;
+  bool? _isConnectionSuccessful = true;
 
   Future<void> _tryConnection() async {
+    bool? result = false;
     try {
-      final response = await InternetAddress.lookup('www.woolha2.com');
+      bool result = await InternetConnectionChecker().hasConnection;
+      final response =
+          await InternetAddress.lookup('https://www.sinbadslunch.com/');
 
       setState(() {
-        _isConnectionSuccessful = response.isNotEmpty;
+        _isConnectionSuccessful = result;//response.isNotEmpty;
       });
     } on SocketException catch (e) {
       setState(() {
-        _isConnectionSuccessful = false;
+        _isConnectionSuccessful == result;// false;
       });
     }
   }
-  _tryConnectionWAit() async {
 
+  _tryConnectionWAit() async {
     await _tryConnection();
   }
 
@@ -87,41 +93,52 @@ class _PageSplashState extends State<PageSplash> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime timeBackPressed = DateTime.now();
-    if(_isConnectionSuccessful!) {
-      try {
-    return WillPopScope(
-      onWillPop: () async {
-        final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= const Duration(seconds: 4);
 
-        timeBackPressed = DateTime.now();
-        if (isExitWarning) {
-          const message = 'Press back again to exit';
-          Fluttertoast.showToast(msg: message, fontSize: 18);
-          return false;
-        } else {
-          Fluttertoast.cancel();
-          return true;
-        }
-      },
-      child: Container(
-        color: ColorsApp.white1,
-        child: Center(
-          child: CachedNetworkImage(
-            key: UniqueKey(),
-            imageUrl: ImageApp.imgLogo,
-            // fit: BoxFit.fitHeight,
-            // height: DimenApp.hightSc(context, hightPy: 0.28),
-            width: DimenApp.widthSc(context),
-            placeholder: (context, url) => Center(
-                child: CircularProgressIndicator(
-              color: ColorsApp.primColr,
-            )),
+    DateTime timeBackPressed = DateTime.now();
+
+      try {
+        if (_isConnectionSuccessful!) {
+        return WillPopScope(
+          onWillPop: () async {
+            final difference = DateTime.now().difference(timeBackPressed);
+            final isExitWarning = difference >= const Duration(seconds: 4);
+
+            timeBackPressed = DateTime.now();
+            if (isExitWarning) {
+              const message = 'Press back again to exit';
+              Fluttertoast.showToast(msg: message, fontSize: 18);
+              return false;
+            } else {
+              Fluttertoast.cancel();
+              return true;
+            }
+          },
+          child: Container(
+            color: ColorsApp.white1,
+            child: Center(
+              child: CachedNetworkImage(
+                key: UniqueKey(),
+                imageUrl: ImageApp.imgLogo,
+                // fit: BoxFit.fitHeight,
+                // height: DimenApp.hightSc(context, hightPy: 0.28),
+                width: DimenApp.widthSc(context),
+                placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                  color: ColorsApp.primColr,
+                )),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        );
+        print(_isConnectionSuccessful);
+
+        } else {
+          print(_isConnectionSuccessful);
+          return Center(
+            child: AStx('Not connected to any network'),
+          );
+        }
+
       } on Exception catch (_) {
         print("throwing new error");
 
@@ -129,10 +146,6 @@ class _PageSplashState extends State<PageSplash> {
           child: AStx('Wait a moment please'),
         );
       }
-    }else{
-      return Center(
-        child: AStx('Not connected to any network'),
-      );
-    }
+
   }
 }

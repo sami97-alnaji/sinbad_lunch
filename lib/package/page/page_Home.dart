@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/Controller/menu/getAllMenu.dart';
@@ -110,31 +111,39 @@ class _PageHomeState extends State<PageHome> {
   Timer? _timer;
   /********************************************************/
   // check conncetion to server
-  bool? _isConnectionSuccessful=true;
+  bool? _isConnectionSuccessful = true;
 
   Future<void> _tryConnection() async {
+    bool? result = false;
     try {
-      final response = await InternetAddress.lookup('www.woolha2.com');
+      bool result = await InternetConnectionChecker().hasConnection;
+      final response =
+          await InternetAddress.lookup('https://www.sinbadslunch.com/');
 
       setState(() {
-        _isConnectionSuccessful = response.isNotEmpty;
+        _isConnectionSuccessful = result; //response.isNotEmpty;
       });
     } on SocketException catch (e) {
       setState(() {
-        _isConnectionSuccessful = false;
+        _isConnectionSuccessful == result; // false;
       });
     }
   }
-  _tryConnectionWAit() async {
 
+  _tryConnectionWAit() async {
     await _tryConnection();
   }
+
   ex() async {
     await EasyLoading.dismiss();
   }
+
   /***************************************************************************/
   @override
   void initState() {
+    Timer(const Duration(microseconds: 600), () async {
+      await EasyLoading.dismiss();
+    });
     /****************************************************/
     // for (int i = 0; i < headlines.length; i++) {
     //   headlines1.add(HeadLines(
@@ -181,20 +190,20 @@ class _PageHomeState extends State<PageHome> {
         _timer?.cancel();
       }
     });
-    EasyLoading.show(status: 'loading...',
+    EasyLoading.show(
+      status: 'loading...',
       // maskType: EasyLoadingMaskType.black
     );
     int duration = 1;
-    Timer(  Duration(seconds: duration), () async {
-      if(itemsMenu != []) {
+    Timer(Duration(seconds: duration), () async {
+      if (itemsMenu != []) {
         EasyLoading.dismiss();
         setState(() {
-          duration=0;
+          duration = 0;
         });
-
-      }else{
+      } else {
         setState(() {
-          duration+=1;
+          duration += 1;
         });
       }
       await EasyLoading.dismiss();
@@ -217,42 +226,42 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   Widget build(BuildContext context) {
-    if(_isConnectionSuccessful!) {
+    if (_isConnectionSuccessful!) {
       try {
-    /****************************************************/
-    count = Provider.of<ProductPageVariables>(context);
+        /****************************************************/
+        count = Provider.of<ProductPageVariables>(context);
 
-    /****************************************************/
-    for (int i = 0; i < 10; i++) {
-      o.add(Colors.blue);
-    }
-    /*******************************************************/
-    for (int i = 0; i < 10; i++) {
-      b.add(TextButton(
-        onPressed: () {
-          setState(() {
-            o[i] = Colors.redAccent;
-          });
-        },
+        /****************************************************/
+        for (int i = 0; i < 10; i++) {
+          o.add(Colors.blue);
+        }
+        /*******************************************************/
+        for (int i = 0; i < 10; i++) {
+          b.add(TextButton(
+            onPressed: () {
+              setState(() {
+                o[i] = Colors.redAccent;
+              });
+            },
 
-        child: AStx(
-          'sami1',
-          size: 22,
-          isBold: true,
-          colr: Colors.redAccent,
-        ),
+            child: AStx(
+              'sami1',
+              size: 22,
+              isBold: true,
+              colr: Colors.redAccent,
+            ),
 
-        // Text(
-        //   'sami1',
-        //   style: TextStyle(fontSize: 22, color: o[i]),
-        // )
-      ));
-    }
-    /*******************************************************/
-    DateTime timeBackPressed = DateTime.now();
-    setState(() {
-      PageHome().setBackColor;
-    });
+            // Text(
+            //   'sami1',
+            //   style: TextStyle(fontSize: 22, color: o[i]),
+            // )
+          ));
+        }
+        /*******************************************************/
+        DateTime timeBackPressed = DateTime.now();
+        setState(() {
+          PageHome().setBackColor;
+        });
 
         return WillPopScope(
           onWillPop: () async {
@@ -511,7 +520,7 @@ class _PageHomeState extends State<PageHome> {
           child: AStx('Wait a moment please'),
         );
       }
-    }else{
+    } else {
       return Center(
         child: AStx('Not connected to any network'),
       );

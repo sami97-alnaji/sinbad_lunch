@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375306677521",
+    "project_id": "sinbad-15fab",
+    "storage_bucket": "sinbad-15fab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375306677521:android:e529452dbbdebf3677f0b0",
+        "android_client_info": {
+          "package_name": "com.sinbad_lunch.sinbad_lunch.mobileandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375306677521-a1v5mbnjkafsruillenvenguhhr2mdhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBexWRcQql95NEYv1BY0cq9Q2Xks7Tt6Q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375306677521-a1v5mbnjkafsruillenvenguhhr2mdhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,6 +22,7 @@ class OrderSave {
     required String delivery_fee,
     required String tip,
     required String total_amount,
+    required String token_message,
   }) async {
     String link = url + "get_data_save_order_info.php";
     // String sss = 'http://192.168.80.1//Back-End Sinbad-Lunch API/shortCall.php';
@@ -36,6 +37,7 @@ class OrderSave {
       "delivery_fee": Encryption.instance.encrypt(delivery_fee).toString(),
       "tip": Encryption.instance.encrypt(tip).toString(),
       "total_amount": Encryption.instance.encrypt(total_amount).toString(),
+      "token_message": Encryption.instance.encrypt(token_message).toString(),
       // "ordr": json.encode(ordr)
     }, headers: {
       "Accept": "application/json"

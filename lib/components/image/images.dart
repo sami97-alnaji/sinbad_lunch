@@ -1,6 +1,6 @@
 class ImageApp {
   static String imgLogo =
-      'https://sinbadslunch.com/myBackENd/OurLogo.jpeg'; //'https://sinbadslunch.com/myBackENd/WhatsApp_Image_2022-05-01_at_1.54.58_AM-removebg-preview.png';
+      'https://sinbadslunch.com/myBackENd/image/OurLogo.png'; //'https://sinbadslunch.com/myBackENd/WhatsApp_Image_2022-05-01_at_1.54.58_AM-removebg-preview.png';
   // static String imgLogo = 'assets/images/site_logo.png';
   // static String imgPlatters = 'assets/icons/Restaurant_Platters1.png';
   static String imgPlatters =

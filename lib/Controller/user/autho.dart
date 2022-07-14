@@ -44,8 +44,11 @@ class Autho {
     var res = await http.post(Uri.parse(link), body: {
       "email": email,
     });
-
-    // return json.decode(res.body);
+  if(res.statusCode == 200 || res.statusCode == 201) {
+    return "its Connection";
+  }else{
+    return "no Connection";
+  }
   }
 
   Future confirmationCode(String email) async {
@@ -65,7 +68,7 @@ class Autho {
     });
 
     if (res.statusCode == 200 || res.statusCode == 201) {
-      return Encryption.instance.decrypt(json.decode(res.body));
+      return Encryption.instance.decrypt(res.body);
     }
 
     return "no Connection";
@@ -108,7 +111,7 @@ class Autho {
     });
     print(json.decode(Encryption.instance.decrypt(res.body).toString()));
     if (res.statusCode == 200 || res.statusCode == 201) {
-      return Encryption.instance.decrypt(json.decode(res.body));
+      return json.decode(Encryption.instance.decrypt(res.body));
     }
 
     return "no Connection";
@@ -122,9 +125,22 @@ class Autho {
     });
 
     if (res.statusCode == 200 || res.statusCode == 201) {
-      return Encryption.instance.decrypt(json.decode(res.body));
+      return json.decode(Encryption.instance.decrypt(res.body));
     }
 
     return "no Connection";
+  }
+  Future sendToken({required String token }) async {
+    String link ="https://sinbadslunch.com/myBackENd/Back-End Sinbad-Lunch API/notification/fcm.php";
+    var res = await http.post(Uri.parse(link), body: {
+      "t":token,
+      // "password": Encryption.instance.encrypt(password).toString(),
+    });
+
+    // if (res.statusCode == 200 || res.statusCode == 201) {
+    //   return json.decode(Encryption.instance.decrypt(res.body));
+    // }
+
+    return res.body;
   }
 }

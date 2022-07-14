@@ -8,6 +8,7 @@ import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
+import 'package:sinbad_lunch/package/page/auth/login.dart';
 import 'package:sinbad_lunch/package/page/auth/register.dart';
 import 'package:sinbad_lunch/package/page/page_Home.dart';
 import 'package:sinbad_lunch/package/page/page_about_us.dart';
@@ -45,7 +46,7 @@ class _MyDrawerState extends State<MyDrawer> {
             height: DimenApp.hightSc(context, hightPy: 0.02),
           ),
           btnTxt('About Us', onTab: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) => const AboutUs()));
@@ -59,7 +60,7 @@ class _MyDrawerState extends State<MyDrawer> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => const Register(),
+                builder: (BuildContext context) => const Login(),
               ),
             );
           }),

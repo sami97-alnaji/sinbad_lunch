@@ -18,7 +18,7 @@ class GetAllUserInfo{
     var res = await http.get( Uri.parse(link), headers: {"Accept": "application/json"});
     // print(res.body);
     if (res.statusCode == 200) {
-      var data = json.decode(res.body);
+      var data = json.decode(Encryption.instance.decrypt(res.body));
       var rest = data as List;
       // print(rest);
       list = rest.map<CompanyAll>((json) => CompanyAll.fromJson(json)).toList();
@@ -36,9 +36,10 @@ class GetAllUserInfo{
           "email":Encryption.instance.encrypt(email).toString(),
           "password":Encryption.instance.encrypt(password).toString(),
         }, headers: {"Accept": "application/json"});
+      print("its aget alll   user info");
 
-
-    return  json.decode(Encryption.instance.decrypt(res.body).toString());
+  print(json.decode(Encryption.instance.decrypt(res.body)));
+    return  json.decode(Encryption.instance.decrypt(res.body));
 
   }
   

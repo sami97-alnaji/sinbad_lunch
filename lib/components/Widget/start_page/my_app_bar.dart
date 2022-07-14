@@ -21,8 +21,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: ColorsApp.primColr,
       centerTitle: true,
-      titleTextStyle: TextStyle(color: ColorsApp.white1, fontSize: 18),
-      title: Text(titel),
+      title: AStx(titel,
+          colr:  ColorsApp.white1,
+          size:  16,
+          isBold: true),
       actions: [
         titel == 'Home'
             ? SizedBox(

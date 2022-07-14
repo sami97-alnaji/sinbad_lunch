@@ -47,9 +47,9 @@ class _btnMenuItemsState extends State<btnMenuItems> {
     if (widget.numm != null) {
       controllerCountItemss!.text = widget.numm.toString();
     }
-    double imgSiz = 100;
+    double imgSiz = 120;
     return   SizedBox(
-      height: 100, // DimenApp.hightSc(context, hightPy: widget.height ?? 0.48),
+      height: 172, // DimenApp.hightSc(context, hightPy: widget.height ?? 0.48),
       child: Container(
         margin: const EdgeInsets.all(5.0),
         child: Padding(
@@ -62,27 +62,31 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                 // Images  in list of menu
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: Expanded(
-                    flex: 7,
-                    // child: Card(
-                    child: CachedNetworkImage(
-                      imageUrl: widget.imageItem!,
-                      fit: BoxFit.fitHeight,
-                      height: imgSiz,
-                      width: imgSiz,
-                      placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(
-                        color: ColorsApp.primColr,
-                      )),
-                    ),
+                  child: Column(
+                    children: [
+                      Flexible(
+                        flex: 7,
+                        // child: Card(
+                        child: CachedNetworkImage(
+                          imageUrl: widget.imageItem!,
+                          fit: BoxFit.fitHeight,
+                          height: imgSiz,
+                          width: imgSiz,
+                          placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(
+                            color: ColorsApp.primColr,
+                          )),
+                        ),
 
-                    // Image.asset(
-                    //   imageItem!,
-                    //   height: imgSiz  ,//DimenApp.hightSc(context, hightPy: 0.20),
-                    //   width:imgSiz,// DimenApp.widthSc(context, widthPy: 0.27),
-                    //   fit: BoxFit.fill,
-                    // ),
-                    // ),
+                        // Image.asset(
+                        //   imageItem!,
+                        //   height: imgSiz  ,//DimenApp.hightSc(context, hightPy: 0.20),
+                        //   width:imgSiz,// DimenApp.widthSc(context, widthPy: 0.27),
+                        //   fit: BoxFit.fill,
+                        // ),
+                        // ),
+                      ),
+                    ],
                   ),
                 ),
                 // SizedBox(
@@ -107,10 +111,10 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                   Container(
                                     // height: DimenApp.hightSc(context, hightPy: height ?? 0.28),
                                     width:
-                                        DimenApp.widthSc(context, widthPy: 0.4),
+                                        DimenApp.widthSc(context, widthPy: 0.5),
                                     child: AStx(widget.nameItem!,
                                         isBold: true,
-                                        size: 11,
+                                        size: 17,
                                         colr: ColorsApp.primColr,
                                         MLin: 2),
                                   ),
@@ -119,14 +123,15 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                   //   width: DimenApp.widthSc(context ),
                                   //   child:
                                   Flexible(
+                                    flex: 19,
                                     child: SizedBox(
-                                      height: 42,
+                                      height: 142,
                                       width: DimenApp.widthSc(context,
                                           widthPy: 0.55),
                                       child: AStx(
                                         widget.titelItem!,
-                                        size: 6,
-                                        colr: ColorsApp.blak50,
+                                        size: 9,
+                                        colr: ColorsApp.blak50.withOpacity(0.7),
                                         MLin: 3,
                                       ),
                                     ),
@@ -148,7 +153,7 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                   "\$" +
                                       (/*widget.numm==null?*/ widget.pricceItem!
                                           .toString() /*:(widget.pricceItem! * widget.numm!).toString()*/),
-                                  size: 11,
+                                  size: 12,
                                   isBold: true,
                                 ),
                               ),
@@ -220,7 +225,7 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                           size: 10,
                                         ),
                                         style: ElevatedButton.styleFrom(
-                                          primary: ColorsApp.blak1,
+                                          primary: ColorsApp.primColr,
                                           onPrimary:
                                               ColorsApp.white1.withOpacity(0.7),
                                           elevation: 10,

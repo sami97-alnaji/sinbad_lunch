@@ -5,13 +5,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/Order/order_save.dart';
 import 'package:sinbad_lunch/Controller/user/get_all_user_info.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
-import 'package:sinbad_lunch/components/Encryptions/encryptionss.dart';
 import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
@@ -56,15 +57,18 @@ class _Page_CheckoutState extends State<Page_Checkout> {
   }
 
   Future<void> _tryConnection() async {
+    bool? result = false;
     try {
-      final response = await InternetAddress.lookup('www.woolha2.com');
+      bool result = await InternetConnectionChecker().hasConnection;
+      final response =
+          await InternetAddress.lookup('https://www.sinbadslunch.com/');
 
       setState(() {
-        _isConnectionSuccessful = response.isNotEmpty;
+        _isConnectionSuccessful = result; //response.isNotEmpty;
       });
     } on SocketException catch (e) {
       setState(() {
-        _isConnectionSuccessful = false;
+        _isConnectionSuccessful == result; // false;
       });
     }
   }
@@ -81,6 +85,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
       _totalPriceFood,
       _totalPriceWithTax;
   Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -174,22 +179,19 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             height: 2,
                           ),
 
-                          SizedBox(
+                          CachedNetworkImage(
                             height: 110,
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  "https://sinbadslunch.com/myBackENd/gif/output-108096-illustration-thank-you.gif",
-                              // fit: BoxFit.cover,
-                              placeholder: (context, url) => Center(
-                                  child: CircularProgressIndicator(
-                                color: ColorsApp.primColr,
-                              )),
-                            ),
+                            imageUrl:
+                                "https://sinbadslunch.com/myBackENd/gif/output-108096-illustration-thank-you.gif",
+                            // fit: BoxFit.cover,
+                            placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
+                              color: ColorsApp.primColr,
+                            )),
                           ),
 
                           // Text Filed for Email
                           SizedBox(
-
                             child: TFiled(
                               controller: _controllerTip,
                               colorPorder: ColorsApp.blak1,
@@ -237,22 +239,17 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Flexible(
-                                            child: SizedBox(
-
-                                              child: CachedNetworkImage(
-                                                height: 60,
-                                                imageUrl:
-                                                    "https://sinbadslunch.com/myBackENd/gif/output50537-dott.gif",
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                  color: ColorsApp.primColr,
-                                                )),
-                                              ),
-                                            ),
+                                          CachedNetworkImage(
+                                            height: 60,
+                                            imageUrl:
+                                                "https://sinbadslunch.com/myBackENd/gif/output50537-dott.gif",
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                              color: ColorsApp.primColr,
+                                            )),
                                           ),
                                         ],
                                       ),
@@ -263,7 +260,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                        const   SizedBox(
+                                          const SizedBox(
                                             height: 3,
                                           ),
                                           Flexible(
@@ -274,7 +271,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             colr: ColorsApp.blak50
                                                 .withOpacity(0.8),
                                           )),
-                                       const   SizedBox(
+                                          const SizedBox(
                                             height: 7,
                                           ),
                                           Flexible(
@@ -320,19 +317,24 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                 children: [
                                   Column(
                                     children: [
-                                      AStx('Total Food :',
-                                          colr: ColorsApp.blak50,
-                                      size: 9,
-                                      ),
-                                      AStx('Delivery fee : ',
-                                          colr: ColorsApp.blak50,
+                                      AStx(
+                                        'Total Food :',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
-                                      AStx('Discount : ',
-                                          colr: ColorsApp.blak50,
+                                      AStx(
+                                        'Delivery fee : ',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
-                                      AStx('Tax : ', colr: ColorsApp.blak50,
+                                      AStx(
+                                        'Discount : ',
+                                        colr: ColorsApp.blak50,
+                                        size: 9,
+                                      ),
+                                      AStx(
+                                        'Tax : ',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
                                       AStx('Total amount: ', isBold: true),
@@ -340,26 +342,28 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                   ),
                                   Column(
                                     children: [
-                                      AStx('\$${_totalPriceFood!}',
-                                          colr: ColorsApp.blak50,
+                                      AStx(
+                                        '\$${_totalPriceFood!}',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
                                       AStx(
-                                          _deliveryFee! == 0
-                                              ? 'free'
-                                              : '\$${_deliveryFee!}',
-                                          colr: ColorsApp.blak50,
+                                        _deliveryFee! == 0
+                                            ? 'free'
+                                            : '\$${_deliveryFee!}',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
                                       AStx(
-                                          _discountPrice! == 0
-                                              ? '\$0.0'
-                                              : '\$${_discountPrice!}',
-                                          colr: ColorsApp.blak50,
+                                        _discountPrice! == 0
+                                            ? '\$0.0'
+                                            : '\$${_discountPrice!}',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
-                                      AStx(_tax! == 0 ? '%0.0' : '\$${_tax!}',
-                                          colr: ColorsApp.blak50,
+                                      AStx(
+                                        _tax! == 0 ? '%0.0' : '\$${_tax!}',
+                                        colr: ColorsApp.blak50,
                                         size: 9,
                                       ),
                                       AStx('\$${_totalPriceWithTax!}',
@@ -412,7 +416,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             'Company : ' +
                                                 compInfoDelt["comp_name"]
                                                     .toString(),
-                                                size: 9,
+                                            size: 9,
                                           )),
                                           Flexible(
                                             child: AStx(
@@ -439,19 +443,19 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                           )),
                                           Flexible(
                                               child: AStx(
-                                                  compInfoDelt["time_date"] ??
-                                                      "",
-                                                size: 9,)),
+                                            compInfoDelt["time_date"] ?? "",
+                                            size: 9,
+                                          )),
                                           Flexible(
                                               child: AStx(
-                                                'delivery Date :',
-                                                size: 9,
-                                              )),
+                                            'delivery Date :',
+                                            size: 9,
+                                          )),
                                           Flexible(
                                               child: AStx(
-                                                  compInfoDelt["date_time"] ??
-                                                      "",
-                                                size: 9,)),
+                                            compInfoDelt["date_time"] ?? "",
+                                            size: 9,
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -464,16 +468,13 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           Flexible(
                             child: Center(
                               child: Container(
-                                height:55,
+                                height: 55,
                                 width: 180,
                                 padding: const EdgeInsets.only(bottom: 15),
                                 alignment: Alignment.center,
                                 child: SizedBox(
-                                  height:
-                                      55,
-                                  width:
-                                      180,
-
+                                  height: 55,
+                                  width: 180,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       shape: const StadiumBorder(),
@@ -483,23 +484,23 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                     ),
                                     child: (isLoading)
                                         ? const SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 1.5,
-                                        ))
+                                            width: 30,
+                                            height: 30,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                              strokeWidth: 1.5,
+                                            ))
                                         : Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        AStx(
-                                          'make payment \$${_totalPriceWithTax!}',
-                                          size: 12,
-                                          colr: ColorsApp.white1,
-                                        ),
-                                      ],
-                                    ),
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              AStx(
+                                                'make payment \$${_totalPriceWithTax!}',
+                                                size: 12,
+                                                colr: ColorsApp.white1,
+                                              ),
+                                            ],
+                                          ),
                                     onPressed: () async {
                                       if (_controllerTip.text.isEmpty) {
                                         _controllerTip.text = '0';
@@ -511,7 +512,6 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       }
                                       if (double.parse(_controllerTip.text) <
                                           0) {
-
                                         setState(() {
                                           _tip = double.tryParse(
                                                   _controllerTip.text) ??
@@ -520,7 +520,6 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       }
                                       if (double.parse(_controllerTip.text) >
                                           _totalPriceWithTax!) {
-
                                         setState(() {
                                           _tip = double.tryParse(
                                                   _controllerTip.text) ??
@@ -549,13 +548,14 @@ class _Page_CheckoutState extends State<Page_Checkout> {
 /*******************************************************************************************************************************************/
                                       String? stas1, stas2, stas3;
                                       //save order Information to server
-
+                                      String? token = await FirebaseMessaging.instance.getToken();
                                       var saveOrder =
                                           await OrderSave().orderSaveDataInfo(
                                         user_id:
                                             UserInfoPreferences.GetUserId()!,
                                         company_id:
                                             UserInfoPreferences.GetCompanyId()!,
+                                            token_message: token!,
                                         amount: '$_totalPriceFood!',
                                         delivery_fee: '$_deliveryFee!',
                                         tip: _tip!.toString(),
@@ -631,7 +631,6 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                     print(
                                                         "order additions saved");
                                                     print("item is saved");
-
                                                   } else {
                                                     print(
                                                         "add item is not saved");
@@ -671,7 +670,8 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
-                                                  content: AStx("Order is saved")),
+                                                  content:
+                                                      AStx("Order is saved")),
                                             );
                                             Navigator.push(
                                                 context,
@@ -692,7 +692,6 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         }
                                       }
                                     },
-
                                   ),
                                 ),
                               ),
@@ -707,12 +706,13 @@ class _Page_CheckoutState extends State<Page_Checkout> {
             ),
           );
         } else {
-          Future.delayed(const Duration(milliseconds: 1300), () {
-// Here you can write your code
-
-            setState(() {
-              falgScreen = true;
-            });
+          Future.delayed(const Duration(milliseconds: 50), () {
+          // Here you can write your code
+            if (compInfoDelt!=null && compInfoDelt["tax"] != null) {
+              setState(() {
+                falgScreen = true;
+              });
+            }
           });
           //output-94702-loader-place-holder-animation.gif
           return Scaffold(

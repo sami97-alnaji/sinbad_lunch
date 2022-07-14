@@ -1,3 +1,7 @@
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +23,12 @@ import 'package:sinbad_lunch/package/test%20Bottun%20top%20the%20page/testHttp.d
 
 GlobalKey globalKey = GlobalKey();
 
+//keytool -list -v -keystore "C:\Users\samis\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserInfoPreferences.init();
+  Firebase.initializeApp();
+
   // Stripe.publishableKey = 'pk_test_51L3li7ACwSiydFk9eQqnMwccWFmWpBtBZ0IvksGJ7PrOrRi2DebvH3mStyIiS2HaMpflH4nGRr60SULdQ9ABMxj1003NrDLx2S';
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ProductPageVariables>(

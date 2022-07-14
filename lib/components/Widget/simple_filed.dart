@@ -68,7 +68,7 @@ class TFiled extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(3.0),
           child: SizedBox(
-            height: 35,
+            height: 65,
             child: TextFormField(
               textInputAction: _textAction??TextInputAction.next,
               controller: _controler,

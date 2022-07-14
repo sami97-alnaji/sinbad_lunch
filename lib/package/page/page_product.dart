@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/menu/getAllMenu.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
@@ -163,7 +164,9 @@ class _PageProductState extends State<PageProduct> {
       }
     }
   }
-  double toPrecision(double n) =>  double.parse(n.toStringAsFixed(2));
+
+  double toPrecision(double n) => double.parse(n.toStringAsFixed(2));
+
   ///**********************************************************************/
 
   bool value = false;
@@ -217,15 +220,18 @@ class _PageProductState extends State<PageProduct> {
   bool? _isConnectionSuccessful = true;
 
   Future<void> _tryConnection() async {
+    bool? result = false;
     try {
-      final response = await InternetAddress.lookup('www.woolha2.com');
+      bool result = await InternetConnectionChecker().hasConnection;
+      final response =
+          await InternetAddress.lookup('https://www.sinbadslunch.com/');
 
       setState(() {
-        _isConnectionSuccessful = response.isNotEmpty;
+        _isConnectionSuccessful = result; //response.isNotEmpty;
       });
     } on SocketException catch (e) {
       setState(() {
-        _isConnectionSuccessful = false;
+        _isConnectionSuccessful == result; // false;
       });
     }
   }
@@ -352,26 +358,26 @@ class _PageProductState extends State<PageProduct> {
   Widget build(BuildContext context) {
     if (_isConnectionSuccessful!) {
       try {
-    // FutureBuilderGetAdditions();
-    // list_suaces = [];
-    int numberOfItems = 0;
-    double totalPrice = 0;
-    double totalPriceWithOutNum = 0;
-    count = Provider.of<ProductPageVariables>(context);
-    setState(() {
-      numberOfItems =
-          int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
-      print('nummm' + numberOfItems.toString());
-      // BtnSpinnr.controllerCountItems;
-      totalPrice = (widget.food.food_price! +
+        // FutureBuilderGetAdditions();
+        // list_suaces = [];
+        int numberOfItems = 0;
+        double totalPrice = 0;
+        double totalPriceWithOutNum = 0;
+        count = Provider.of<ProductPageVariables>(context);
+        setState(() {
+          numberOfItems =
+              int.tryParse(count.controllerCountItems!.text.toString()) ?? 1;
+          print('nummm' + numberOfItems.toString());
+          // BtnSpinnr.controllerCountItems;
+          totalPrice = (widget.food.food_price! +
+                  additionsSelectionPrice +
+                  _sauceSelectionPrice) *
+              numberOfItems;
+          totalPrice = toPrecision(totalPrice);
+          totalPriceWithOutNum = (widget.food.food_price! +
               additionsSelectionPrice +
-              _sauceSelectionPrice) *
-          numberOfItems;
-      totalPrice = toPrecision(totalPrice );
-      totalPriceWithOutNum = (widget.food.food_price! +
-          additionsSelectionPrice +
-          _sauceSelectionPrice);
-    });
+              _sauceSelectionPrice);
+        });
 
         return Scaffold(
           drawer: const MyDrawer(),
@@ -436,10 +442,10 @@ class _PageProductState extends State<PageProduct> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: AStx(
-                      widget.food.food_description!,
+                      widget.food.food_description?? "",
                       size: 15,
                       colr: ColorsApp.blak50,
-                      MLin: 3,
+                      MLin: 5,
                     ),
                   ),
                   //##################################################################
@@ -675,8 +681,8 @@ class _PageProductState extends State<PageProduct> {
                             );
                             bool flagItemCard = false;
                             // count.BasketListItems.add(itemCard);
-                               if(count.BasketListItems.isNotEmpty || count.BasketListItems.length > 0){
-
+                            if (count.BasketListItems.isNotEmpty ||
+                                count.BasketListItems.length > 0) {
                               for (var i in count.BasketListItems) {
                                 if (i.itemsId == itemCard.itemsId &&
                                     i.sauceId == itemCard.sauceId &&

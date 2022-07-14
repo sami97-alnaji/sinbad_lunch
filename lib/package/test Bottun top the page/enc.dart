@@ -16,7 +16,7 @@ void main() {
   print('\n sami \n');
   print(encrypted.base64); // CR+IAWBEx3sA/dLkkFM/orYr9KftrGa7lIFSAAmVPbKIOLDOzGwEi9ohstDBqDLIaXMEeulwXQ==
 //jsonDecode
-  print(jsonDecode(Encryption.instance.decrypt( "bpCKSf2oWElpvnmaMXuooUvItQdIrvoYJNEiohWPDeV7lGh0QqRC+N9IURmuW4KR0CmlMeFHCaBKdQY6L9JZVg==" )));
+  print(Encryption.instance.decrypt( "H1hHRSLfLOirj2v63xMdGPi67WIKDMDHvXmd4DN9D+i3kq/fkXpS2LCJevCsI+d7" ));
   print(toPrecision(55));
 }
 double toPrecision(double n) => double.parse(n.toStringAsFixed(2));

@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/user/get_all_user_info.dart';
 import 'package:sinbad_lunch/components/Colors/colors.dart';
@@ -34,6 +36,10 @@ class _PageBasketState extends State<PageBasket> {
 
   // ignore: prefer_typing_uninitialized_variables
   var compInfoDelt;
+
+  var _comp_name;
+
+  var _comp_apperss;
 
   getCompInfo() async {
     var compInfo = await GetAllUserInfo().compInfo(
@@ -120,15 +126,18 @@ class _PageBasketState extends State<PageBasket> {
   bool? _isConnectionSuccessful = true;
 
   Future<void> _tryConnection() async {
+    bool? result = false;
     try {
-      final response = await InternetAddress.lookup('www.woolha2.com');
+      bool result = await InternetConnectionChecker().hasConnection;
+      final response =
+          await InternetAddress.lookup('https://www.sinbadslunch.com/');
 
       setState(() {
-        _isConnectionSuccessful = response.isNotEmpty;
+        _isConnectionSuccessful = result; //response.isNotEmpty;
       });
     } on SocketException catch (e) {
       setState(() {
-        _isConnectionSuccessful = false;
+        _isConnectionSuccessful == result; // false;
       });
     }
   }
@@ -156,17 +165,20 @@ class _PageBasketState extends State<PageBasket> {
           }
           setState(() {
             try {
+              print(compInfoDelt);
               itemsOrder.BasketListItems;
               /*****************************************/
               _tax = totalFood == 0
                   ? 0.0
-                  : double.tryParse(compInfoDelt["tax"]) ?? 0.0;
+                  : double.tryParse(compInfoDelt["tax"].toString()) ?? 0.0;
               _deliveryFee = totalFood == 0
                   ? 0.0
                   : double.tryParse(compInfoDelt["delivery_fee"]) ?? 0.0;
               _discount = totalFood == 0
                   ? 0.0
                   : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
+              _comp_name =  compInfoDelt["comp_name"]?? "";
+              _comp_apperss=compInfoDelt["comp_adderss"]?? "";
               _totalPriceFood = totalFood;
               totalFood = toPrecision(totalFood);
               _totalPriceFood = toPrecision(_totalPriceFood!);
@@ -198,7 +210,7 @@ class _PageBasketState extends State<PageBasket> {
                   children: [
                     //header in page "My Cart"
                     SizedBox(
-                      height:65,
+                      height: 65,
                       child: Container(
                         padding: const EdgeInsets.only(top: 40),
                         child: AStx(
@@ -356,13 +368,13 @@ class _PageBasketState extends State<PageBasket> {
                                           Flexible(
                                               child: AStx(
                                             'Company : ' +
-                                                compInfoDelt["comp_name"]
+                                                _comp_name
                                                     .toString(),
                                           )),
                                           Flexible(
                                             child: AStx(
                                               'Location : ' +
-                                                  compInfoDelt["comp_adderss"]
+                                                  _comp_apperss
                                                       .toString(),
                                               MLin: 2,
                                             ),
@@ -417,9 +429,10 @@ class _PageBasketState extends State<PageBasket> {
                               Flexible(
                                 child: Center(
                                   child: Container(
-                                    height: DimenApp.hightSc(context,
-                                        hightPy: 0.1),
-                                    width: DimenApp.widthSc(context,widthPy: 0.36),
+                                    height:
+                                        DimenApp.hightSc(context, hightPy: 0.1),
+                                    width: DimenApp.widthSc(context,
+                                        widthPy: 0.36),
                                     padding: const EdgeInsets.only(bottom: 0),
                                     alignment: Alignment.center,
                                     child: SizedBox(
@@ -644,11 +657,13 @@ class _PageBasketState extends State<PageBasket> {
             // Container(child: Text('Basket'),),
           );
         } else {
-          Future.delayed(const Duration(milliseconds: 1300), () {
+          Future.delayed(const Duration(milliseconds: 50), () {
 // Here you can write your code
 
             setState(() {
-              falgScreen = true;
+              if(compInfoDelt!=null && compInfoDelt["tax"].toString() !=null) {
+                falgScreen = true;
+              }
             });
           });
           //output-94702-loader-place-holder-animation.gif
@@ -687,9 +702,12 @@ class _PageBasketState extends State<PageBasket> {
     if (compInfoDelt['messg_d'] != null) {
       getCompInfo();
       print(compInfoDelt['time_date'].toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: AStx(compInfoDelt['messg_d'].toString())),
-      );
+      Fluttertoast.showToast(
+          msg: compInfoDelt['messg_d'].toString(),
+          backgroundColor: ColorsApp.primColr,
+          fontSize: 14,
+          textColor: ColorsApp.white);
+
     }
   }
 

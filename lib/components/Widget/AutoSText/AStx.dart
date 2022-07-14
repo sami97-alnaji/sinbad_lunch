@@ -9,7 +9,7 @@ import 'package:sinbad_lunch/components/Colors/colors.dart';
 class AStx extends StatefulWidget {
   // ignore: non_constant_identifier_names
   AStx(this.label,
-      {this.size = 11, this.isBold = false, isTextCenter = false, this.colr, this.MLin = 2, Key? key})
+      {this.size = 11, this.isBold = false, isTextCenter = false,this.oFlow=false, this.colr, this.MLin = 2, Key? key})
       : super(key: key);
   String label;
   bool? isBold ;
@@ -18,7 +18,7 @@ class AStx extends StatefulWidget {
   Color? colr;
   // ignore: non_constant_identifier_names
   int? MLin;
-
+  bool oFlow;
   @override
   State<AStx> createState() => _AStxState();
 }
@@ -34,6 +34,8 @@ class AStx extends StatefulWidget {
 ///
 
 class _AStxState extends State<AStx> {
+
+
   @override
   Widget build(BuildContext context) {
     return AutoSizeText(
@@ -45,11 +47,12 @@ class _AStxState extends State<AStx> {
 
       ),
       maxLines: widget.MLin,
+
       minFontSize: widget.size??5 ,
       softWrap: false,
       textAlign: widget.isTextCenter ?TextAlign.center:null,
       // overflow: TextOverflow.fade,
-      overflow: TextOverflow.ellipsis,
+      overflow: !widget.oFlow? TextOverflow.ellipsis:TextOverflow.visible,
     );
   }
 }

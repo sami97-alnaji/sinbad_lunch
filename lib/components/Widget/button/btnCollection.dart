@@ -2,7 +2,6 @@
 
 import 'dart:ui';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sinbad_lunch/Components/Colors/colors.dart';
@@ -42,12 +41,12 @@ class btnCollectionState extends State<btnCollection> {
     });
 // double? s=window.physicalSize.width.isNaN?1:window.physicalSize.width;
     return Padding(
-      padding: const EdgeInsets.all(17.2),
+      padding: const EdgeInsets.all(15.2),
       child: Container(
         // color: ColorsApp.primColr,
         child: SizedBox(
-          height: 199, //DimenApp.hightSc(context, hightPy: 0.4),
-          width: 123, //DimenApp.widthSc(context, widthPy: 0.23),
+          height: 160, //DimenApp.hightSc(context, hightPy: 0.4),
+          width: 160, //DimenApp.widthSc(context, widthPy: 0.23),
           child: TextButton(
             onPressed: widget.onTap,
             // child: Card(
@@ -62,7 +61,7 @@ class btnCollectionState extends State<btnCollection> {
                   flex: 7,
                   child: CachedNetworkImage(
                     imageUrl: widget.imagePath,
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.contain,
                     // height: DimenApp.hightSc(context, hightPy: 0.28),
                     placeholder: (context, url) => Center(
                         child: CircularProgressIndicator(
@@ -72,18 +71,17 @@ class btnCollectionState extends State<btnCollection> {
 
                   // Image.asset(widget.imagePath),
                 ),
-                Expanded(
-                    flex: 4,
+                SizedBox(
+                    height: 29,
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          left: DimenApp.hightSc(context, hightPy: 0.014),
-                          right: 4,
-                          bottom: 4),
+                      padding:
+                          const EdgeInsets.only(left: 2, right: 2, bottom: 4),
                       child: AStx(
                         widget.label,
-                        colr: ColorsApp.blak50,
-                        size: 11,
-
+                        colr: ColorsApp.blak1,
+                        size: 14,
+                        isBold: true,
+                        oFlow: true,
                       ),
                     )),
               ],
