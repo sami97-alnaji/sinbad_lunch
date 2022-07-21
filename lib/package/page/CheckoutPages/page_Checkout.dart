@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: camel_case_types, avoid_prin, slash_for_doc_commentst, slash_for_doc_comments
+// ignore_for_file: camel_case_types, avoid_prin, slash_for_doc_commentst, slash_for_doc_comments, prefer_typing_uninitialized_variables
 
 import 'dart:async';
 import 'dart:io';
@@ -662,7 +662,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       var orderId;
                                       if (stas1 == "success") {
                                         print("order saved info");
-                                        // ignore: prefer_typing_uninitialized_variables
+
                                         var orderAdd;
                                         orderId =
                                             saveOrder["invoice"].toString();
