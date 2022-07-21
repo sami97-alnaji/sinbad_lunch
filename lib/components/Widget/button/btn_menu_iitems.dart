@@ -129,8 +129,8 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                       width: DimenApp.widthSc(context,
                                           widthPy: 0.55),
                                       child: AStx(
-                                        widget.titelItem!,
-                                        size: 9,
+                                        widget.titelItem??"",
+                                        size: 13,
                                         colr: ColorsApp.blak50.withOpacity(0.7),
                                         MLin: 3,
                                       ),
@@ -153,7 +153,7 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                   "\$" +
                                       (/*widget.numm==null?*/ widget.pricceItem!
                                           .toString() /*:(widget.pricceItem! * widget.numm!).toString()*/),
-                                  size: 12,
+                                  size: 14,
                                   isBold: true,
                                 ),
                               ),
@@ -211,9 +211,9 @@ class _btnMenuItemsState extends State<btnMenuItems> {
                                     )
                                   : SizedBox(
                                       width: DimenApp.widthSc(context,
-                                          widthPy: 0.12),
+                                          widthPy: 0.11),
                                 height: DimenApp.hightSc(context,
-                                          hightPy: 0.1),
+                                          hightPy: 0.072),
 
                                       child: ElevatedButton(
                                         onPressed: widget.onTab,

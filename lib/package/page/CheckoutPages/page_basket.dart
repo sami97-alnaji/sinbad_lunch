@@ -91,6 +91,7 @@ class _PageBasketState extends State<PageBasket> {
     super.initState();
     _tryConnectionWAit();
     getCompInfo();
+    fToast = FToast();
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -210,12 +211,13 @@ class _PageBasketState extends State<PageBasket> {
                   children: [
                     //header in page "My Cart"
                     SizedBox(
-                      height: 65,
+                      height: 75,
                       child: Container(
                         padding: const EdgeInsets.only(top: 40),
                         child: AStx(
                           'My Cart',
-                          isBold: true,
+                          // isBold: true,
+                          size: 16,
                           colr: ColorsApp.white1,
                         ),
                       ),
@@ -318,7 +320,7 @@ class _PageBasketState extends State<PageBasket> {
                                       children: [
                                         AStx('\$${_totalPriceFood!}',
                                             colr: ColorsApp.blak1,
-                                            size: 13,
+                                            size: 15,
                                             isBold: true),
                                       ],
                                     ),
@@ -370,12 +372,14 @@ class _PageBasketState extends State<PageBasket> {
                                             'Company : ' +
                                                 _comp_name
                                                     .toString(),
+                                                size: 14,
                                           )),
                                           Flexible(
                                             child: AStx(
                                               'Location : ' +
                                                   _comp_apperss
                                                       .toString(),
+                                              size: 14,
                                               MLin: 2,
                                             ),
                                           ),
@@ -391,19 +395,24 @@ class _PageBasketState extends State<PageBasket> {
                                           Flexible(
                                               child: AStx(
                                             'Delivery Time ',
+                                                size: 14,
                                           )),
                                           Flexible(
                                               child: AStx(
                                                   compInfoDelt["time_date"] ??
-                                                      "")),
+                                                      "",
+                                                size: 14,
+                                              )),
                                           Flexible(
                                               child: AStx(
                                             'delivery Date ',
+                                                size: 14,
                                           )),
                                           Flexible(
                                               child: AStx(
                                                   compInfoDelt["date_time"] ??
-                                                      "")),
+                                                      "",
+                                                size: 14,)),
                                         ],
                                       ),
                                     ),
@@ -505,7 +514,7 @@ class _PageBasketState extends State<PageBasket> {
                                                 children: [
                                                   AStx(
                                                     'Go to Checkout',
-                                                    size: 10,
+                                                    size: 14,
                                                     colr: ColorsApp.white1,
                                                   ),
                                                   // price item
@@ -596,7 +605,7 @@ class _PageBasketState extends State<PageBasket> {
                                                 children: [
                                                   AStx(
                                                     'Add More...',
-                                                    size: 11,
+                                                    size: 14,
                                                     colr: ColorsApp.white1,
                                                   ),
                                                   // price item
@@ -702,15 +711,51 @@ class _PageBasketState extends State<PageBasket> {
     if (compInfoDelt['messg_d'] != null) {
       getCompInfo();
       print(compInfoDelt['time_date'].toString());
-      Fluttertoast.showToast(
-          msg: compInfoDelt['messg_d'].toString(),
-          backgroundColor: ColorsApp.primColr,
-          fontSize: 14,
-          textColor: ColorsApp.white);
+      _showToast(compInfoDelt['messg_d'].toString());
+      // Fluttertoast.showToast(
+      //     msg: compInfoDelt['messg_d'].toString(),
+      //     backgroundColor: ColorsApp.primColr,
+      //     fontSize: 14,
+      //     textColor: ColorsApp.white, );
 
     }
   }
+  late FToast fToast;
+  Widget toast(String fMss) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: ColorsApp.blak1,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check, color: Colors.white,),
+          const SizedBox(
+            width: 12.0,
+          ),
 
+          // Flexible(child: AStx( fMss   ,size: 17,)),
+          Flexible(
+              child: AStx(
+                "${fMss}",
+                size: 16,
+                MLin: 2,
+                colr: ColorsApp.white,
+              )),
+          // const Text("\n"),
+        ],
+      ),
+    );
+  }
+  _showToast(String fMss) {
+    fToast.init(context).showToast(
+      child: toast(fMss),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
   SplitAddin(var L) {
     if (L == null) {
       var line = "";

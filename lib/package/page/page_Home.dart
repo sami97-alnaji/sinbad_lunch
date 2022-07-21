@@ -325,7 +325,7 @@ class _PageHomeState extends State<PageHome> {
                             children: [
                               AStx(
                                 WordAppENG.specialFodItm,
-                                size: 20,
+                                size: 21,
                                 isBold: true,
                                 colr: ColorsApp.primColr,
                               ),
@@ -338,11 +338,13 @@ class _PageHomeState extends State<PageHome> {
                               //     )),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 12.0,
-                                  right: 12.0,
+                                  left: 9.0,
+                                  right: 9.0,
                                 ),
                                 child: AStx(
                                   WordAppENG.gloryBeginingRestrant1,
+                                  size: 15,
+                                  isBold: true,
                                 ),
                               ),
                               // AutoSizeText(WordAppENG.gloryBeginingRestrant1,
@@ -471,7 +473,7 @@ class _PageHomeState extends State<PageHome> {
                       /************************************************************************************************************/
                       Center(
                         child: AStx(
-                          stopping_place_Btn1,
+                          stopping_place_Btn1=="Sandwiches (Combo)"? '    Sandwiches (Combo)\n (Drinks and fries included)':stopping_place_Btn1,
                           size: 18,
                           isBold: true,
                         ),
@@ -662,7 +664,7 @@ class _PageHomeState extends State<PageHome> {
 
   ///*******************************************************************************/
   setImageInHeader() {
-    var image = 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png';
+    var image = "https://sinbadslunch.com/myBackENd/image/292101583_436556055052062_1450523309343471228_n.png";//293038414_737007164249721_8773336078676402460_n.png "https://sinbadslunch.com/myBackENd/image/293822704_733287204426730_7600327239297411759_n%20(1).png";//  "https://sinbadslunch.com/myBackENd/image/292263333_575898937353616_734413392470860573_n-removebg-preview.png";// 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png';
     /**********/
     var text1 = 'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY';
     var text2 =
@@ -679,173 +681,206 @@ class _PageHomeState extends State<PageHome> {
     var size3Text = 8.0;
     /************/
     return Container(
-      height: DimenApp.hightSc(context, hightPy: 0.24),
+      height: DimenApp.hightSc(context, hightPy: 0.30),
       width: DimenApp.widthSc(context),
-      padding: const EdgeInsets.all(4.5),
+      padding: const EdgeInsets.all(3.5),
       decoration: BoxDecoration(
         // color: Colors.red,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: SizedBox.fromSize(
-          size: const Size.fromRadius(48),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // //image set
-              // Image.network( 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png',
-              //   fit: BoxFit.fitHeight,
-              //   height:
-              //   DimenApp.hightSc(context, hightPy: 0.28),
-              //     loadingBuilder: (  ctx,   child,   loadingProgress) {
-              //       if (loadingProgress == null) {
-              //         return child;
-              //       }else {
-              //         return const Center(
-              //           child: CircularProgressIndicator(
-              //             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-              //           ),
-              //         );
-              //       }
-              //     },
-              //
-              // ),
-
-              CachedNetworkImage(
-                imageUrl: image,
-                // "https://sinbadslunch.com/myBackENd/home_page_img.png",
-                fit: BoxFit.fitHeight,
-                height: DimenApp.hightSc(context, hightPy: 0.28),
-                placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(
+      // child: ClipRRect(
+      //   borderRadius: BorderRadius.circular(20),
+      //   child: SizedBox.fromSize(
+      //     size: const Size.fromRadius(48),
+          child:
+          CachedNetworkImage(
+            imageUrl: image,
+            // "https://sinbadslunch.com/myBackENd/home_page_img.png",
+            fit: BoxFit.fitWidth,
+            width: DimenApp.widthSc(context, widthPy: 0.8),
+            height: DimenApp.hightSc(context, hightPy: 0.30),
+            placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(
                   color: ColorsApp.primColr,
                 )),
-              ),
-
-              Container(
-                height: DimenApp.hightSc(context, hightPy: 0.3),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: CachedNetworkImageProvider(
-                      image,
-                      // "https://sinbadslunch.com/myBackENd/home_page_img.png",
-                      // placeholder: (context, url) =>
-                      //     Center(
-                      //         child: CircularProgressIndicator(
-                      //           color: ColorsApp.primColr,
-                      //         )),
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      /***************************************************************************/
-                      // FadeInImage(
-                      //   imageErrorBuilder: (  context,   exception,  stackTrace) {
-                      //     print('Error Handler');
-                      //     return Container(
-                      //       width: 200.0,
-                      //       height: 300.0,
-                      //       child: Image.asset('assets/images/gyro.png'),
-                      //     );
-                      //   },
-                      //   placeholder: const AssetImage('assets/images/site_logo.png'),
-                      //   image: const NetworkImage('https://sinbadslunch.com/myBackENd/home_page_imgEdit.png'),
-                      //   fit: BoxFit.cover,
-                      //   height: 100.0,
-                      //   width: 100.0,
-                      // ),
-                      /***************************************************************************/
-
-                      // text set above the image ;
-                      //   Padding(
-                      //     padding: const EdgeInsets.only(
-                      //         bottom: 135.0, left: 10, right: 10),
-                      //     child:
-                      Expanded(
-                        child: AStx(
-                          text1,
-                          colr: color1,
-                          size: size1Text,
-                          isBold: true,
-                        ),
-                      ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(
-                      //       bottom: 86.0, left: 20, right: 20),
-                      //   child:
-                      Expanded(
-                        child: AStx(
-                          text2,
-                          colr: color2,
-                          size: size2Text,
-                          // isBold: true,
-                        ),
-                      ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(
-                      //       bottom: 15, left: 30, right: 30),
-                      //   child:
-                      Expanded(
-                        flex: 2,
-                        child: AStx(
-                          text3,
-                          colr: color3,
-                          size: size3Text,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // text set above the image ;
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //       bottom: 135.0, left: 10, right: 10),
-              //   child: AStx(
-              //     'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY',
-              //     colr: ColorsApp.text1home,
-              //     size: 16,
-              //     isBold: true,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //       bottom: 86.0, left: 20, right: 20),
-              //   child: AStx(
-              //     'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S',
-              //     colr: ColorsApp.text2home,
-              //     size: 13,
-              //     isBold: true,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //       bottom: 15, left: 30, right: 30),
-              //   child: AStx(
-              //     ' WE ONLY ACCEPT '
-              //     ' ORDERS FROM 6:00AM  TILL 10:00 AM\n  ANY'
-              //     ' ORDER AFTER 10:00 WILL NOT BE  FILLED',
-              //     colr: ColorsApp.text3home,
-              //     size: 14,
-              //     isBold: true,
-              //   ),
-              // ),
-            ],
           ),
-        ),
-      ),
+          /***************************************************************************/
+//           Stack(
+//             alignment: Alignment.center,
+//             children: [
+//               // //image set
+//               // Image.network( 'https://sinbadslunch.com/myBackENd/home_page_imgEdit.png',
+//               //   fit: BoxFit.fitHeight,
+//               //   height:
+//               //   DimenApp.hightSc(context, hightPy: 0.28),
+//               //     loadingBuilder: (  ctx,   child,   loadingProgress) {
+//               //       if (loadingProgress == null) {
+//               //         return child;
+//               //       }else {
+//               //         return const Center(
+//               //           child: CircularProgressIndicator(
+//               //             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+//               //           ),
+//               //         );
+//               //       }
+//               //     },
+//               //
+//               // ),
+// /*********************************************************************************/
+//
+//               CachedNetworkImage(
+//                 imageUrl: image,
+//                 // "https://sinbadslunch.com/myBackENd/home_page_img.png",
+//                 fit: BoxFit.fitWidth,
+//                 width: DimenApp.widthSc(context, widthPy: 0.9),
+//                 height: DimenApp.hightSc(context, hightPy: 0.28),
+//                 placeholder: (context, url) => Center(
+//                     child: CircularProgressIndicator(
+//                   color: ColorsApp.primColr,
+//                 )),
+//               ),
+//
+//
+// /*********************************************************************************/
+//    //            Container(
+//    //              height: DimenApp.hightSc(context, hightPy: 0.3),
+//    //              decoration: BoxDecoration(
+//    //                image: DecorationImage(
+//    //                  fit: BoxFit.fitWidth,
+//    //                  image: CachedNetworkImageProvider(
+//    //                    image,
+//    //                    // "https://sinbadslunch.com/myBackENd/home_page_img.png",
+//    //                    // placeholder: (context, url) =>
+//    //                    //     Center(
+//    //                    //         child: CircularProgressIndicator(
+//    //                    //           color: ColorsApp.primColr,
+//    //                    //         )),
+//    //                  ),
+//    //                ),
+//    //              ),
+//    // //              child: Padding(
+//    // //                padding: const EdgeInsets.all(8.0),
+//    // //                child: Column(
+//    // //                  children: <Widget>[
+//    // //                    /***************************************************************************/
+//    // //                    // FadeInImage(
+//    // //                    //   imageErrorBuilder: (  context,   exception,  stackTrace) {
+//    // //                    //     print('Error Handler');
+//    // //                    //     return Container(
+//    // //                    //       width: 200.0,
+//    // //                    //       height: 300.0,
+//    // //                    //       child: Image.asset('assets/images/gyro.png'),
+//    // //                    //     );
+//    // //                    //   },
+//    // //                    //   placeholder: const AssetImage('assets/images/site_logo.png'),
+//    // //                    //   image: const NetworkImage('https://sinbadslunch.com/myBackENd/home_page_imgEdit.png'),
+//    // //                    //   fit: BoxFit.cover,
+//    // //                    //   height: 100.0,
+//    // //                    //   width: 100.0,
+//    // //                    // ),
+//    // //                    /***************************************************************************/
+//    // //
+//    // //                    // text set above the image ;
+//    // //                    //   Padding(
+//    // //                    //     padding: const EdgeInsets.only(
+//    // //                    //         bottom: 135.0, left: 10, right: 10),
+//    // //                    //     child:
+//    // //      /*********************************************************************************/
+//    // //
+//    // //                    // Expanded(
+//    // //                    //   child: AStx(
+//    // //                    //     text1,
+//    // //                    //     colr: color1,
+//    // //                    //     size: size1Text,
+//    // //                    //     isBold: true,
+//    // //                    //   ),
+//    // //                    // ),
+//    // //
+//    // //   /*********************************************************************************/
+//    // //                    // ),
+//    // //                    // Padding(
+//    // //                    //   padding: const EdgeInsets.only(
+//    // //                    //       bottom: 86.0, left: 20, right: 20),
+//    // //                    //   child:
+//    // //   /*********************************************************************************/
+//    // //
+//    // //                    // Expanded(
+//    // //                    //   child: AStx(
+//    // //                    //     text2,
+//    // //                    //     colr: color2,
+//    // //                    //     size: size2Text,
+//    // //                    //     // isBold: true,
+//    // //                    //   ),
+//    // //                    // ),
+//    // //
+//    // //   /*********************************************************************************/
+//    // //                    // ),
+//    // //                    // Padding(
+//    // //                    //   padding: const EdgeInsets.only(
+//    // //                    //       bottom: 15, left: 30, right: 30),
+//    // //                    //   child:
+//    // //  /*********************************************************************************/
+//    // //
+//    // //                    // Expanded(
+//    // //                    //   flex: 2,
+//    // //                    //   child: AStx(
+//    // //                    //     text3,
+//    // //                    //     colr: color3,
+//    // //                    //     size: size3Text,
+//    // //                    //   ),
+//    // //                    // ),
+//    // //
+//    // // /*********************************************************************************/
+//    // //                    const SizedBox(
+//    // //                      height: 60,
+//    // //                    ),
+//    // //                    // ),
+//    // //                  ],
+//    // //                ),
+//    // //              ),
+//    //            ),
+//
+//
+// /**************************************************************************/
+//               // text set above the image ;
+//               // Padding(
+//               //   padding: const EdgeInsets.only(
+//               //       bottom: 135.0, left: 10, right: 10),
+//               //   child: AStx(
+//               //     'GET MEALS DELIVERED AT WORK ORDER INDIVIDUALLY',
+//               //     colr: ColorsApp.text1home,
+//               //     size: 16,
+//               //     isBold: true,
+//               //   ),
+//               // ),
+//               // Padding(
+//               //   padding: const EdgeInsets.only(
+//               //       bottom: 86.0, left: 20, right: 20),
+//               //   child: AStx(
+//               //     'F R E E   D E L I V E R Y   N O   M I N I M U M   N O   H I D D E N   F E E S',
+//               //     colr: ColorsApp.text2home,
+//               //     size: 13,
+//               //     isBold: true,
+//               //   ),
+//               // ),
+//               // Padding(
+//               //   padding: const EdgeInsets.only(
+//               //       bottom: 15, left: 30, right: 30),
+//               //   child: AStx(
+//               //     ' WE ONLY ACCEPT '
+//               //     ' ORDERS FROM 6:00AM  TILL 10:00 AM\n  ANY'
+//               //     ' ORDER AFTER 10:00 WILL NOT BE  FILLED',
+//               //     colr: ColorsApp.text3home,
+//               //     size: 14,
+//               //     isBold: true,
+//               //   ),
+//               // ),
+//             ],
+//           ),
+
+        /**************************************************************************/
+      //   ),
+      // ),
       // child: CircleAvatar(
       //    radius: 2,
       //    child: ClipOval(

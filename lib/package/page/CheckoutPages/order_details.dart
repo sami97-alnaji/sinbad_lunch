@@ -27,7 +27,7 @@ class OrderDetails {
 
 
   int itemsId;
-  String itemsName,food_description, itemsImage;
+  String itemsName, itemsImage;
   int itemsOfNumber;
   double itemsTotalPrice;
 
@@ -38,7 +38,7 @@ class OrderDetails {
   double? saucePrice;
 
 /// **********************************************************************/
-  String? instructon;
+  String? food_description,instructon;
 
 /// ************************************************************************/
   List<AdditionalToppingg>? addingList;

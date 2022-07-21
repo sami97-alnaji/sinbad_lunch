@@ -21,6 +21,7 @@ class OrderSave {
     required String amount,
     required String delivery_fee,
     required String tip,
+    required String tax,
     required String total_amount,
     required String token_message,
   }) async {
@@ -35,6 +36,7 @@ class OrderSave {
       "company_id": Encryption.instance.encrypt(company_id).toString(),
       "amount": Encryption.instance.encrypt(amount).toString(),
       "delivery_fee": Encryption.instance.encrypt(delivery_fee).toString(),
+      "tax": Encryption.instance.encrypt(tax).toString(),
       "tip": Encryption.instance.encrypt(tip).toString(),
       "total_amount": Encryption.instance.encrypt(total_amount).toString(),
       "token_message": Encryption.instance.encrypt(token_message).toString(),

@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:sinbad_lunch/Controller/Order/order_save.dart';
@@ -20,7 +21,7 @@ import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
 import 'package:sinbad_lunch/package/page/auth/main_test_paymaent.dart';
 
-class Page_Checkout extends StatefulWidget {
+class Page_Checkout extends StatefulWidget   {
   const Page_Checkout({Key? key}) : super(key: key);
 
   @override
@@ -35,7 +36,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
 
   // ignore: prefer_typing_uninitialized_variables
   var orderInfo;
-
+  late FToast fToast;
   /********************************************************/
   // check conncetion to server
   bool? _isConnectionSuccessful = true;
@@ -78,13 +79,51 @@ class _Page_CheckoutState extends State<Page_Checkout> {
   }
 
   double? _tax,
+      _taxAmount,
       _deliveryFee,
       _discount,
       _tip,
       _discountPrice,
       _totalPriceFood,
-      _totalPriceWithTax;
+      _totalPriceWithTax,
+      _totalPriceWithTaxAndTip;
+
   Timer? _timer;
+  Widget toast(String fMss) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: ColorsApp.blak1,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check, color: Colors.white,),
+          const SizedBox(
+            width: 12.0,
+          ),
+
+          // Flexible(child: AStx( fMss   ,size: 17,)),
+          Flexible(
+              child: AStx(
+                "${fMss} ",
+                size: 16,
+                MLin: 2,
+                colr: ColorsApp.white,
+              )),
+          // const Text("\n"),
+        ],
+      ),
+    );
+  }
+  _showToast(String fMss) {
+    fToast.init(context).showToast(
+      child: toast(fMss),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
 
   @override
   void initState() {
@@ -94,15 +133,16 @@ class _Page_CheckoutState extends State<Page_Checkout> {
     /****************************************************/
     getCompInfo();
     /*****************************************/
+    fToast = FToast();
+    /*****************************************/
     _tax = 0;
     _deliveryFee = 0;
     _discount = 0;
     _totalPriceFood = 0;
     _discountPrice = 0;
     _totalPriceWithTax = 0;
-    /*****************************************/
+    _totalPriceWithTaxAndTip = 0;
 
-    /*****************************************/
   }
 
   double toPrecision(double n) => double.parse(n.toStringAsFixed(2));
@@ -111,44 +151,58 @@ class _Page_CheckoutState extends State<Page_Checkout> {
 //Do you want to leave some tips?
   @override
   Widget build(BuildContext context) {
+
     final _formKey = GlobalKey<FormState>();
 
     try {
       if (_isConnectionSuccessful!) {
         if (falgScreen) {
-          // final paymentController = Get.put(PaymentController());
-          itemsOrder = Provider.of<ProductPageVariables>(context);
-          double totalFood = 0;
-          if (itemsOrder.BasketListItems != null &&
-              itemsOrder.BasketListItems != []) {
-            for (var x in itemsOrder.BasketListItems) {
-              totalFood += x.itemsTotalPrice;
+
+          /*****************************************/
+          if(itemsOrder == null && compInfoDelt["tax"] != null) {
+            // final paymentController = Get.put(PaymentController());
+            itemsOrder = Provider.of<ProductPageVariables>(context);
+            double totalFood = 0;
+            if (itemsOrder.BasketListItems != null &&
+                itemsOrder.BasketListItems != []) {
+              for (var x in itemsOrder.BasketListItems) {
+                totalFood += x.itemsTotalPrice;
+              }
             }
+            print("after the total food is");
+            setState(() {
+              print("the total food is not null");
+              itemsOrder.BasketListItems;
+              totalFood = toPrecision(totalFood);
+              /*****************************************/
+              _tax = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["tax"]) ?? 0.0;
+              _deliveryFee = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["delivery_fee"]) ?? 0.0;
+              _discount = totalFood == 0
+                  ? 0.0
+                  : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
+              _totalPriceFood = totalFood;
+              _discountPrice =
+              totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
+              print(totalFood);
+              _totalPriceWithTax = totalFood == 0
+                  ? 0.0
+                  : (((_totalPriceFood! - _discountPrice!) +
+                  ((_totalPriceFood! - _discountPrice!) * _tax!))) +
+                  _deliveryFee!;
+
+              _totalPriceWithTax = toPrecision(_totalPriceWithTax!);
+              _totalPriceWithTaxAndTip = _totalPriceWithTax;
+              _taxAmount= _totalPriceWithTax! - _totalPriceFood!;
+              _taxAmount = toPrecision(_taxAmount!);
+              /*****************************************/
+            });
+            /*****************************************/
           }
-          setState(() {
-            itemsOrder.BasketListItems;
-            totalFood = toPrecision(totalFood);
-            /*****************************************/
-            _tax = totalFood == 0
-                ? 0.0
-                : double.tryParse(compInfoDelt["tax"]) ?? 0.0;
-            _deliveryFee = totalFood == 0
-                ? 0.0
-                : double.tryParse(compInfoDelt["delivery_fee"]) ?? 0.0;
-            _discount = totalFood == 0
-                ? 0.0
-                : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
-            _totalPriceFood = totalFood;
-            _discountPrice =
-                totalFood == 0 ? 0.0 : _discount! * _totalPriceFood!;
-            _totalPriceWithTax = totalFood == 0
-                ? 0.0
-                : (((_totalPriceFood! - _discountPrice!) +
-                        ((_totalPriceFood! - _discountPrice!) * _tax!))) +
-                    _deliveryFee!;
-            _totalPriceWithTax = toPrecision(_totalPriceWithTax!);
-            /*****************************************/
-          });
+          /*******************************************************************************/
           return Scaffold(
             body: Container(
               height: DimenApp.hightSc(context),
@@ -159,12 +213,13 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                   children: [
                     //header in page "Checkout"
                     SizedBox(
-                      height: 65,
+                      height: 75,
                       child: Container(
                         padding: const EdgeInsets.only(top: 35),
                         child: AStx(
                           'Checkout',
                           colr: ColorsApp.white1,
+                          size: 16,
                         ),
                       ),
                     ),
@@ -190,19 +245,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             )),
                           ),
 
-                          // Text Filed for Email
-                          SizedBox(
-                            child: TFiled(
-                              controller: _controllerTip,
-                              colorPorder: ColorsApp.blak1,
-                              hint: "Do you want to leave some tips?",
-                              keyboardType: TextInputType.number,
-                              pIcon: Icon(
-                                Icons.monetization_on_outlined,
-                                color: ColorsApp.blak1,
-                              ),
-                            ),
-                          ),
+
 
                           const SizedBox(
                             height: 12,
@@ -224,11 +267,11 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             ),
                             child: SizedBox(
                               width: DimenApp.widthSc(context),
-                              height: 65,
+                              height: 75,
                               // DimenApp.hightSc(context, hightPy: 0.155),
                               // color: ColorsApp.white1,
                               child: Padding(
-                                padding: const EdgeInsets.all(2.5),
+                                padding: const EdgeInsets.only(top: 5.5, left: 2.5, right: 2.5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -266,7 +309,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                           Flexible(
                                               child: AStx(
                                             'Contactless delivery',
-                                            size: 13,
+                                            size: 16,
                                             isBold: true,
                                             colr: ColorsApp.blak50
                                                 .withOpacity(0.8),
@@ -277,7 +320,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                           Flexible(
                                               child: AStx(
                                             'We place the order in the designated place',
-                                            size: 11,
+                                            size: 13,
                                             isBold: true,
                                             colr: ColorsApp.blak50
                                                 .withOpacity(0.8),
@@ -298,7 +341,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           //Total
                           SizedBox(
                             width: DimenApp.widthSc(context),
-                            height: 88,
+                            height:158,
                             // DimenApp.hightSc(context, hightPy: 0.17),
                             child: Card(
                               color: ColorsApp.white1,
@@ -320,24 +363,35 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       AStx(
                                         'Total Food :',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
                                       AStx(
                                         'Delivery fee : ',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
                                       AStx(
                                         'Discount : ',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
+                                      ),
+                                      const SizedBox(
+                                        height: 5.7,
+                                      ),
+                                      AStx(
+                                        'Tip : ',
+                                        colr: ColorsApp.blak50,
+                                        size: 13,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
                                       ),
                                       AStx(
                                         'Tax : ',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
-                                      AStx('Total amount: ', isBold: true),
+                                      AStx('Total amount: ',size: 13, isBold: true),
                                     ],
                                   ),
                                   Column(
@@ -345,29 +399,59 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                       AStx(
                                         '\$${_totalPriceFood!}',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
                                       AStx(
                                         _deliveryFee! == 0
                                             ? 'free'
                                             : '\$${_deliveryFee!}',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
+
+
                                       AStx(
                                         _discountPrice! == 0
                                             ? '\$0.0'
                                             : '\$${_discountPrice!}',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
+                                      ),
+                                      // Text Filed for Tip
+                                      SizedBox(
+                                        width: DimenApp.widthSc(context,widthPy: 0.35),
+                                        height: 35,
+                                        child: TFiled(
+                                          controller: _controllerTip,
+                                          colorPorder: ColorsApp.blak1,
+                                          hint: "",
+                                          keyboardType: TextInputType.number,
+                                          pIcon: Icon(
+                                            Icons.monetization_on_outlined,
+                                            color: ColorsApp.blak1,
+                                            size: 14,
+                                          ),
+                                          sSize: 22,
+                                          sBorder: 1,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _tip = double.tryParse(value)??0;
+                                              _totalPriceWithTaxAndTip = _totalPriceWithTax! + toPrecision(_tip!);
+                                              _totalPriceWithTaxAndTip =  toPrecision(_totalPriceWithTaxAndTip!);
+
+                                              print(_tip);
+                                              print(_totalPriceWithTaxAndTip);
+                                            });
+                                          },
+                                        ),
                                       ),
                                       AStx(
-                                        _tax! == 0 ? '%0.0' : '\$${_tax!}',
+                                        _taxAmount! == 0 ? '%0.0' : '\$${_taxAmount!}',
                                         colr: ColorsApp.blak50,
-                                        size: 9,
+                                        size: 13,
                                       ),
-                                      AStx('\$${_totalPriceWithTax!}',
-                                          isBold: true),
+                                      AStx('\$${_totalPriceWithTaxAndTip!}',
+                                          isBold: true,size: 13,),
                                     ],
                                   ),
                                 ],
@@ -396,7 +480,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                             ),
                             child: SizedBox(
                               width: DimenApp.widthSc(context),
-                              height: 68,
+                              height: 88,
                               // DimenApp.hightSc(context, hightPy: 0.155),
                               // color: ColorsApp.white1,
                               child: Padding(
@@ -416,7 +500,8 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             'Company : ' +
                                                 compInfoDelt["comp_name"]
                                                     .toString(),
-                                            size: 9,
+                                            size: 13,
+                                                isBold: true,
                                           )),
                                           Flexible(
                                             child: AStx(
@@ -424,7 +509,8 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                   compInfoDelt["comp_adderss"]
                                                       .toString(),
                                               MLin: 2,
-                                              size: 9,
+                                              size: 13,
+                                              isBold: true,
                                             ),
                                           ),
                                         ],
@@ -439,22 +525,26 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                           Flexible(
                                               child: AStx(
                                             'delivery time :',
-                                            size: 9,
+                                            size: 13,
+                                                isBold: true,
                                           )),
                                           Flexible(
                                               child: AStx(
                                             compInfoDelt["time_date"] ?? "",
-                                            size: 9,
+                                            size: 13,
+                                                isBold: true,
                                           )),
                                           Flexible(
                                               child: AStx(
                                             'delivery Date :',
-                                            size: 9,
+                                            size: 13,
+                                                isBold: true,
                                           )),
                                           Flexible(
                                               child: AStx(
                                             compInfoDelt["date_time"] ?? "",
-                                            size: 9,
+                                            size: 13,
+                                                isBold: true,
                                           )),
                                         ],
                                       ),
@@ -468,13 +558,13 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                           Flexible(
                             child: Center(
                               child: Container(
-                                height: 55,
-                                width: 180,
-                                padding: const EdgeInsets.only(bottom: 15),
+                                // height: 55,
+                                // width: 192,
+                                padding: const EdgeInsets.only(bottom: 10),
                                 alignment: Alignment.center,
                                 child: SizedBox(
-                                  height: 55,
-                                  width: 180,
+                                  height: 60,
+                                  width: 232,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       shape: const StadiumBorder(),
@@ -495,8 +585,8 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
                                               AStx(
-                                                'make payment \$${_totalPriceWithTax!}',
-                                                size: 12,
+                                                'make payment \$${_totalPriceWithTaxAndTip!}',
+                                                size: 16,
                                                 colr: ColorsApp.white1,
                                               ),
                                             ],
@@ -519,7 +609,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         });
                                       }
                                       if (double.parse(_controllerTip.text) >
-                                          _totalPriceWithTax!) {
+                                          _totalPriceWithTaxAndTip!) {
                                         setState(() {
                                           _tip = double.tryParse(
                                                   _controllerTip.text) ??
@@ -559,8 +649,9 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                         amount: '$_totalPriceFood!',
                                         delivery_fee: '$_deliveryFee!',
                                         tip: _tip!.toString(),
+                                        tax: _taxAmount!.toString(),
                                         total_amount:
-                                            (_totalPriceWithTax! + _tip!)
+                                            (_totalPriceWithTaxAndTip)
                                                 .toString(),
                                       );
                                       stas1 = saveOrder["status"].toString();
@@ -637,6 +728,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                     EasyLoading.dismiss();
                                                     EasyLoading.showError(
                                                         stas3);
+                                                    _showToast(stas3);
                                                   }
                                                 }
                                                 EasyLoading.dismiss();
@@ -654,10 +746,12 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                 EasyLoading.showError(
                                                     orderItems["message"]);
                                               }
+                                              _showToast(orderItems["message"]);
                                             }
                                           } else {
                                             EasyLoading.dismiss();
                                             EasyLoading.showError(stas2);
+                                            _showToast(stas2);
                                           }
 
 /*******************************************************************************************************************************************/
@@ -667,12 +761,14 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                               (stas3 == null ||
                                                   stas3 == "success")) {
                                             EasyLoading.dismiss();
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                  content:
-                                                      AStx("Order is saved")),
-                                            );
+                                            _showToast(
+                                                "Order is saved successfully");
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   SnackBar(
+                                            //       content:
+                                            //           AStx("Order is saved")),
+                                            // );
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -685,8 +781,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                             order_info_id:
                                                                 orderId!,
                                                             total_amount:
-                                                                (_totalPriceWithTax! +
-                                                                        _tip!)
+                                                                (_totalPriceWithTaxAndTip)
                                                                     .toString())));
                                           }
                                         }

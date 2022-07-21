@@ -25,6 +25,8 @@ class TFiled extends StatelessWidget {
       void Function()? onSIcon,
         TextInputAction? textAction,
         Color? colorPorder,
+        double sSize=65,
+        double sBorder=2,
         List<TextInputFormatter>? inputFormatter})
       : _initValue = initValue,
         _keyboardType = keyboardType,
@@ -39,6 +41,8 @@ class TFiled extends StatelessWidget {
         _onSIcon = onSIcon,
         _controler = controller,
         _readOnly= readOnly,
+    _sSize = sSize,
+    _sBorder = sBorder,
         _inputFormatter = inputFormatter,
         _colorPorder = colorPorder,
         super(key: key);
@@ -58,6 +62,8 @@ class TFiled extends StatelessWidget {
   final void Function(String?)? _onSaved;
   final TextEditingController? _controler;
   final bool? _readOnly;
+  final double _sSize;
+  final double _sBorder;
    Color? _colorPorder;
 
   @override
@@ -68,7 +74,7 @@ class TFiled extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(3.0),
           child: SizedBox(
-            height: 65,
+            height: _sSize,
             child: TextFormField(
               textInputAction: _textAction??TextInputAction.next,
               controller: _controler,
@@ -96,25 +102,25 @@ class TFiled extends StatelessWidget {
                 //*Border normal
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100),
-                  borderSide: BorderSide(color: _colorPorder!, width: 2),
+                  borderSide: BorderSide(color: _colorPorder!, width: _sBorder),
                 ),
                 //* focuse border normal
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
-                  borderSide: BorderSide(color: _colorPorder!, width: 2),
+                  borderSide: BorderSide(color: _colorPorder!, width: _sBorder),
                 ),
                 //*border error
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100),
                   borderSide: BorderSide(
                     color: _colorPorder!,
-                    width: 2,
+                    width: _sBorder,
                   ),
                 ),
                 //*focuse border error
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
-                  borderSide: BorderSide(color: _colorPorder!, width: 2),
+                  borderSide: BorderSide(color: _colorPorder!, width: _sBorder),
                 ),
               ),
               style: GoogleFonts.openSans(

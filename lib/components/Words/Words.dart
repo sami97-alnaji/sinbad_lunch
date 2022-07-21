@@ -7,13 +7,13 @@ class WordAppENG {
       entrPass = 'Enter your Password',
       forgotPass = 'Forgot password',
       dontHaveRegister = "I don't have an account, register",
-      platters ='Sandwish Combos1', //'Platters',
-      platters1 ='Sandwish Combos1', //'Platters',
-      platters2 ='Sandwish Combos2', //'Platters',
-      platters3 ='Sandwish Combos3', //'Platters',
-      platters4 ='Sandwish Combos4', //'Platters',
-      platters5 ='Sandwish Combos5', //'Platters',
-      platters6 ='Sandwish Combos6', //'Platters',
+      platters ='Sandwich Combos1', //'Platters',
+      platters1 ='Sandwich Combos1', //'Platters',
+      platters2 ='Sandwich Combos2', //'Platters',
+      platters3 ='Sandwich Combos3', //'Platters',
+      platters4 ='Sandwich Combos4', //'Platters',
+      platters5 ='Sandwich Combos5', //'Platters',
+      platters6 ='Sandwich Combos6', //'Platters',
       gyro = 'Gyro',
       specialFodItm = 'Special food items',
       gloryBeginingRestrant =
@@ -21,7 +21,7 @@ class WordAppENG {
       titelItemgloryBeginingRestrant =
           'Chicken Shawarma + Rice + Salad',
       gloryBeginingRestrant1 =
-          'We have the glory beginning in restaurant business',
+          'FRESH INGREDIENTS              LOCALLY MADE',
       contentOfAboutUs =
           "Ever felt that restaurant food was becoming industrialized?\n"
           "Mass market?  Prepackaged?  The people of Sinbad’s Grill  noticed.\n"

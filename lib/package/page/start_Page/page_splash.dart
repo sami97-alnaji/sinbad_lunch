@@ -42,6 +42,7 @@ class _PageSplashState extends State<PageSplash> {
                 builder: (BuildContext context) => const Login()));
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: AStx("Please verify your information !!!")));
+
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => PageHome()));

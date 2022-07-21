@@ -300,12 +300,12 @@ class _PageProductState extends State<PageProduct> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
+        color: ColorsApp.blak1,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.check),
+          const Icon(Icons.check, color: Colors.white,),
           const SizedBox(
             width: 12.0,
           ),
@@ -316,6 +316,7 @@ class _PageProductState extends State<PageProduct> {
             "${fMss} has been added successfully",
             size: 16,
             MLin: 2,
+            colr: ColorsApp.white,
           )),
           // const Text("\n"),
         ],
@@ -633,7 +634,7 @@ class _PageProductState extends State<PageProduct> {
                               itemsId: widget.food.food_id!,
                               itemsName: widget.food.food_name!,
                               itemsImage: widget.food.food_image!,
-                              food_description: widget.food.food_description!,
+                              food_description: widget.food.food_description,
                               itemsOfNumber: numberOfItems,
                               itemsTotalPrice: totalPrice,
                               sauceId: suaceInfo != null
