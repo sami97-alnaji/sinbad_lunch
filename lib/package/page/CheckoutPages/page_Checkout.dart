@@ -668,6 +668,7 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             saveOrder["invoice"].toString();
                                         for (var item
                                             in itemsOrder.BasketListItems) {
+                                          print('item.iSFree1Id ::  ${item.iSFree1Id}');
                                           var orderItems = await OrderSave()
                                               .orderSaveDataDetails(
                                             order_info_id: orderId,
@@ -743,10 +744,10 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                 // );
                                               } else {
                                                 EasyLoading.dismiss();
-                                                EasyLoading.showError(
-                                                    orderItems["message"]);
+                                                // EasyLoading.showError(
+                                                    // orderItems["message"]);
                                               }
-                                              _showToast(orderItems["message"]);
+                                              // _showToast(orderItems["message"]);
                                             }
                                           } else {
                                             EasyLoading.dismiss();

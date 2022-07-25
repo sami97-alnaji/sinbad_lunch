@@ -908,9 +908,10 @@ class _PageProductState extends State<PageProduct> {
             if (food != null) {
               switch (freeNum) {
                 case 1:
+                  freeAdd1 != null ? freeAdd1!.clear(): null ;
                   freeAdd1!.add(food.food_id);
                   freeAdd1!.add(food.food_name);
-
+                  print("freeAdd1  :  "+freeAdd1!.length.toString());
                   break;
                 case 2:
                   freeAdd2!.add(food.food_id);

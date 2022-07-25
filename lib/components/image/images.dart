@@ -1,6 +1,9 @@
 class ImageApp {
   static String imgLogo =
-      "https://sinbadslunch.com/myBackENd/image/294821151_457971592499050_2842756183138680894_n.png";//'https://sinbadslunch.com/myBackENd/image/menu_item/291996653_2269060839916476_8729014030700801476_n-removebg-preview.png';// 'https://sinbadslunch.com/myBackENd/image/OurLogo.png'; //'https://sinbadslunch.com/myBackENd/WhatsApp_Image_2022-05-01_at_1.54.58_AM-removebg-preview.png';
+      "https://sinbadslunch.com/myBackENd/image/292932351_470088268282309_1043083578160331856_n.png";//292728177_609556423820268_6041327109275149410_n.png;//294821151_457971592499050_2842756183138680894_n.png";
+  //'https://sinbadslunch.com/myBackENd/image/menu_item/291996653_2269060839916476_8729014030700801476_n-removebg-preview.png';
+  // 'https://sinbadslunch.com/myBackENd/image/OurLogo.png';
+  // 'https://sinbadslunch.com/myBackENd/WhatsApp_Image_2022-05-01_at_1.54.58_AM-removebg-preview.png';
   // static String imgLogo = 'assets/images/site_logo.png';
   // static String imgPlatters = 'assets/icons/Restaurant_Platters1.png';
   static String imgPlatters =
