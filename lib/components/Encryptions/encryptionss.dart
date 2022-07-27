@@ -10,6 +10,7 @@ class Encryption {
   late Encrypter _encrypter;
 
   Encryption._() {
+
     const mykey = 'smfsثثاجحقث556ث92بdoi^%&*GVG&fefKuhFRioيسببخهثعاثتبلهعثحقغثصحكتىحللصثصثثصثقب';//ThisIsASecuredKey
     const myiv = 'كبلنمىثقخ)_)*&^&^%غلههتلققلق84لق54kflgoreuhKJ&*897y(**&^&^UYhjbP(9y07887hguyiTY&^R&%^Togho897t980';//ThisIsASecuredBlock
     final keyUtf8 = utf8.encode(mykey);

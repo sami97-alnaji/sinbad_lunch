@@ -668,26 +668,26 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                             saveOrder["invoice"].toString();
                                         for (var item
                                             in itemsOrder.BasketListItems) {
-                                          print('item.iSFree1Id ::  ${item.iSFree1Id}');
+                                          print('item.food_id ::  ${item.itemsId}');
                                           var orderItems = await OrderSave()
                                               .orderSaveDataDetails(
                                             order_info_id: orderId,
                                             food_id: item.itemsId.toString(),
                                             suace_id: item.sauceId != null
                                                 ? item.sauceId.toString()
-                                                : 'null',
+                                                : '-1',
                                             is_free_1Id: item.iSFree1Id != null
                                                 ? item.iSFree1Id.toString()
-                                                : 'null',
+                                                : '-1',
                                             is_free_2Id: item.iSFree2Id != null
                                                 ? item.iSFree2Id.toString()
-                                                : 'null',
+                                                : '-1',
                                             is_free_3Id: item.iSFree3Id != null
                                                 ? item.iSFree3Id.toString()
-                                                : 'null',
-                                            Instruction: item.instructon != null
+                                                : '-1',
+                                            instruction: item.instructon != null
                                                 ? item.instructon.toString()
-                                                : 'null',
+                                                : '-1',
                                             total_food_Item:
                                                 item.itemsTotalPrice.toString(),
                                             number_items:

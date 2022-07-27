@@ -54,11 +54,11 @@ class OrderSave {
   Future orderSaveDataDetails(
       {required String order_info_id,
       required String food_id,
-      required String suace_id,
-      required String is_free_1Id,
-      required String is_free_2Id,
-      required String is_free_3Id,
-      required String Instruction,
+      required String? suace_id,
+      required String? is_free_1Id,
+      required String? is_free_2Id,
+      required String? is_free_3Id,
+      required String? instruction,
       required String total_food_Item,
       required String number_items}) async {
     String link = url + "get_data_save_order_details.php";
@@ -68,11 +68,11 @@ class OrderSave {
     var res = await http.post(Uri.parse(link), body: {
       "order_info_id": Encryption.instance.encrypt(order_info_id),
       "food_id": Encryption.instance.encrypt(food_id),
-      "suace_id": Encryption.instance.encrypt(suace_id),
-      "is_free_1Id": Encryption.instance.encrypt(is_free_1Id),
-      "is_free_2Id": Encryption.instance.encrypt(is_free_2Id),
-      "is_free_3Id": Encryption.instance.encrypt(is_free_3Id),
-      "Instruction": Encryption.instance.encrypt(Instruction),
+      "suace_id": Encryption.instance.encrypt(suace_id ?? "-1"),
+      "is_free_1Id": Encryption.instance.encrypt(is_free_1Id??"-1"),
+      "is_free_2Id": Encryption.instance.encrypt(is_free_2Id??"-1"),
+      "is_free_3Id": Encryption.instance.encrypt(is_free_3Id??"-1"),
+      "instruction": Encryption.instance.encrypt(instruction??"-1"),
       "total_food_Item":
           Encryption.instance.encrypt(total_food_Item),
       "number_items": Encryption.instance.encrypt(number_items),
@@ -80,7 +80,9 @@ class OrderSave {
       "Accept": "application/json"
     });
     if (res.statusCode == 200 || res.statusCode == 201) {
-      print(json.decode(Encryption.instance.decrypt(res.body)));
+
+      print("orderSaveDataDetails : ");
+      print (/*json.decode(*/Encryption.instance.decrypt(res.body)/*)*/);
       return json.decode(Encryption.instance.decrypt(res.body));
     }
 
