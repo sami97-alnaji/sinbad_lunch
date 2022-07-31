@@ -19,6 +19,7 @@ import 'package:sinbad_lunch/components/Widget/dimensions.dart';
 import 'package:sinbad_lunch/components/Widget/simple_filed.dart';
 import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
 import 'package:sinbad_lunch/package/page/auth/main_test_paymaent.dart';
 
 class Page_Checkout extends StatefulWidget   {
@@ -784,6 +785,18 @@ class _Page_CheckoutState extends State<Page_Checkout> {
                                                             total_amount:
                                                                 (_totalPriceWithTaxAndTip)
                                                                     .toString())));
+                                          }else{
+                                            EasyLoading.dismiss();
+                                            _showToast(
+                                                "Order not saved");
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                    context) =>
+                                                    const PageBasket()));
+                                            return;
+
                                           }
                                         }
                                       }

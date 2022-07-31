@@ -476,11 +476,13 @@ class _PageProductState extends State<PageProduct> {
                           child: TextField(
                             // expands: true,
                             decoration: InputDecoration(
+                              floatingLabelBehavior:FloatingLabelBehavior.always,
                               // filled: true,
                               // fillColor: ColorsApp.primColr,
                               focusColor: ColorsApp.primColr,
-                              labelStyle: GoogleFonts.oxygen(
+                              labelStyle: GoogleFonts.openSans(
                                 color: ColorsApp.primColr,
+                                fontSize: 18,
                                 // decorationStyle:TextDecorationStyle.dotted ,
                               ),
                               border: const OutlineInputBorder(
@@ -491,8 +493,11 @@ class _PageProductState extends State<PageProduct> {
                                   // ),
                                   // borderRadius: BorderRadius.circular(80.0),
                                   ),
-                              labelText: 'Instruction',
-                              hintText: 'instruction manual！\n\n\n\n\n',
+                              labelText: 'Special Instructions',
+                              // label: AStx( 'Special Instructions'),
+                              // hintText: 'Special Instructions',
+                              // 'Special Instructions' ,
+                              hintText: 'Food allergy? Need something put to the side? Let us know! ,(additional charges may apply and not all changes are possible)',
                               focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(

@@ -7,6 +7,7 @@ class Encryption {
   static final Encryption instance = Encryption._();
 
   late IV _iv;
+
   late Encrypter _encrypter;
 
   Encryption._() {
