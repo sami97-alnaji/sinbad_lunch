@@ -21,10 +21,19 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: ColorsApp.primColr,
       centerTitle: true,
+
       title: AStx(titel,
           colr:  ColorsApp.white1,
           size:  16,
           isBold: true),
+        leading: titel != 'Home' && titel != 'About Us' && titel != 'My Order'
+            ? IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ) : null,
+
       actions: [
         titel == 'Home'
             ? SizedBox(
@@ -68,12 +77,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ]),
               )
-            : IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_forward_rounded),
-              ),
+            : Container(),
+        // IconButton(
+        //         onPressed: () {
+        //           Navigator.pop(context);
+        //         },
+        //         icon: const Icon(Icons.arrow_forward_rounded),
+        //       ),
       ],
     );
   }

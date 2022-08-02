@@ -15,6 +15,7 @@ class WordAppENG {
       platters5 ='Sandwich Combos5', //'Platters',
       platters6 ='Sandwich Combos6', //'Platters',
       gyro = 'Gyro',
+      PageMyOrder = 'My Order',
       specialFodItm = 'Special food items',
       gloryBeginingRestrant =
           'Chicken Shawarma',

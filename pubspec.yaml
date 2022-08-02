@@ -59,7 +59,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.3
   internet_connection_checker: ^0.0.1+4
   firebase_messaging: ^11.4.4
-  firebase_core: ^1.19.1
+#  firebase_core: ^1.19.1
 
 dev_dependencies:
   flutter_test:

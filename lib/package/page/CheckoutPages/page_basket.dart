@@ -122,6 +122,7 @@ class _PageBasketState extends State<PageBasket> {
   /// *************************************/
   int ii = 0;
   var addin = "";
+
   //********************************************************/
   // check conncetion to server
   bool? _isConnectionSuccessful = true;
@@ -148,6 +149,7 @@ class _PageBasketState extends State<PageBasket> {
   }
 
   double toPrecision(double n) => double.parse(n.toStringAsFixed(2));
+
   /***************************************************************************/
   @override
   Widget build(BuildContext context) {
@@ -178,8 +180,8 @@ class _PageBasketState extends State<PageBasket> {
               _discount = totalFood == 0
                   ? 0.0
                   : double.tryParse(compInfoDelt["discount"]) ?? 0.0;
-              _comp_name =  compInfoDelt["comp_name"]?? "";
-              _comp_apperss=compInfoDelt["comp_adderss"]?? "";
+              _comp_name = compInfoDelt["comp_name"] ?? "";
+              _comp_apperss = compInfoDelt["comp_adderss"] ?? "";
               _totalPriceFood = totalFood;
               totalFood = toPrecision(totalFood);
               _totalPriceFood = toPrecision(_totalPriceFood!);
@@ -214,11 +216,31 @@ class _PageBasketState extends State<PageBasket> {
                       height: 75,
                       child: Container(
                         padding: const EdgeInsets.only(top: 40),
-                        child: AStx(
-                          'My Cart',
-                          // isBold: true,
-                          size: 16,
-                          colr: ColorsApp.white1,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: ColorsApp.blak1,
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            PageHome()));
+                              },
+                            ),
+                            SizedBox(
+                              width: DimenApp.widthSc(context, widthPy: 0.30),
+                            ),
+                            AStx(
+                              'My Cart',
+                              // isBold: true,
+                              size: 16,
+                              colr: ColorsApp.white1,
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -370,15 +392,13 @@ class _PageBasketState extends State<PageBasket> {
                                           Flexible(
                                               child: AStx(
                                             'Company : ' +
-                                                _comp_name
-                                                    .toString(),
-                                                size: 14,
+                                                _comp_name.toString(),
+                                            size: 14,
                                           )),
                                           Flexible(
                                             child: AStx(
                                               'Location : ' +
-                                                  _comp_apperss
-                                                      .toString(),
+                                                  _comp_apperss.toString(),
                                               size: 14,
                                               MLin: 2,
                                             ),
@@ -395,24 +415,23 @@ class _PageBasketState extends State<PageBasket> {
                                           Flexible(
                                               child: AStx(
                                             'Delivery Time ',
-                                                size: 14,
+                                            size: 14,
                                           )),
                                           Flexible(
                                               child: AStx(
-                                                  compInfoDelt["time_date"] ??
-                                                      "",
-                                                size: 14,
-                                              )),
+                                            compInfoDelt["time_date"] ?? "",
+                                            size: 14,
+                                          )),
                                           Flexible(
                                               child: AStx(
                                             'delivery Date ',
-                                                size: 14,
+                                            size: 14,
                                           )),
                                           Flexible(
                                               child: AStx(
-                                                  compInfoDelt["date_time"] ??
-                                                      "",
-                                                size: 14,)),
+                                            compInfoDelt["date_time"] ?? "",
+                                            size: 14,
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -670,7 +689,8 @@ class _PageBasketState extends State<PageBasket> {
 // Here you can write your code
 
             setState(() {
-              if(compInfoDelt!=null && compInfoDelt["tax"].toString() !=null) {
+              if (compInfoDelt != null &&
+                  compInfoDelt["tax"].toString() != null) {
                 falgScreen = true;
               }
             });
@@ -720,7 +740,9 @@ class _PageBasketState extends State<PageBasket> {
 
     }
   }
+
   late FToast fToast;
+
   Widget toast(String fMss) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
@@ -731,7 +753,10 @@ class _PageBasketState extends State<PageBasket> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.check, color: Colors.white,),
+          const Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
           const SizedBox(
             width: 12.0,
           ),
@@ -739,23 +764,25 @@ class _PageBasketState extends State<PageBasket> {
           // Flexible(child: AStx( fMss   ,size: 17,)),
           Flexible(
               child: AStx(
-                "${fMss}",
-                size: 16,
-                MLin: 2,
-                colr: ColorsApp.white,
-              )),
+            "${fMss}",
+            size: 16,
+            MLin: 2,
+            colr: ColorsApp.white,
+          )),
           // const Text("\n"),
         ],
       ),
     );
   }
+
   _showToast(String fMss) {
     fToast.init(context).showToast(
-      child: toast(fMss),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 2),
-    );
+          child: toast(fMss),
+          gravity: ToastGravity.BOTTOM,
+          toastDuration: const Duration(seconds: 2),
+        );
   }
+
   SplitAddin(var L) {
     if (L == null) {
       var line = "";

@@ -9,6 +9,7 @@ import 'package:sinbad_lunch/components/Widget/AutoSText/AStx.dart';
 import 'package:sinbad_lunch/components/provider/product_page_variables.dart';
 import 'package:sinbad_lunch/components/save_info/shared_preference.dart';
 import 'package:sinbad_lunch/package/page/CheckoutPages/page_basket.dart';
+import 'package:sinbad_lunch/package/page/CheckoutPages/page_my_order.dart';
 import 'package:sinbad_lunch/package/page/auth/email_confirmation.dart';
 import 'package:sinbad_lunch/package/page/auth/forgot_passowrd.dart';
 import 'package:sinbad_lunch/package/page/auth/login.dart';
@@ -64,7 +65,7 @@ class SinbadsLunch extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: const PageSplash(), //const PageForgotPassword(),// const  Login(),//Register(),//EmailConfirmation(),//PageHome(),// DashboardPage(),// const testHttp(),//PageProduct(title: '55f5f5',), // PageBasket(), //
+      home:  const  PageSplash(), //const PageMyOrder(),//  const PageForgotPassword(),// const  Login(),//Register(),//EmailConfirmation(),//PageHome(),// DashboardPage(),// const testHttp(),//PageProduct(title: '55f5f5',), // PageBasket(), //
     builder: EasyLoading.init(),
     );
   }
